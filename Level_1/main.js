@@ -8,9 +8,10 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1);
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
+//const geometry = new THREE.BoxGeometry( 1, 1, 1);
+//const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+//const cube = new THREE.Mesh( geometry, material );
+
 const light = new THREE.AmbientLight("#0xfffff",30);
 camera.position.z = 10;
 camera.position.y = 2;
@@ -56,14 +57,14 @@ function movement(object) {
 		}
 		else if (key == 38 && value == true){
 
-			object.position.z -= speed;			
+			object.position.y -= speed;			
 		}
 		else if (key == 39 && value == true){
 
 			object.position.x += speed;			
 		}
 		else if (key == 40 && value == true){
-			object.position.z += speed;			
+			object.position.y += speed;			
 		}
 	}	
 	);
