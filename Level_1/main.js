@@ -44,38 +44,62 @@ function world() {
 
 //player keyboard input for movement
 
-const speed = 0.8;
+const speed = 0.5;
 const yMovementBounds = 16;
-const xMovementBounds = 25;
-const playerMoving = false;
+const xMovementBounds = 16;
+var playerMoving = false;
 const keys = new Map();
 
 document.onkeydown = function(e) {
+	playerMoving = true;
 	keys.set(e.which, true);
 };
 
 document.onkeyup = function(e) {
+	playerMoving = false;
 	keys.delete(e.which);
 };
 
 function movement(object) {
-	keys.forEach((value, key) => {
-		if (key == 37 && value == true) {
-			object.position.x += object.position.x < xMovementBounds ? speed : 0;
-		}
-		else if (key == 38 && value == true) {
+	if (playerMoving) {
+		keys.forEach((value, key) => {
+			if (key == 37 && value == true) {
+				object.position.x += object.position.x < xMovementBounds ? speed : 0;
+			}
+			else if (key == 38 && value == true) {
+				object.position.y += object.position.y < yMovementBounds ? speed : 0;
+			}
+			else if (key == 39 && value == true) {
 
-			object.position.y += object.position.y < yMovementBounds ? speed : 0;
-		}
-		else if (key == 39 && value == true) {
+				object.position.x -= object.position.x > -xMovementBounds ? speed : 0;
+			}
+			else if (key == 40 && value == true) {
+				object.position.y -= object.position.y > -yMovementBounds ? speed : 0;
+			}
+		});
 
-			object.position.x -= object.position.x > -xMovementBounds ? speed : 0;
+	} 
+	/*
+	 this will send errors to the console because loading the player is async, so this 
+	function runs a few times before the player is actually loaded in, therefore object is undefined.
+
+	--Nothing to worry about for now-- :thumbsup:
+	*/
+	else {
+		if (object.position.x != 0 || object.position.y != 0) {
+			if (object.position.x > 0) {
+				object.position.x -= speed;
+			} else if (object.position.x < 0) {
+				object.position.x += speed;
+			}
+			if (object.position.y > 0) {
+				object.position.y -= speed;
+			} else if (object.position.y < 0) {
+				object.position.y += speed;
+			}
 		}
-		else if (key == 40 && value == true) {
-			object.position.y -= object.position.y > -yMovementBounds ? speed : 0;
-		}
+
 	}
-	);
 
 };
 world();
