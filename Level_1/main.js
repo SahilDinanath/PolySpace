@@ -88,14 +88,14 @@ function movement(object) {
 	else {
 		if (object.position.x != 0 || object.position.y != 0) {
 			if (object.position.x > 0) {
-				object.position.x -= speed;
+				object.position.x -= speed/2;
 			} else if (object.position.x < 0) {
-				object.position.x += speed;
+				object.position.x += speed/2;
 			}
 			if (object.position.y > 0) {
-				object.position.y -= speed;
+				object.position.y -= speed/2;
 			} else if (object.position.y < 0) {
-				object.position.y += speed;
+				object.position.y += speed/2;
 			}
 		}
 
