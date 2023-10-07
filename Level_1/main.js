@@ -2,7 +2,11 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 const scene = new THREE.Scene();
+
+//sets up camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 30;
+camera.position.y = 2;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -12,17 +16,23 @@ document.body.appendChild(renderer.domElement);
 //const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 //const cube = new THREE.Mesh( geometry, material );
 
-const light = new THREE.AmbientLight("white", 30);
-camera.position.z = 30;
-camera.position.y = 2;
+const ambientLighting = new THREE.AmbientLight("white", 30);
 
+//object setup in world
+function world() {
+	scene.add(ambientLighting);
+	loadPlayer();
+}
+
+//run values that are updated continously 
 function animate() {
 
 	requestAnimationFrame(animate);
 
 	// cube.rotation.x += 0.01;
 	// cube.rotation.y += 0.01;
-	movement(scene.getObjectByName("player"));
+
+	keyboardMoveObject(scene.getObjectByName("player"));
 	renderer.render(scene, camera);
 
 }
@@ -30,17 +40,16 @@ function animate() {
 /* Player */
 //load models
 const loader = new GLTFLoader();
-var player;
-loader.load('Assets/Player/StarSparrow.glb',
-	function(player) {
-		player.scene.name = "player";
-		scene.add(player.scene).rotateY(Math.PI);
-	});
-
-//world
-function world() {
-	scene.add(light);
+function loadPlayer() {
+	loader.load('Assets/Player/StarSparrow.glb',
+		//we have to set up player in here for now
+		function(player) {
+			player.scene.name = "player";
+			scene.add(player.scene).rotateY(Math.PI);
+		});
 }
+
+
 
 //player keyboard input for movement
 
@@ -60,47 +69,44 @@ document.onkeyup = function(e) {
 	keys.delete(e.which);
 };
 
-function movement(object) {
+function keyboardMoveObject(object) {
+	if (object == undefined)
+		return;
 	if (playerMoving) {
-		keys.forEach((value, key) => {
-			if (key == 37 && value == true) {
+		keys.forEach((_, key) => {
+			if (key == 37) {
 				object.position.x += object.position.x < xMovementBounds ? speed : 0;
 			}
-			else if (key == 38 && value == true) {
+			else if (key == 38) {
 				object.position.y += object.position.y < yMovementBounds ? speed : 0;
 			}
-			else if (key == 39 && value == true) {
+			else if (key == 39) {
 
 				object.position.x -= object.position.x > -xMovementBounds ? speed : 0;
 			}
-			else if (key == 40 && value == true) {
+			else if (key == 40) {
 				object.position.y -= object.position.y > -yMovementBounds ? speed : 0;
 			}
 		});
 
-	} 
-	/*
-	 this will send errors to the console because loading the player is async, so this 
-	function runs a few times before the player is actually loaded in, therefore object is undefined.
-
-	--Nothing to worry about for now-- :thumbsup:
-	*/
+	}
 	else {
 		if (object.position.x != 0 || object.position.y != 0) {
 			if (object.position.x > 0) {
-				object.position.x -= speed/2;
+				object.position.x -= speed / 2;
 			} else if (object.position.x < 0) {
-				object.position.x += speed/2;
+				object.position.x += speed / 2;
 			}
 			if (object.position.y > 0) {
-				object.position.y -= speed/2;
+				object.position.y -= speed / 2;
 			} else if (object.position.y < 0) {
-				object.position.y += speed/2;
+				object.position.y += speed / 2;
 			}
 		}
 
 	}
 
 };
+
 world();
 animate();
