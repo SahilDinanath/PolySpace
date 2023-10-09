@@ -1,6 +1,23 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
+
+//dom access
+var levelOneButton = document.getElementById("level_1");
+var levelTwoButton = document.getElementById("level_2");
+var levelThreeButton = document.getElementById("level_3");
+var title = document.getElementById("title");
+
+document.onkeydown = function(e) {
+	playerMoving = true;
+	keys.set(e.which, true);
+};
+
+document.onkeyup = function(e) {
+	playerMoving = false;
+	keys.delete(e.which);
+};
+
 const scene = new THREE.Scene();
 
 //sets up camera
@@ -15,7 +32,7 @@ document.body.appendChild(renderer.domElement);
 const ambientLighting = new THREE.AmbientLight("white", 30);
 
 //object setup in world
-function world() {
+function worldLevelOne() {
 	scene.add(ambientLighting);
 	loadPlayer();
 }
@@ -23,9 +40,11 @@ function world() {
 //run values that are updated continously 
 function animate() {
 
+
 	requestAnimationFrame(animate);
+
 	//moves player
-	keyboardMoveObject(scene.getObjectByName("player"));
+	keyboardMoveObject(scene.getObjectByName("player"),keys);
 	renderer.render(scene, camera);
 
 }
@@ -56,17 +75,7 @@ const xMovementBounds = 16;
 var playerMoving = false;
 const keys = new Map();
 
-document.onkeydown = function(e) {
-	playerMoving = true;
-	keys.set(e.which, true);
-};
-
-document.onkeyup = function(e) {
-	playerMoving = false;
-	keys.delete(e.which);
-};
-
-function keyboardMoveObject(object) {
+function keyboardMoveObject(object,keys) {
 	if (object == undefined)
 		return;
 	if (playerMoving) {
@@ -105,9 +114,29 @@ function keyboardMoveObject(object) {
 
 };
 
+function removeStartScreen(){
+	levelOneButton.hidden = true;
+	levelTwoButton.hidden = true;
+	levelThreeButton.hidden = true;
+	title.hidden = true;
+}
 
 
 //create objects
-world();
-//animate scene
-animate();
+levelOneButton.onclick = function() {
+	removeStartScreen();
+	worldLevelOne();
+	animate();
+}
+
+levelTwoButton.onclick = function() {
+	removeStartScreen();
+	worldLevelOne();
+	animate();
+}
+
+levelThreeButton.onclick = function() {
+	removeStartScreen();
+	worldLevelOne();
+	animate();
+}
