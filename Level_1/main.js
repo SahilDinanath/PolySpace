@@ -12,10 +12,6 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-//const geometry = new THREE.BoxGeometry( 1, 1, 1);
-//const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-//const cube = new THREE.Mesh( geometry, material );
-
 const ambientLighting = new THREE.AmbientLight("white", 30);
 
 //object setup in world
@@ -28,10 +24,7 @@ function world() {
 function animate() {
 
 	requestAnimationFrame(animate);
-
-	// cube.rotation.x += 0.01;
-	// cube.rotation.y += 0.01;
-
+	//moves player
 	keyboardMoveObject(scene.getObjectByName("player"));
 	renderer.render(scene, camera);
 
@@ -51,8 +44,12 @@ function loadPlayer() {
 
 
 
-//player keyboard input for movement
 
+
+
+
+
+//player keyboard input for movement
 const speed = 0.5;
 const yMovementBounds = 16;
 const xMovementBounds = 16;
@@ -108,5 +105,9 @@ function keyboardMoveObject(object) {
 
 };
 
+
+
+//create objects
 world();
+//animate scene
 animate();
