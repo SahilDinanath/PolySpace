@@ -8,17 +8,6 @@ var levelTwoButton = document.getElementById("level_2");
 var levelThreeButton = document.getElementById("level_3");
 var title = document.getElementById("title");
 
-//user input for player movement
-const keys = new Map();
-document.onkeydown = function(e) {
-	player.setPlayerMoving(true);
-	keys.set(e.which, true);
-};
-
-document.onkeyup = function(e) {
-	player.setPlayerMoving(false);
-	keys.delete(e.which);
-};
 
 //dom functions
 function removeStartScreen(){
@@ -55,7 +44,7 @@ function worldLevelOne() {
 function animate() {
 	requestAnimationFrame(animate);
 	//moves player
-	player.keyboardMoveObject(scene.getObjectByName("player"),keys);
+	player.keyboardMoveObject(scene.getObjectByName("player"));
 	renderer.render(scene, camera);
 
 }
