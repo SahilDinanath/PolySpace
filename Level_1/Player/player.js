@@ -5,6 +5,17 @@ const yMovementBounds = 16;
 const xMovementBounds = 16;
 export let playerMoving = false;
 
+//user input for player movement
+const keys = new Map();
+document.onkeydown = function(e) {
+	setPlayerMoving(true);
+	keys.set(e.which, true);
+};
+
+document.onkeyup = function(e) {
+	setPlayerMoving(false);
+	keys.delete(e.which);
+};
 /* Player */
 //load models
 const loader = new GLTFLoader();
@@ -20,7 +31,7 @@ export function loadPlayer(scene) {
 export function setPlayerMoving(value){
 	playerMoving = value;
 }
-export function keyboardMoveObject(object,keys) {
+export function keyboardMoveObject(object) {
 	if (object == undefined)
 		return;
 	if (playerMoving) {
