@@ -8,7 +8,81 @@
 		body {
 			margin: 0;
 		}
+
+		button {
+			position: absolute;
+			display: block;
+			z-index: 99;
+			left: 46%;
+			top: 50%;
+		}
+
+		.threeD {
+			color: darkgrey;
+			white-space: nowrap;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 3em;
+			font-family: sans-serif;
+			letter-spacing: 0.1em;
+			transition: 0.3s;
+		}
+
+		.threeD:hover {
+			transition: 0.3s;
+			transform: scale(1.1)translate(-50%, -50%);
+		}
+
+
+		.pushable {
+			background: hsl(340deg 100% 32%);
+			border-radius: 12px;
+			border: none;
+			padding: 0;
+			cursor: pointer;
+			outline-offset: 4px;
+		}
+
+		.front {
+			display: block;
+			padding: 12px 42px;
+			border-radius: 12px;
+			font-size: 1.25rem;
+			background: hsl(345deg 100% 47%);
+			color: white;
+			transform: translateY(-6px);
+		}
+
+		.pushable:active .front {
+			transform: translateY(-2px);
+		}
 	</style>
+	<div style="top:20%" class="threeD">
+		Poly Space
+	</div>
+	<div>
+		<button class="pushable" style="top:40%" id="level_1">
+			<span class="front">
+				Level 1
+			</span>
+		</button>
+	</div>
+	<div>
+		<button class="pushable" style="top:55%" id="level_2">
+			<span class="front">
+				Level 2
+			</span>
+		</button>
+	</div>
+	<div>
+		<button class="pushable" style="top:70%" id="level_3">
+			<span class="front">
+				Level 3
+			</span>
+		</button>
+	</div>
 </head>
 
 <body>
