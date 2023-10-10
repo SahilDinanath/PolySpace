@@ -23,14 +23,14 @@ document.body.appendChild(renderer.domElement);
 //Add orbit control
 var controls = new OrbitControls(camera, renderer.domElement);
 
-const ambientLighting = new THREE.AmbientLight("white", 30);
+const ambientLighting = new THREE.AmbientLight("white", 6);
 
 //object setup in world
 function worldLevelOne() {
 	scene.add(ambientLighting);
 	player.loadPlayer(scene);
 	//uncomment line below to view boss (position currently incorrect and ambient light to bright for texture)
-	//bosses.bossOne(camera, scene, renderer);
+	bosses.bossTwo(camera, scene, renderer);
 }
 
 
