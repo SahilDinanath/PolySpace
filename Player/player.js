@@ -21,7 +21,7 @@ document.onkeyup = function(e) {
 const loader = new GLTFLoader();
 
 export function loadPlayer(scene) {
-	loader.load('Assets/Player/StarSparrow.glb',
+	loader.load('Assets/playerTextures/StarSparrow.glb',
 		//we have to set up player in here for now
 		function(player) {
 			player.scene.name = "player";

@@ -1,28 +1,12 @@
 import * as THREE from 'three';
 import * as player from '/Player/player.js';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import * as ui from '/UI/start_screen.js'
 import * as bosses from '/Bosses/bosses.js';
-
-//dom access
-//start screen
-var levelOneButton = document.getElementById("level_1");
-var levelTwoButton = document.getElementById("level_2");
-var levelThreeButton = document.getElementById("level_3");
-var title = document.getElementById("title");
-
-
-//dom functions
-function removeStartScreen(){
-	levelOneButton.hidden = true;
-	levelTwoButton.hidden = true;
-	levelThreeButton.hidden = true;
-	title.hidden = true;
-}
 
 //
 //game below
 //
-
 
 const scene = new THREE.Scene();
 
@@ -31,8 +15,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 camera.position.z = 30;
 camera.position.y = 2;
 
-
-
+//sets up renderer/screen
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -61,20 +44,20 @@ function animate() {
 }
 
 //spawn level depending on button click 
-levelOneButton.onclick = function() {
-	removeStartScreen();
+ui.levelOneButton.onclick = function() {
+	ui.removeStartScreen();
 	worldLevelOne();
 	animate();
 }
 
-levelTwoButton.onclick = function() {
-	removeStartScreen();
+ui.levelTwoButton.onclick = function() {
+	ui.removeStartScreen();
 	worldLevelOne();
 	animate();
 }
 
-levelThreeButton.onclick = function() {
-	removeStartScreen();
+ui.levelThreeButton.onclick = function() {
+	ui.removeStartScreen();
 	worldLevelOne();
 	animate();
 }
