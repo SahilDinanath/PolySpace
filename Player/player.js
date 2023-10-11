@@ -3,48 +3,48 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 const speed = 0.5;
 const yMovementBounds = 16;
 const xMovementBounds = 16;
-export let playerMoving = false;
+let playerMoving = false;
 
 //user input for player movement
 const keys = new Map();
 document.onkeydown = function(e) {
-	setPlayerMoving(true);
+	playerMoving = true;
 	keys.set(e.which, true);
 };
 
 document.onkeyup = function(e) {
-	setPlayerMoving(false);
+	playerMoving = false;
 	keys.delete(e.which);
 };
 /* Player */
 //load models
 const loader = new GLTFLoader();
 
-export function loadPlayer(scene) {
+export function addPlayerToScene(scene) {
 	loader.load('Assets/playerTextures/StarSparrow.glb',
 		//we have to set up player in here for now
 		function(player) {
 			player.scene.name = "player";
-			scene.add(player.scene).rotateY(Math.PI);
+			player.scene.rotateY(Math.PI);
+			scene.add(player.scene);
 		});
 }
-export function setPlayerMoving(value){
-	playerMoving = value;
-}
+
+//keyboard movements
 export function keyboardMoveObject(object) {
 	if (object == undefined)
 		return;
 	if (playerMoving) {
 		keys.forEach((_, key) => {
 			if (key == 37) {
-				object.position.x += object.position.x < xMovementBounds ? speed : 0;
+				object.position.x -= object.position.x > -xMovementBounds ? speed : 0;
 			}
 			else if (key == 38) {
 				object.position.y += object.position.y < yMovementBounds ? speed : 0;
 			}
 			else if (key == 39) {
 
-				object.position.x -= object.position.x > -xMovementBounds ? speed : 0;
+				object.position.x += object.position.x < xMovementBounds ? speed : 0;
 			}
 			else if (key == 40) {
 				object.position.y -= object.position.y > -yMovementBounds ? speed : 0;
