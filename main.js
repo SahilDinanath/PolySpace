@@ -31,7 +31,7 @@ function worldLevelOne() {
 	scene.add(ambientLighting);
 	player.addPlayerToScene(scene);
 	minimap.addMiniMapToScene(scene);
-		
+
 	//uncomment line below to view boss (position currently incorrect and ambient light to bright for texture)
 	bosses.bossTwo(camera, scene, renderer);
 }
@@ -42,7 +42,13 @@ function animate() {
 	requestAnimationFrame(animate);
 	//moves player
 	player.keyboardMoveObject(scene.getObjectByName("player"));
-	scene.getObjectByName('minimap_icon').position.x += 0.005;
+	
+	//game win condition
+	if (scene.getObjectByName('minimap_icon').position.x < 20) {
+		scene.getObjectByName('minimap_icon').position.x += 0.005;
+		//TODO: add function to show win screen, look at UI start_screen.js to see how to achieve this.
+	} 
+
 	renderer.render(scene, camera);
 	//controls.update();
 }
