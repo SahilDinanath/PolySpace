@@ -7,9 +7,15 @@ export var title = document.getElementById("title");
 
 
 //dom functions
-export function removeStartScreen(){
+export function disableStartScreen(){
 	levelOneButton.hidden = true;
 	levelTwoButton.hidden = true;
 	levelThreeButton.hidden = true;
 	title.hidden = true;
+}
+export function enableStartScreen(){
+	levelOneButton.hidden = false;
+	levelTwoButton.hidden = false;
+	levelThreeButton.hidden = false;
+	title.hidden = false;
 }

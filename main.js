@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import * as player from '/Player/player.js';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as ui from '/UI/start_screen.js'
+import * as minimap from '/UI/minimap.js'
 import * as bosses from '/Bosses/bosses.js';
 
 //
@@ -28,7 +29,9 @@ const ambientLighting = new THREE.AmbientLight("white", 6);
 //object setup in world
 function worldLevelOne() {
 	scene.add(ambientLighting);
-	player.loadPlayer(scene);
+	player.addPlayerToScene(scene);
+	minimap.addMiniMapToScene(scene);
+		
 	//uncomment line below to view boss (position currently incorrect and ambient light to bright for texture)
 	bosses.bossTwo(camera, scene, renderer);
 }
@@ -39,25 +42,26 @@ function animate() {
 	requestAnimationFrame(animate);
 	//moves player
 	player.keyboardMoveObject(scene.getObjectByName("player"));
+	scene.getObjectByName('minimap_icon').position.x += 0.005;
 	renderer.render(scene, camera);
-	controls.update();
+	//controls.update();
 }
 
 //spawn level depending on button click 
 ui.levelOneButton.onclick = function() {
-	ui.removeStartScreen();
+	ui.disableStartScreen();
 	worldLevelOne();
 	animate();
 }
 
 ui.levelTwoButton.onclick = function() {
-	ui.removeStartScreen();
+	ui.disableStartScreen();
 	worldLevelOne();
 	animate();
 }
 
 ui.levelThreeButton.onclick = function() {
-	ui.removeStartScreen();
+	ui.disableStartScreen();
 	worldLevelOne();
 	animate();
-}
+}	
