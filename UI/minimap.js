@@ -4,11 +4,6 @@ function addCircle(){
 	const geometry= new THREE.CircleGeometry(5,32);
 	const material = new THREE.MeshBasicMaterial({color: 'rgb(224,76,76)'});
 	const circle = new THREE.Mesh(geometry, material);
-
-	//adjust scale and position
-	circle.position.x = -20;
-	circle.scale.x = 0.1;
-	circle.scale.y = 0.1;
 	circle.name = "minimap_icon";
 	return circle;
 
@@ -25,8 +20,15 @@ function addBar(){
 
 function addMiniMap(){
 	let bar = addBar();
-	//adjust scale and position
-	bar.add(addCircle());
+	let circle = addCircle();
+	
+	//adjust scale and position of circle on bar
+	circle.position.x = -20;
+	circle.scale.x = 0.1;
+	circle.scale.y = 0.1;
+
+	//attach circle to bar
+	bar.add(circle);
 	return bar;
 }
 export function addMiniMapToScene(scene){
