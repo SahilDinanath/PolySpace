@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 function addCircle(){
 	const geometry= new THREE.CircleGeometry(5,32);
-	const material = new THREE.MeshBasicMaterial({color: 'rgb(255,255,255)'});
+	const material = new THREE.MeshBasicMaterial({color: 'rgb(224,76,76)'});
 	const circle = new THREE.Mesh(geometry, material);
 
 	//adjust scale and position
