@@ -4,12 +4,14 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as ui from '/UI/start_screen.js'
 import * as minimap from '/UI/minimap.js'
 import * as bosses from '/Bosses/bosses.js';
-
+import * as music from '/Music/musicController.js';
 //
 //game below
 //
 
 const scene = new THREE.Scene();
+//sets up sound, sound needs to be set up before the world is setup as it runs during the login page
+music.setInGameSound()
 
 //sets up camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -53,8 +55,12 @@ function animate() {
 	//controls.update();
 }
 
+//music.enableSound();
 //spawn level depending on button click 
 ui.levelOneButton.onclick = function() {
+	/*sound can only play if user clicks somewhere on the screen, 
+	 * this is a design by google/firefox, this plays the song in case the user never clicked anywhere on screen*/
+	music.enableSound();
 	ui.disableStartScreen();
 	worldLevelOne();
 	animate();
