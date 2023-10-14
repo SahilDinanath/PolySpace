@@ -5,6 +5,7 @@ import * as ui from '/UI/start_screen.js'
 import * as minimap from '/UI/minimap.js'
 import * as bosses from '/Bosses/bosses.js';
 import * as music from '/Music/musicController.js';
+import * as particle from '/Player/particleEffect.js';
 //
 //game below
 //
@@ -38,23 +39,25 @@ function worldLevelOne() {
 	bosses.bossTwo(camera, scene, renderer);
 }
 
-
 //run values that are updated continously 
 function animate() {
 	requestAnimationFrame(animate);
 	//moves player
 	player.keyboardMoveObject(scene.getObjectByName("player"));
+
+	//needed for player death explosion
+	particle.updateParticleSystem();
 	
 	//game win condition
 	if (scene.getObjectByName('minimap_icon').position.x < 20) {
 		scene.getObjectByName('minimap_icon').position.x += 0.005;
 		//TODO: add function to show win screen, look at UI start_screen.js to see how to achieve this.
-	} 
+	}
 
 	renderer.render(scene, camera);
 	//controls.update();
 }
-
+particle.createNewParticleSystem(0,0,0,scene);
 //music.enableSound();
 //spawn level depending on button click 
 ui.levelOneButton.onclick = function() {
