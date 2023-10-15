@@ -3,7 +3,7 @@
 
 <head lang="en">
 	<meta charset="utf-8">
-	<title>My first three.js app</title>
+	<title>Polyspace</title>
 	<style>
 		body {
 			margin: 0;
@@ -58,6 +58,19 @@
 		.pushable:active .front {
 			transform: translateY(-2px);
 		}
+
+		#return {
+			display: none;
+		}
+		#restart {
+			display: none;
+		}
+		#resume {
+			display: none;
+		}
+		#next {
+			display: none;
+		}
 	</style>
 	<div style="top:20%" class="threeD" id="title">
 		Poly Space
@@ -80,6 +93,34 @@
 		<button class="pushable" style="top:70%">
 			<span class="front">
 				Level 3
+			</span>
+		</button>
+	</div>
+	<div id="return">
+		<button class="pushable" style="top:70%">
+			<span class="front">
+				Return
+			</span>
+		</button>
+	</div>
+	<div id="restart">
+		<button class="pushable" style="top:55%">
+			<span class="front">
+				Restart
+			</span>
+		</button>
+	</div>
+	<div id="resume">
+		<button class="pushable" style="top:40%">
+			<span class="front">
+				Resume
+			</span>
+		</button>
+	</div>
+	<div id="next">
+		<button class="pushable" style="top:40%">
+			<span class="front">
+				Next Level
 			</span>
 		</button>
 	</div>
