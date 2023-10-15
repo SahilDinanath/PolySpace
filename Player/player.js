@@ -1,4 +1,5 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import * as particle from '/Player/particleEffect.js';
 //player keyboard input for movement
 const speed = 0.5;
 const yMovementBounds = 16;
@@ -69,3 +70,12 @@ export function keyboardMoveObject(object) {
 	}
 
 };
+
+//on player death delete the player and spawn particles
+export function onDeath(scene){
+	let player = scene.getObjectByName("player");
+	
+	particle.createNewParticleSystem(player.position.x,player.position.y,player.position.z,scene);
+	
+	scene.remove(scene.getObjectByName("player"));
+}

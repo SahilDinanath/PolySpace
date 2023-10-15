@@ -52,12 +52,13 @@ function animate() {
 	if (scene.getObjectByName('minimap_icon').position.x < 20) {
 		scene.getObjectByName('minimap_icon').position.x += 0.005;
 		//TODO: add function to show win screen, look at UI start_screen.js to see how to achieve this.
+	}else{
+		player.onDeath(scene);
 	}
 
 	renderer.render(scene, camera);
 	//controls.update();
 }
-particle.createNewParticleSystem(0,0,0,scene);
 //music.enableSound();
 //spawn level depending on button click 
 ui.levelOneButton.onclick = function() {
