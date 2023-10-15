@@ -44,29 +44,59 @@ function worldLevelOne() {
 	bosses.bossTwo(camera, scene, renderer);
 }
 
-//run values that are updated continously 
+
+// Define a variable to track the animation state
+let isPaused = false;
+
+// Function to handle the animation
 function animate() {
-	requestAnimationFrame(animate);
-	//moves player
-	player.keyboardMoveObject(scene.getObjectByName("player"));
+	if (!isPaused) {
+		requestAnimationFrame(animate);
 
-	//needed for player death explosion
-	particle.updateParticleSystem();
-	
-	//game win condition
-	if (scene.getObjectByName('minimap_icon').position.x < 20) {
-		scene.getObjectByName('minimap_icon').position.x += 0.005;
-		//TODO: add function to show win screen, look at UI start_screen.js to see how to achieve this.
-		//ui.enableWinScreen();  //it shows while game is in play?
+		// Your animation code here
+		player.keyboardMoveObject(scene.getObjectByName("player"));
+		particle.updateParticleSystem();
 
-	}else{
-		player.onDeath(scene);
-		ui.enableLoseScreen();
+		if (scene.getObjectByName('minimap_icon').position.x < 20) {
+			scene.getObjectByName('minimap_icon').position.x += 0.005;
+			//TODO: add function to show win screen, look at UI start_screen.js to see how to achieve this.
+ 			//ui.enableWinScreen();  //it shows while game is in play?
+		} else {
+			player.onDeath(scene);
+			ui.enableLoseScreen();
+		}
+
+		renderer.render(scene, camera);
 	}
-
-	renderer.render(scene, camera);
-	//controls.update();
 }
+
+// Function to pause the animation
+function pauseAnimation() {
+	isPaused = true;
+	ui.enablePauseScreen();
+}
+
+// Function to resume the animation
+function resumeAnimation() {
+	if (isPaused) {
+		isPaused = false;
+		ui.disableButtons();
+		animate();
+	}
+}
+
+// Listen for the space key press event to pause or resume game
+document.addEventListener('keydown', function (event) {
+	if (event.key === ' ') { // ' ' represents the space key
+		if (isPaused) {
+			resumeAnimation();
+		} else {
+			pauseAnimation();
+		}
+	}
+});
+
+
 //music.enableSound();
 
 // Define a function to clear the scene
@@ -125,13 +155,8 @@ ui.resumeButton.onclick = function (){
 }
 
 ui.returnButton.onclick = function (){
-	clearScene();
-	//renderer.setClearColor(0xffffff); set the screen to white for main screen but affect other screens too
-	ui.enableStartScreen();
-	// Reset any level-related flags
-	level1 = false;
-	level2 = false;
-	level3 = false;
+
+	window.location.reload(); // This will reload the page
 }
 
 ui.restartButton.onclick = function (){
