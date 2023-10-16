@@ -123,7 +123,7 @@ var ambientLight = new THREE.AmbientLight(0x101010); // Adjust the color as need
 scene.add(ambientLight);
 
 // Create a directional light
-var directionalLight = new THREE.DirectionalLight(0xffffff, 5); // Adjust the color and intensity as needed
+var directionalLight = new THREE.DirectionalLight(0xffffff, 10); // Adjust the color and intensity as needed
 directionalLight.position.set(0, 1, 0); // Set the initial position
 scene.add(directionalLight);
 

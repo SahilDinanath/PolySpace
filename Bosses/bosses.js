@@ -1,6 +1,5 @@
 import * as THREE from "three";
 
-
 // const renderer = new THREE.WebGLRenderer();
 // renderer.setSize(window.innerWidth, window.innerHeight);
 // document.body.appendChild(renderer.domElement);
@@ -135,6 +134,7 @@ export function bossTwo(camera, scene, renderer) {
 
     // Rotate the entire group (e.g., the scene)
     let group = new THREE.Group();
+    group.position.z =  -100; 
     group.add(octahedron);
     group.add(torus);
     group.add(tetrahedron);
