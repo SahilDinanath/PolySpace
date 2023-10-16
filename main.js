@@ -250,6 +250,7 @@ ui.levelOneButton.onclick = function() {
 
 	/*sound can only play if user clicks somewhere on the screen, 
 	 * this is a design by google/firefox, this plays the song in case the user never clicked anywhere on screen*/
+	particle.createNewParticleSystem(0, 0, 0, scene);
 	music.enableSound();
 	ui.disableStartScreen();
 	worldLevelOne();
