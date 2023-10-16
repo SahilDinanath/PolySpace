@@ -6,7 +6,7 @@ import * as minimap from '/UI/minimap.js'
 import * as bosses from '/Bosses/bosses.js';
 import * as music from '/Music/musicController.js';
 import * as particle from '/Player/particleEffect.js';
-import {disableButtons} from "/UI/start_screen.js";
+import { disableButtons } from "/UI/start_screen.js";
 //
 //game below
 //
@@ -31,7 +31,7 @@ var controls = new OrbitControls(camera, renderer.domElement);
 const ambientLighting = new THREE.AmbientLight("white", 6);
 
 var level1 = false;
-var level2= false;
+var level2 = false;
 var level3 = false;
 //object setup in world
 function worldLevelOne() {
@@ -49,6 +49,108 @@ function worldLevelOne() {
 let isPaused = false;
 
 // Function to handle the animation
+//
+//
+//
+//////
+//
+//
+///
+//
+//
+///
+//
+//
+///
+//
+//
+///
+//
+// Create an array to hold the stars
+var starsArray = [];
+
+// Function to create a star with random position and speed
+function createStar() {
+	var starGeometry = new THREE.BufferGeometry();
+	var positions = new Float32Array(2 * 3); // Two points to create a line
+
+	positions[0] = 0;
+	positions[1] = 0;
+	positions[2] = 0;
+
+	positions[3] = 0;
+	positions[4] = 0;
+	positions[5] = -1; // Extend the line in the negative z-direction
+
+	starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+	// Randomly select blue or purple color
+	var color = Math.random() > 0.5 ? 0x0000ff : 0x800080;
+
+	var starMaterial = new THREE.LineBasicMaterial({ color: color });
+
+	var star = new THREE.Line(starGeometry, starMaterial);
+
+	// Randomize the star's position
+	star.position.x = (Math.random() - 0.5) * 10;
+	star.position.y = (Math.random() - 0.5) * 10;
+	star.position.z = -10 - Math.random() * 10; // Start behind the camera
+
+	// Randomize the star's speed
+	star.speed = 0.01 + Math.random() * 0.1;
+
+	scene.add(star);
+	starsArray.push(star);
+}
+
+// Create a number of stars
+for (var i = 0; i < 500; i++) {
+	createStar();
+}
+
+// Create ambient light with a color similar to the starfield
+var ambientLight = new THREE.AmbientLight(0x101010); // Adjust the color as needed
+scene.add(ambientLight);
+
+// Create a directional light
+var directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // Adjust the color and intensity as needed
+directionalLight.position.set(0, 1, 0); // Set the initial position
+scene.add(directionalLight);
+
+// Function to animate the directional light's position
+var lightRotation = 0;
+
+function animateDirectionalLight() {
+	lightRotation += 0.002;
+	var radius = 20;
+	directionalLight.position.x = radius * Math.cos(lightRotation);
+	directionalLight.position.y = radius * Math.sin(lightRotation);
+	directionalLight.position.z = 5; // Adjust the Z position as needed
+
+	requestAnimationFrame(animateDirectionalLight);
+}
+
+animateDirectionalLight();
+
+//
+//
+//
+//
+//////
+//
+//
+///
+//
+//
+///
+//
+//
+//
+//
+//
+//
+//
+//
 function animate() {
 	if (!isPaused) {
 		requestAnimationFrame(animate);
@@ -57,10 +159,22 @@ function animate() {
 		player.keyboardMoveObject(scene.getObjectByName("player"));
 		particle.updateParticleSystem();
 
+		// Move stars towards the camera
+		for (var i = 0; i < starsArray.length; i++) {
+			var star = starsArray[i];
+			star.position.z += star.speed;
+
+			// Reset star position to create a loop
+			if (star.position.z > 0) {
+				star.position.z = -10 - Math.random() * 10;
+			}
+		}
+
+
 		if (scene.getObjectByName('minimap_icon').position.x < 20) {
 			scene.getObjectByName('minimap_icon').position.x += 0.005;
 			//TODO: add function to show win screen, look at UI start_screen.js to see how to achieve this.
- 			//ui.enableWinScreen();  //it shows while game is in play?
+			//ui.enableWinScreen();  //it shows while game is in play?
 		} else {
 			player.onDeath(scene);
 			ui.enableLoseScreen();
@@ -68,6 +182,7 @@ function animate() {
 
 		renderer.render(scene, camera);
 	}
+
 }
 
 // Function to pause the animation
@@ -86,7 +201,7 @@ function resumeAnimation() {
 }
 
 // Listen for the space key press event to pause or resume game
-document.addEventListener('keydown', function (event) {
+document.addEventListener('keydown', function(event) {
 	if (event.key === ' ') { // ' ' represents the space key
 		if (isPaused) {
 			resumeAnimation();
@@ -133,15 +248,15 @@ ui.levelThreeButton.onclick = function() {
 	animate();
 }
 
-ui.nextButton.onclick = function (){
+ui.nextButton.onclick = function() {
 	clearScene();
 	disableButtons();
-	if(level1){
+	if (level1) {
 		level1 = false;
 		worldLevelOne();   //change to level2
 		animate();
 	}
-	if(level2){
+	if (level2) {
 		level2 = false;
 		worldLevelOne(); // change to level3
 		animate();
@@ -150,25 +265,25 @@ ui.nextButton.onclick = function (){
 
 }
 
-ui.resumeButton.onclick = function (){
- //TODO: resume game on keyboard pause
+ui.resumeButton.onclick = function() {
+	//TODO: resume game on keyboard pause
 }
 
-ui.returnButton.onclick = function (){
+ui.returnButton.onclick = function() {
 
 	window.location.reload(); // This will reload the page
 }
 
-ui.restartButton.onclick = function (){
+ui.restartButton.onclick = function() {
 	clearScene();
 	disableButtons();
-	if(level1){
+	if (level1) {
 		worldLevelOne();
 	}
-	if(level2){
+	if (level2) {
 		worldLevelOne(); // change to level2
 	}
-	if(level3){
+	if (level3) {
 		worldLevelOne(); // change to level3
 	}
 }
