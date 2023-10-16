@@ -16,11 +16,18 @@ const scene = new THREE.Scene();
 music.setInGameSound()
 
 //sets up camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 30;
-camera.position.y = 2;
+var camera;
+const firstCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+firstCamera.position.z = 30;
+firstCamera.position.y = 2;
+camera = firstCamera;
 
+const secondCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 //sets up renderer/screen
+secondCamera.position.z = 25;
+secondCamera.position.x = -30;
+secondCamera.position.y = 5;
+secondCamera.rotateY(-Math.PI / 5);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -65,18 +72,12 @@ let isPaused = false;
 //
 //
 ///
-var seed = 1;
-function random() {
-    var x = Math.sin(seed++) * 10000;
-    return x - Math.floor(x);
-}
-
 //
 // Create an array to hold the stars
 var starsArray = [];
 
 var starStartZ = -10;
-var starStartY = 80; 
+var starStartY = 80;
 var starStartX = 80;
 // Function to create a star with random position and speed
 function createStar() {
@@ -122,7 +123,7 @@ var ambientLight = new THREE.AmbientLight(0x101010); // Adjust the color as need
 scene.add(ambientLight);
 
 // Create a directional light
-var directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // Adjust the color and intensity as needed
+var directionalLight = new THREE.DirectionalLight(0xffffff, 5); // Adjust the color and intensity as needed
 directionalLight.position.set(0, 1, 0); // Set the initial position
 scene.add(directionalLight);
 
@@ -130,11 +131,11 @@ scene.add(directionalLight);
 var lightRotation = 0;
 
 function animateDirectionalLight() {
-	lightRotation += 0.002;
-	var radius = 20;
+	lightRotation += 0.1;
+	var radius = 50;
 	directionalLight.position.x = radius * Math.cos(lightRotation);
 	directionalLight.position.y = radius * Math.sin(lightRotation);
-	directionalLight.position.z = 5; // Adjust the Z position as needed
+	directionalLight.position.z = 30; // Adjust the Z position as needed
 
 	requestAnimationFrame(animateDirectionalLight);
 }
@@ -175,18 +176,21 @@ function animate() {
 
 			// Reset star position to create a loop
 			if (star.position.z > 0) {
-				star.position.z = starStartZ*5 - Math.random() * 10;
+				star.position.z = starStartZ * 5 - Math.random() * 10;
 			}
 		}
 
 
-		if (scene.getObjectByName('minimap_icon').position.x < 20) {
-			scene.getObjectByName('minimap_icon').position.x += 0.005;
-			//TODO: add function to show win screen, look at UI start_screen.js to see how to achieve this.
-			//ui.enableWinScreen();  //it shows while game is in play?
-		} else {
-			player.onDeath(scene);
-			ui.enableLoseScreen();
+		if (scene.getObjectByName('minimap_icon') != null) {
+			if (scene.getObjectByName('minimap_icon').position.x > 20) {
+
+				//TODO: add function to show win screen, look at UI start_screen.js to see how to achieve this.
+				ui.enableWinScreen();  //it shows while game is in play?
+			} else {
+				scene.getObjectByName('minimap_icon').position.x += 0.005;
+				//player.onDeath(scene);
+				//ui.enableLoseScreen();
+			}
 		}
 
 		renderer.render(scene, camera);
@@ -219,7 +223,15 @@ document.addEventListener('keydown', function(event) {
 		}
 	}
 });
+document.addEventListener('keydown', function(event) {
 
+	if (event.keyCode == 49) {
+		camera = firstCamera;
+	}
+	if (event.keyCode == 50) {
+		camera = secondCamera;
+	}
+});
 
 //music.enableSound();
 
@@ -233,6 +245,7 @@ function clearScene() {
 }
 
 //spawn level depending on button click 
+animate();
 ui.levelOneButton.onclick = function() {
 
 	/*sound can only play if user clicks somewhere on the screen, 
