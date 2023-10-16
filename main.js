@@ -95,12 +95,10 @@ function createStar() {
 	starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
 	// Randomly select blue or purple color
-	var color = Math.random() > 0.5 ? 0x0000ff : 0x800080;
+	var color = Math.random() > 0.5 ? 0x9500ff: 0x04d9ff;
 
-	var starMaterial = new THREE.LineBasicMaterial({ color: color });
-
+	var starMaterial = new THREE.LineBasicMaterial({ color: color ,linewidth: 10});
 	var star = new THREE.Line(starGeometry, starMaterial);
-
 	// Randomize the star's position
 	star.position.x = (Math.random() - 0.5) * starStartX;
 	star.position.y = (Math.random() - 0.5) * starStartY;
@@ -114,7 +112,7 @@ function createStar() {
 }
 
 // Create a number of stars
-for (var i = 0; i < 700; i++) {
+for (var i = 0; i < 900; i++) {
 	createStar();
 }
 
