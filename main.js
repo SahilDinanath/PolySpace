@@ -65,10 +65,19 @@ let isPaused = false;
 //
 //
 ///
+var seed = 1;
+function random() {
+    var x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+}
+
 //
 // Create an array to hold the stars
 var starsArray = [];
 
+var starStartZ = -10;
+var starStartY = 80; 
+var starStartX = 80;
 // Function to create a star with random position and speed
 function createStar() {
 	var starGeometry = new THREE.BufferGeometry();
@@ -76,7 +85,7 @@ function createStar() {
 
 	positions[0] = 0;
 	positions[1] = 0;
-	positions[2] = 0;
+	positions[2] = 10;
 
 	positions[3] = 0;
 	positions[4] = 0;
@@ -92,9 +101,9 @@ function createStar() {
 	var star = new THREE.Line(starGeometry, starMaterial);
 
 	// Randomize the star's position
-	star.position.x = (Math.random() - 0.5) * 10;
-	star.position.y = (Math.random() - 0.5) * 10;
-	star.position.z = -10 - Math.random() * 10; // Start behind the camera
+	star.position.x = (Math.random() - 0.5) * starStartX;
+	star.position.y = (Math.random() - 0.5) * starStartY;
+	star.position.z = starStartZ - Math.random() * 10; // Start behind the camera
 
 	// Randomize the star's speed
 	star.speed = 0.01 + Math.random() * 0.1;
@@ -104,7 +113,7 @@ function createStar() {
 }
 
 // Create a number of stars
-for (var i = 0; i < 500; i++) {
+for (var i = 0; i < 700; i++) {
 	createStar();
 }
 
@@ -166,7 +175,7 @@ function animate() {
 
 			// Reset star position to create a loop
 			if (star.position.z > 0) {
-				star.position.z = -10 - Math.random() * 10;
+				star.position.z = starStartZ*5 - Math.random() * 10;
 			}
 		}
 
