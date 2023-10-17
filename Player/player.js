@@ -1,11 +1,12 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import * as particle from '/Player/particleEffect.js';
+import * as THREE from 'three';
 //player keyboard input for movement
 const speed = 0.5;
 const yMovementBounds = 16;
 const xMovementBounds = 16;
 let playerMoving = false;
-
+export let playerBoundingBox;
 //user input for player movement
 const keys = new Map();
 document.onkeydown = function(e) {
@@ -27,6 +28,12 @@ export function addPlayerToScene(scene) {
 		function(player) {
 			player.scene.name = "player";
 			player.scene.rotateY(Math.PI);
+			player.scene.children[0].geometry.computeBoundingBox();
+			playerBoundingBox = new THREE.Box3().setFromObject(player.scene);
+			
+			// this is to make a bounding box visible but does not work with collision detection
+			// playerBoundingBox = new THREE.BoxHelper(player.scene, 0xff0000);
+			// scene.add(playerBoundingBox);
 			scene.add(player.scene);
 		});
 }
@@ -35,6 +42,11 @@ export function addPlayerToScene(scene) {
 export function keyboardMoveObject(object) {
 	if (object == undefined)
 		return;
+	object.children[0].geometry.computeBoundingBox();
+	playerBoundingBox.setFromObject(object);
+
+	// update box helper to follow player object
+	// playerBoundingBox.update();
 	if (playerMoving) {
 		keys.forEach((_, key) => {
 			if (key == 37) {
@@ -44,14 +56,12 @@ export function keyboardMoveObject(object) {
 				object.position.y += object.position.y < yMovementBounds ? speed : 0;
 			}
 			else if (key == 39) {
-
 				object.position.x += object.position.x < xMovementBounds ? speed : 0;
 			}
 			else if (key == 40) {
 				object.position.y -= object.position.y > -yMovementBounds ? speed : 0;
 			}
 		});
-
 	}
 	else {
 		if (object.position.x != 0 || object.position.y != 0) {
@@ -66,9 +76,7 @@ export function keyboardMoveObject(object) {
 				object.position.y += speed / 2;
 			}
 		}
-
 	}
-
 };
 
 //on player death delete the player and spawn particles
@@ -78,4 +86,5 @@ export function onDeath(scene){
 	particle.createNewParticleSystem(player.position.x,player.position.y,player.position.z,scene);
 	
 	scene.remove(scene.getObjectByName("player"));
+	scene.remove(playerBoundingBox);
 }
