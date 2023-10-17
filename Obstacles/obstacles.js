@@ -158,7 +158,7 @@ export function animateObstacles(renderer, camera, scene) {
     }
 
     for (let i = 0; i < obstacles.length; i++) {
-      obstacles[i].position.z += 1; // Adjust the speed as needed
+      obstacles[i].position.z += 2; // Adjust the speed as needed
     }
 
     renderer.render(scene, camera);
