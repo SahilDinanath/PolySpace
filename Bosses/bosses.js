@@ -134,7 +134,7 @@ export function bossTwo(camera, scene, renderer) {
 
     // Rotate the entire group (e.g., the scene)
     let group = new THREE.Group();
-    group.position.z =  -100; 
+    group.position.z =  -350; 
     group.add(octahedron);
     group.add(torus);
     group.add(tetrahedron);

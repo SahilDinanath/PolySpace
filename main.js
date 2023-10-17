@@ -4,6 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as ui from '/UI/start_screen.js'
 import * as minimap from '/UI/minimap.js'
 import * as bosses from '/Bosses/bosses.js';
+import * as obstacles from '/Obstacles/obstacles.js';
 import * as music from '/Music/musicController.js';
 import * as particle from '/Player/particleEffect.js';
 import { disableButtons } from "/UI/start_screen.js";
@@ -46,7 +47,7 @@ function worldLevelOne() {
 	scene.add(ambientLighting);
 	player.addPlayerToScene(scene);
 	minimap.addMiniMapToScene(scene);
-
+	obstacles.animateObstacles(renderer, camera, scene);
 	//uncomment line below to view boss (position currently incorrect and ambient light to bright for texture)
 	bosses.bossTwo(camera, scene, renderer);
 }
@@ -112,7 +113,7 @@ function createStar() {
 }
 
 // Create a number of stars
-for (var i = 0; i < 900; i++) {
+for (var i = 0; i < 700; i++) {
 	createStar();
 }
 
