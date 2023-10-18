@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { playerBoundingBox } from '/Player/player.js';
+import { onDeath } from '/Player/player.js';
 
 //where obstacle should be generated
 const MIN_Z = -350;
@@ -151,6 +152,7 @@ export function animateObstacles(renderer, camera, scene) {
         if(checkCollision()){
           console.log("Collision?");
           collisionDetected = true;
+          onDeath(scene);
           return;
         }
       }
