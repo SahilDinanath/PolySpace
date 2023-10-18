@@ -54,7 +54,7 @@ function worldLevelOne() {
 
 
 // Define a variable to track the animation state
-let isPaused = false;
+export let isPaused = false;
 
 // Function to handle the animation
 //

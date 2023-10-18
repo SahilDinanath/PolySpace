@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { playerBoundingBox } from '/Player/player.js';
 import { onDeath } from '/Player/player.js';
+import { isPaused } from '/main.js';
 
 //where obstacle should be generated
 const MIN_Z = -350;
@@ -145,36 +146,38 @@ function checkCollision() {
 
 export function animateObstacles(renderer, camera, scene) {
   function animate() {
-    for (let i = 0; i < obstacles.length; i++) {
-      updateGroupBoundingBox(obstacles[i], i);
-
-      if (obstacles[0].position.z > -15) {
-        if(checkCollision()){
-          console.log("Collision?");
-          collisionDetected = true;
-          onDeath(scene);
-          return;
+    if(!isPaused){
+      for (let i = 0; i < obstacles.length; i++) {
+        updateGroupBoundingBox(obstacles[i], i);
+  
+        if (obstacles[0].position.z > -15) {
+          if(checkCollision()){
+            console.log("Collision?");
+            collisionDetected = true;
+            onDeath(scene);
+            return;
+          }
+        }
+  
+        if(obstacles[i].position.z > MAX_Z){
+          scene.remove(obstacles[i]);
+          obstacles.splice(i, 1);
+          obstaclesBoundingBoxes.splice(i*3, 3);
+          i--;
         }
       }
-
-      if(obstacles[i].position.z > MAX_Z){
-        scene.remove(obstacles[i]);
-        obstacles.splice(i, 1);
-        obstaclesBoundingBoxes.splice(i*3, 3);
-        i--;
+  
+      if(obstacles[0].position.z == MIN_Z/5){
+        addObstaclesToScene(scene);
       }
+  
+      for (let i = 0; i < obstacles.length; i++) {
+        obstacles[i].position.z += 2; // Adjust the speed as needed
+      }
+  
+      renderer.render(scene, camera);
+    
     }
-
-    if(obstacles[0].position.z == MIN_Z/5){
-      addObstaclesToScene(scene);
-    }
-
-    for (let i = 0; i < obstacles.length; i++) {
-      obstacles[i].position.z += 2; // Adjust the speed as needed
-    }
-
-    renderer.render(scene, camera);
-
     requestAnimationFrame(animate);
   }
 
