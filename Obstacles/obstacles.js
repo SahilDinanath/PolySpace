@@ -9,6 +9,7 @@ const MAX_Z = 25;
 const obstacles = [];
 const obstaclesBoundingBoxes = [];
 let obstacleBoundingBox;
+export let collisionDetected = false;
 
 const opacityVal = 0.4;
 const transparency = true;
@@ -71,24 +72,32 @@ function createObstacle2(x, y, z) {
 function createObstacle3(x, y, z) {
   const obstacle = new THREE.Group();
 
-  const box1 = new THREE.Mesh(new THREE.BoxGeometry(30, 18, 10), obstacleMaterial);
-  //const box2 = new THREE.Mesh(new THREE.BoxGeometry(15, 10, 10), obstacleMaterial);
-  //const box3 = new THREE.Mesh(new THREE.BoxGeometry(15, 10, 10), obstacleMaterial);
+  const box1 = new THREE.Mesh(new THREE.BoxGeometry(15, 24, 10), obstacleMaterial);
+  obstacleBoundingBox = new THREE.Box3().setFromObject(box1);
+  obstaclesBoundingBoxes.push(obstacleBoundingBox);
 
-  box1.position.set(15, 0, 0);
-  //box2.position.set(0, 0, 0);
-  //box3.position.set(-15, 0, 0);
+  const box2 = new THREE.Mesh(new THREE.BoxGeometry(15, 24, 10), obstacleMaterial);
+  obstacleBoundingBox = new THREE.Box3().setFromObject(box2);
+  obstaclesBoundingBoxes.push(obstacleBoundingBox);
+
+  const box3 = new THREE.Mesh(new THREE.BoxGeometry(15, 24, 10), obstacleMaterial);
+  obstacleBoundingBox = new THREE.Box3().setFromObject(box3);
+  obstaclesBoundingBoxes.push(obstacleBoundingBox);
+
+  box1.position.set(15, 6, 0);
+  box2.position.set(0, 6, 0);
+  box3.position.set(-15, -6, 0);
 
   obstacle.add(box1);
-  //obstacle.add(box2);
-  //obstacle.add(box3);
+  obstacle.add(box2);
+  obstacle.add(box3);
 
   obstacle.position.set(x, y, z);
   return obstacle;
 }
 
 function addObstaclesToScene(scene) {
-  const randomNum = Math.floor(Math.random() * 2) + 1;
+  const randomNum = Math.floor(Math.random() * 3) + 1;
 
   const z = MIN_Z;
   const x = 0;
@@ -141,6 +150,7 @@ export function animateObstacles(renderer, camera, scene) {
       if (obstacles[0].position.z > -15) {
         if(checkCollision()){
           console.log("Collision?");
+          collisionDetected = true;
           return;
         }
       }
