@@ -39,7 +39,8 @@ export function addPlayerToScene(scene) {
 }
 
 //keyboard movements
-export function keyboardMoveObject(object) {
+export function keyboardMoveObject(scene) {
+const object = scene.getObjectByName("player");
 	if (object == undefined)
 		return;
 	object.children[0].geometry.computeBoundingBox();
