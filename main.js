@@ -1,12 +1,10 @@
 import * as THREE from 'three';
-import * as player from '/Player/player.js';
+import * as player from '/Player/player_exports.js';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import * as ui from '/UI/start_screen.js'
-import * as minimap from '/UI/minimap.js'
+import * as ui from '/UI/ui_exports.js'
 import * as music from '/Music/musicController.js';
-import * as particle from '/Player/particleEffect.js';
-import { disableButtons } from "/UI/start_screen.js";
-import * as world from "/Levels/Level_1.js";
+import * as world from "/Levels/levels.js";
+
 const scene = new THREE.Scene();
 //sets up renderer/screen
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -39,10 +37,10 @@ function animate() {
 	if (!isPaused) {
 		requestAnimationFrame(animate);
 		player.keyboardMoveObject(scene);
-		particle.updateParticleSystem();
+		player.updateParticleSystem();
 
 		checkGameCondition(scene);
-		minimap.updateMiniMap(scene);
+		ui.updateMiniMap(scene);
 
 		renderer.render(scene, camera);
 	}
@@ -124,28 +122,28 @@ ui.levelOneButton.onclick = function() {
 ui.levelTwoButton.onclick = function() {
 	level2 = true;
 	ui.disableStartScreen();
-	world.levelOne();
+	world.levelTwo(scene, renderer, camera);
 	animate();
 }
 
 ui.levelThreeButton.onclick = function() {
 	level3 = true;
 	ui.disableStartScreen();
-	world.levelOne();
+	world.levelOne(scene, renderer, camera);
 	animate();
 }
 
 ui.nextButton.onclick = function() {
 	clearScene();
-	disableButtons();
+	ui.disableButtons();
 	if (level1) {
 		level1 = false;
-		world.levelOne();   //change to level2
+	world.levelOne(scene, renderer, camera);
 		animate();
 	}
 	if (level2) {
 		level2 = false;
-		world.levelOne(); // change to level3
+	world.levelOne(scene, renderer, camera);
 		animate();
 	}
 }
@@ -161,15 +159,16 @@ ui.returnButton.onclick = function() {
 
 ui.restartButton.onclick = function() {
 	clearScene();
-	disableButtons();
+	ui.disableButtons();
 	if (level1) {
-		world.levelOne();
+	world.levelOne(scene, renderer, camera);
 	}
 	if (level2) {
-		world.levelOne(); // change to level2
+
+	world.levelOne(scene, renderer, camera);
 	}
 	if (level3) {
-		world.levelOne(); // change to level3
+	world.levelOne(scene, renderer, camera);
 	}
 }
 
