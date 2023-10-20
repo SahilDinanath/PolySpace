@@ -5,7 +5,7 @@ import * as player from '/Player/player_exports.js';
 import * as ui from '/UI/ui_exports.js';
 import { Sky } from 'three/examples/jsm/objects/Sky';
 
-export function levelTwo(scene, renderer, camera) {
+export function levelThree(scene, renderer, camera) {
 	//sets up lighting 
 	const ambientLighting = new THREE.AmbientLight("white", 6);
 	scene.add(ambientLighting);
