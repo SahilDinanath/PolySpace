@@ -55,12 +55,23 @@ function checkGameCondition(scene) {
 	//TODO:
 	//on player collision, show death screen and pause game
 	if (scene.getObjectByName('minimap_icon').position.x > 20) {
-		ui.enableWinScreen();  
+		ui.enableWinScreen();
 	}
 
 }
 
 
+//when window is resized, update everything
+window.addEventListener('resize',onWindowResize);
+function onWindowResize() {
+
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+
+	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	renderer.render();
+}
 // Function to pause the animation
 function pauseAnimation() {
 	isPaused = true;
@@ -106,7 +117,7 @@ ui.levelOneButton.onclick = function() {
 	 * this is a design by google/firefox, this plays the song in case the user never clicked anywhere on screen*/
 	music.enableSound();
 	ui.disableStartScreen();
-	world.levelOne(scene,renderer,camera);
+	world.levelOne(scene, renderer, camera);
 	animate();
 }
 
