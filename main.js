@@ -129,7 +129,7 @@ ui.levelTwoButton.onclick = function() {
 ui.levelThreeButton.onclick = function() {
 	level3 = true;
 	ui.disableStartScreen();
-	world.levelOne(scene, renderer, camera);
+	world.levelThree(scene, renderer, camera);
 	animate();
 }
 
@@ -143,7 +143,7 @@ ui.nextButton.onclick = function() {
 	}
 	if (level2) {
 		level2 = false;
-	world.levelOne(scene, renderer, camera);
+	world.levelTwo(scene, renderer, camera);
 		animate();
 	}
 }
@@ -165,10 +165,10 @@ ui.restartButton.onclick = function() {
 	}
 	if (level2) {
 
-	world.levelOne(scene, renderer, camera);
+	world.levelTwo(scene, renderer, camera);
 	}
 	if (level3) {
-	world.levelOne(scene, renderer, camera);
+	world.levelThree(scene, renderer, camera);
 	}
 }
 
