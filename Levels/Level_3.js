@@ -16,10 +16,15 @@ export function levelThree(scene, renderer, camera) {
 	bosses.bossTwo(camera, scene, renderer);
 	obstacles.animateObstacles(renderer, camera, scene);
 	//uncomment line below to view boss (position currently incorrect and ambient light to bright for texture)
-	initSky(scene,renderer,camera);
+	initSky(scene, renderer, camera);
 }
 let sky, sun;
-function initSky(scene,renderer, camera) {
+
+let elevation = 2,
+	azimuth = 160,
+	exposure = 0.5;
+
+function initSky(scene, renderer, camera) {
 
 	// Add Sky
 	sky = new Sky();
@@ -29,14 +34,14 @@ function initSky(scene,renderer, camera) {
 	sun = new THREE.Vector3();
 
 	/// GUI
-
+	renderer.toneMappingExposure = exposure;
 	const effectController = {
 		turbidity: 10,
 		rayleigh: 3,
 		mieCoefficient: 0.005,
 		mieDirectionalG: 0.7,
 		elevation: 2,
-		azimuth: 180,
+		azimuth: 160,
 		exposure: renderer.toneMappingExposure
 	};
 
@@ -53,6 +58,20 @@ function initSky(scene,renderer, camera) {
 
 	uniforms['sunPosition'].value.copy(sun);
 
-	renderer.toneMappingExposure = effectController.exposure;
 	renderer.render(scene, camera);
+}
+
+export function updateSkyBox() {
+	if (sky == undefined || sun == undefined)
+		return;
+	const sunsetSpeedDay = 0.0004;
+	const lowestPoint= -10;
+	//const sunsetSpeedNight = 0.05;
+	//elevation = elevation > 0 ? elevation - sunsetSpeedDay : elevation - sunsetSpeedNight;
+	elevation = elevation > lowestPoint ? elevation - sunsetSpeedDay : lowestPoint;
+	const component = sky.material.uniforms;
+	const phi = THREE.MathUtils.degToRad(90 - elevation);
+	const theta = THREE.MathUtils.degToRad(azimuth);
+	sun.setFromSphericalCoords(1, phi, theta);
+	component['sunPosition'].value.copy(sun);
 }

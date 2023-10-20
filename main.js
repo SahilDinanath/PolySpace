@@ -42,6 +42,7 @@ function animate() {
 		checkGameCondition(scene);
 		ui.updateMiniMap(scene);
 
+		world.updateSkyBox();
 		renderer.render(scene, camera);
 	}
 
@@ -60,7 +61,7 @@ function checkGameCondition(scene) {
 
 
 //when window is resized, update everything
-window.addEventListener('resize',onWindowResize);
+window.addEventListener('resize', onWindowResize);
 function onWindowResize() {
 
 	camera.aspect = window.innerWidth / window.innerHeight;
@@ -68,7 +69,7 @@ function onWindowResize() {
 
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
-	renderer.render();
+	renderer.render(scene, camera);
 }
 // Function to pause the animation
 function pauseAnimation() {
@@ -138,12 +139,12 @@ ui.nextButton.onclick = function() {
 	ui.disableButtons();
 	if (level1) {
 		level1 = false;
-	world.levelOne(scene, renderer, camera);
+		world.levelOne(scene, renderer, camera);
 		animate();
 	}
 	if (level2) {
 		level2 = false;
-	world.levelTwo(scene, renderer, camera);
+		world.levelTwo(scene, renderer, camera);
 		animate();
 	}
 }
@@ -161,14 +162,14 @@ ui.restartButton.onclick = function() {
 	clearScene();
 	ui.disableButtons();
 	if (level1) {
-	world.levelOne(scene, renderer, camera);
+		world.levelOne(scene, renderer, camera);
 	}
 	if (level2) {
 
-	world.levelTwo(scene, renderer, camera);
+		world.levelTwo(scene, renderer, camera);
 	}
 	if (level3) {
-	world.levelThree(scene, renderer, camera);
+		world.levelThree(scene, renderer, camera);
 	}
 }
 
