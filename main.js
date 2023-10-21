@@ -13,11 +13,13 @@ document.body.appendChild(renderer.domElement);
 
 
 //adds initial camera to scene to show starfield
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
 camera.name = "mainCamera";
 camera.position.z = 30;
 camera.position.y = 2;
 scene.add(camera);
+
+
 
 //sets up sound, sound needs to be set up before the world is setup as it runs during the login page
 music.setInGameSound()
