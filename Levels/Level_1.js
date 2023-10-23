@@ -35,7 +35,7 @@ export function levelOne(scene,renderer,camera) {
 	player.addPlayerToScene(scene);
 	ui.addMiniMapToScene(scene);
 	bosses.bossTwo(camera, scene, renderer);
-	obstacles.animateObstacles(renderer, camera, scene);
+	obstacles.animateObstacles(renderer, camera, scene, 2);
 	//uncomment line below to view boss (position currently incorrect and ambient light to bright for texture)
 }
 
