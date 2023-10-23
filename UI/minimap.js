@@ -40,3 +40,10 @@ export function addMiniMapToScene(scene){
 
 }
 
+export function updateMiniMap(scene) {
+if (scene.getObjectByName('minimap_icon') == undefined)
+		return;
+	if (scene.getObjectByName('minimap_icon').position.x < 20) {
+		scene.getObjectByName('minimap_icon').position.x += 0.005;
+	}
+}
