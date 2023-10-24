@@ -5,8 +5,8 @@ import * as ui from '/UI/ui_exports.js'
 import * as music from '/Music/musicController.js';
 import * as world from "/Levels/levels.js";
 import * as planet from "/Planets/worldGenerator.js";
+import { scene, createStars, animateStars, animateDirectionalLight } from './Background/Background.js'; 
 
-const scene = new THREE.Scene();
 //sets up renderer/screen
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -14,11 +14,13 @@ document.body.appendChild(renderer.domElement);
 
 
 //adds initial camera to scene to show starfield
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
 camera.name = "mainCamera";
 camera.position.z = 30;
 camera.position.y = 2;
+
 scene.add(camera);
+
 
 //sets up sound, sound needs to be set up before the world is setup as it runs during the login page
 music.setInGameSound()
@@ -33,10 +35,13 @@ var level3 = false;
 // Define a variable to track the animation state
 let isPaused = false;
 
+animateDirectionalLight();
+createStars();
 // Your animation code here
 function animate() {
 	if (!isPaused) {
 		requestAnimationFrame(animate);
+		animateStars();
 		player.keyboardMoveObject(scene);
 		player.updateParticleSystem();
 
@@ -175,7 +180,3 @@ ui.restartButton.onclick = function() {
 		world.levelThree(scene, renderer, camera);
 	}
 }
-
-
-
-
