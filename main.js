@@ -5,7 +5,8 @@ import * as ui from '/UI/ui_exports.js'
 import * as music from '/Music/musicController.js';
 import * as world from "/Levels/levels.js";
 import * as planet from "/Planets/worldGenerator.js";
-import { scene, createStars, animateStars, animateDirectionalLight } from './Background/Background.js'; 
+//import { scene, createStars, animateStars, animateDirectionalLight } from './Background/Background.js'; 
+import * as skybox from  './Background/daySkyBox.js'; 
 
 //sets up renderer/screen
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -35,24 +36,26 @@ var level3 = false;
 // Define a variable to track the animation state
 let isPaused = false;
 
-animateDirectionalLight();
-createStars();
+//animateDirectionalLight();
+//createStars();
 // Your animation code here
 function animate() {
 	if (!isPaused) {
 		requestAnimationFrame(animate);
-		animateStars();
+		//animateStars();
 		player.keyboardMoveObject(scene);
 		player.updateParticleSystem();
 
 		checkGameCondition(scene);
 		ui.updateMiniMap(scene);
 
-		world.updateSkyBox();
+		//stuff for level 3, don't worry it won't affect anything if not necessary as it checks if level 3 is selected
+		skybox.updateSkyBox();
 
 		planet.rotateSphere(scene);
 
 		world.updateDirectionalLighting(scene);
+
 		renderer.render(scene, camera);
 	}
 
