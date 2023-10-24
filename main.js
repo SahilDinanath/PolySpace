@@ -13,7 +13,8 @@ const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+//renderer.setClearColor(0xA3A3A3);
+renderer.shadowMap.enabled = true;
 
 //adds initial camera to scene to show starfield
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
@@ -54,7 +55,7 @@ function animate() {
 
 		planet.rotateSphere(scene);
 
-		world.updateDirectionalLighting(scene);
+		//world.updateDirectionalLighting(scene);
 
 		renderer.render(scene, camera);
 		//animateStars(); //for level 2

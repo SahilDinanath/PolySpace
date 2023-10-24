@@ -10,7 +10,7 @@ function sphereTexture(textureAddress) {
 }
 function createSphere(textureAddress) {
 	const geometry = new THREE.SphereGeometry(1, 128, 128);
-	const material = new THREE.MeshLambertMaterial({
+	const material = new THREE.MeshPhongMaterial({
 		color: "",
 		map: sphereTexture(textureAddress),
 	});
@@ -29,6 +29,7 @@ export function addSphereToScene(scene, textureAddress) {
 	sphere.position.set(0, -2515, -200);
 
 	scene.add(sphere);
+	return sphere;
 }
 
 export function rotateSphere(scene) {

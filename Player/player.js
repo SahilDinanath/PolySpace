@@ -29,6 +29,11 @@ export function addPlayerToScene(scene) {
 			player.scene.name = "player";
 			player.scene.receiveShadow = true;
 			//player.scene.castShadow = true;
+			player.scene.traverse(function (node){
+				if(node.isMesh)
+					node.castShadow = true;
+			});
+
 			player.scene.rotateY(Math.PI);
 			player.scene.children[0].geometry.computeBoundingBox();
 			playerBoundingBox = new THREE.Box3().setFromObject(player.scene);
