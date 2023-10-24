@@ -8,6 +8,8 @@ import * as planet from "/Planets/worldGenerator.js";
 //import { scene, createStars, animateStars, animateDirectionalLight } from './Background/Background.js'; 
 import * as skybox from  './Background/daySkyBox.js'; 
 
+
+const scene = new THREE.Scene();
 //sets up renderer/screen
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);

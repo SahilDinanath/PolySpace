@@ -92,3 +92,7 @@ export function onDeath(scene) {
 	scene.remove(scene.getObjectByName("player"));
 	scene.remove(playerBoundingBox);
 }
+
+export function setPlayerSpeed(newSpeed){
+	speed = newSpeed;
+}
