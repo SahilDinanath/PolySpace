@@ -4,7 +4,7 @@ import * as player from '/Player/player_exports.js';
 import * as ui from '/UI/ui_exports.js'
 import * as THREE from "three";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import {animateStars, createStar} from "../UI/lightField";
+import {solarSys} from "../UI/solarSystem";
 //import {solarSys} from "../UI/solarSystem";
 
 
@@ -39,7 +39,7 @@ var earthMaterial = new THREE.MeshPhongMaterial({
     shininess: 2
 });
 var earth = new THREE.Mesh(earthGeometry, earthMaterial);
-earth.position.z = 20;
+earth.position.z = 25;
 
 
 
@@ -75,16 +75,7 @@ moon.position.set(-35,10,-600);
 //group.add(moon);
 
 
-//Camera vector
-var earthVec = new THREE.Vector3(0,0,0);
 
-var r = 35;
-var theta = 0;
-var dTheta = 2 * Math.PI / 1000;
-
-var dx = .01;
-var dy = -.01;
-var dz = -.05;
 
 
 
@@ -108,27 +99,56 @@ var dz = -.05;
 
 export function levelTwo(scene, renderer, camera){
     const controls = new OrbitControls( camera, renderer.domElement );
-    const ambientLighting = new THREE.AmbientLight("white", 0.1);
-
+    const ambientLighting = new THREE.AmbientLight("white", 0.4);
+    camera.position.y = 20;
+    camera.position.z = 50;
+   // camera.rotateY(2);
     scene.add(camera);
     player.addPlayerToScene(scene);
      ui.addMiniMapToScene(scene);
     bosses.bossTwo(camera, scene, renderer);
-   // obstacles.animateObstacles(renderer, camera, scene);
+    obstacles.animateObstacles(renderer, camera, scene);
     scene.add(ambientLighting);
     scene.add(starField);
-    scene.add(sun);
+   // scene.add(sun);
     scene.add(sunLight);
     scene.add(sunLight2);
     scene.add(earth);
     scene.add(clouds);
-    scene.add(moon);
+   // scene.add(moon);
 
-   // let solar  = solarSys(scene, renderer, camera);
+    let solar1  = solarSys(renderer, scene, camera);
+    solar1.position.z = - 500;
+    solar1.position.x  =  -400;
+    scene.add(solar1);
 
-    //let lightField = createStar(scene);
+    let solar2  = solarSys(renderer, scene, camera);
+    solar2.position.z = - 700;
+    solar2.position.x  =  100;
+    scene.add(solar2);
 
-   // animateLevelTwo(camera, scene, renderer,controls);
+    let solar3  = solarSys(renderer, scene, camera);
+    solar3.position.z = - 1500;
+    solar3.position.x  =  80;
+    scene.add(solar3);
 
-  //  animateStars(lightField);
+    var animate = function () {
+
+        earth.rotateY(0.01);
+        clouds.rotateY(0.06);
+        //make it seem as if spaceship is moving through the scene
+       earth.position.z += 0.1;
+       clouds.position.z += 0.1;
+        solar1.position.z += 1;
+        solar2.position.z += 1;
+        solar3.position.z += 1;
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+    };
+
+    // Start the animation loop
+    animate();
+
+
 }

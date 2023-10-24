@@ -5,8 +5,9 @@ import * as ui from '/UI/ui_exports.js'
 import * as music from '/Music/musicController.js';
 import * as world from "/Levels/levels.js";
 import * as planet from "/Planets/worldGenerator.js";
-import { scene, createStars, animateStars, animateDirectionalLight } from './Background/Background.js'; 
+import {  createStars, animateStars, animateDirectionalLight } from './Background/Background.js';
 
+const scene = new THREE.Scene();
 //sets up renderer/screen
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -50,6 +51,7 @@ function animate() {
 		planet.rotateSphere(scene);
 		world.updateDirectionalLighting(scene);
 		renderer.render(scene, camera);
+		//animateStars(); //for level 2
 	}
 
 }
@@ -130,8 +132,8 @@ ui.levelTwoButton.onclick = function() {
 	level2 = true;
 	ui.disableStartScreen();
 	world.levelTwo(scene, renderer, camera);
-	let lightScene = createStar(scene);
-	animateStars(lightScene);
+	//createStars(scene);
+
 	animate();
 }
 

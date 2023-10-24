@@ -1,14 +1,14 @@
 import * as THREE from 'three';
 
-const scene = new THREE.Scene();
+
 
 const starsArray = [];
 const starCount = 700;
-const starStartZ = -10;
+const starStartZ = -500;
 const starStartY = 80;
 const starStartX = 80;
 
-function createStar() {
+function createStar(scene) {
   const starGeometry = new THREE.BufferGeometry();
   const positions = new Float32Array(2 * 3); // Two points to create a line
 
@@ -27,21 +27,28 @@ function createStar() {
 
   const starMaterial = new THREE.LineBasicMaterial({ color, linewidth: 1 });
   const star = new THREE.Line(starGeometry, starMaterial);
+  //const light = new THREE.PointLight(color, 50);
   // Randomize the star's position
   star.position.x = (Math.random() - 0.5) * starStartX;
   star.position.y = (Math.random() - 0.5) * starStartY;
-  star.position.z = starStartZ - Math.random() * 10; // Start behind the camera
+  star.position.z = starStartZ - Math.random() * 500; // Start behind the camera
+  //light.position.x = star.position.x;
+ // light.position.y = star.position.y;
+ // light.position.z = star.position.z;
 
   // Randomize the star's speed
   star.speed = 0.01 + Math.random() * 0.1;
 
   scene.add(star);
+  //scene.add(light);
+
   starsArray.push(star);
+  //starsArray.push(light);
 }
 
-function createStars() {
+function createStars(scene) {
   for (let i = 0; i < starCount; i++) {
-    createStar();
+    createStar(scene);
   }
 }
 
@@ -59,11 +66,11 @@ function animateStars() {
 
 // Create ambient light with a color similar to the starfield
 const ambientLight = new THREE.AmbientLight(0x101010); // Adjust the color as needed
-scene.add(ambientLight);
+//scene.add(ambientLight);
 
 var directionalLight = new THREE.DirectionalLight(0xffffff, 10);
 directionalLight.position.set(0, 1, 0);
-scene.add(directionalLight);
+//scene.add(directionalLight);
 
 var lightRotation = 0;
 
@@ -77,4 +84,4 @@ function animateDirectionalLight() {
 	requestAnimationFrame(animateDirectionalLight);
 }
 
-export { scene, createStars, animateStars, animateDirectionalLight };
+export {createStars, animateStars, animateDirectionalLight };
