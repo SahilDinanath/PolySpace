@@ -4,8 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as ui from '/UI/ui_exports.js'
 import * as music from '/Music/musicController.js';
 import * as world from "/Levels/levels.js";
+import * as planet from "/Planets/worldGenerator.js";
 import { scene, createStars, animateStars, animateDirectionalLight } from './Background/Background.js'; 
-
 
 //sets up renderer/screen
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -26,7 +26,7 @@ scene.add(camera);
 music.setInGameSound()
 
 //Add orbit control
-// var controls = new OrbitControls(camera, renderer.domElement);
+var controls = new OrbitControls(camera, renderer.domElement);
 
 var level1 = false;
 var level2 = false;
@@ -49,6 +49,8 @@ function animate() {
 		ui.updateMiniMap(scene);
 
 		world.updateSkyBox();
+		planet.rotateSphere(scene);
+		world.updateDirectionalLighting(scene);
 		renderer.render(scene, camera);
 	}
 
