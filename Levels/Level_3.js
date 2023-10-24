@@ -5,10 +5,9 @@ import * as player from '/Player/player_exports.js';
 import * as ui from '/UI/ui_exports.js'; //TODO: add import for sky box 
 import * as earth from '../Planets/worldGenerator.js';
 
-let earthTexture = '../Assets/earthTextures/GroundGrassGreen002/GroundGrassGreen002_COL_2K.jpg';
 export function levelThree(scene, renderer, camera) {
 	//sets up lighting 
-	const ambientLighting = new THREE.AmbientLight("white", 6);
+	const ambientLighting = new THREE.AmbientLight("white", 2);
 	scene.add(ambientLighting);
 
 	//sets up objects in scene
@@ -18,16 +17,21 @@ export function levelThree(scene, renderer, camera) {
 	obstacles.animateObstacles(renderer, camera, scene);
 	//uncomment line below to view boss (position currently incorrect and ambient light to bright for texture)
 	initSky(scene, renderer, camera);
+
+	//adds earth to scene
+	let earthTexture = '../Assets/earthTextures/GroundGrassGreen002/GroundGrassGreen002_COL_2K.jpg';
 	earth.addSphereToScene(scene,earthTexture);
+
 	addSunLightingToScene(scene);
 }
+
 
 export function updateDirectionalLighting(scene){
 
 	const object = scene.getObjectByName("sun");
 	if (object == undefined)
 		return;
-	object.position.y -= 0.01;
+	object.position.y -= 0.02;
 
 
 	}

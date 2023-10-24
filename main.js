@@ -44,7 +44,9 @@ function animate() {
 		ui.updateMiniMap(scene);
 
 		world.updateSkyBox();
+
 		planet.rotateSphere(scene);
+
 		world.updateDirectionalLighting(scene);
 		renderer.render(scene, camera);
 	}
