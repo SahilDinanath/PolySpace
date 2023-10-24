@@ -17,7 +17,7 @@ function createSphere(textureAddress) {
 	const sphere = new THREE.Mesh(geometry, material);
 	sphere.castShadow = true;
 	sphere.receiveShadow = true;
-	sphere.name = "earth";
+	sphere.name = "sphere";
 	sphere.rotation.x =Math.PI/2;
 	return sphere;
 }
@@ -33,7 +33,7 @@ export function addSphereToScene(scene, textureAddress) {
 
 export function rotateSphere(scene) {
 
-	const object = scene.getObjectByName("earth");
+	const object = scene.getObjectByName("sphere");
 	if (object == undefined)
 		return;
 	object.rotation.x += 0.0001;
