@@ -5,9 +5,8 @@ import * as ui from '/UI/ui_exports.js'
 import * as music from '/Music/musicController.js';
 import * as world from "/Levels/levels.js";
 import * as planet from "/Planets/worldGenerator.js";
-//import { scene, createStars, animateStars, animateDirectionalLight } from './Background/Background.js'; 
 import * as skybox from  './Background/daySkyBox.js'; 
-
+import {  createStars, animateStars, animateDirectionalLight } from './Background/Background.js';
 
 const scene = new THREE.Scene();
 //sets up renderer/screen
@@ -38,13 +37,12 @@ var level3 = false;
 // Define a variable to track the animation state
 let isPaused = false;
 
-//animateDirectionalLight();
-//createStars();
+
+
 // Your animation code here
 function animate() {
 	if (!isPaused) {
 		requestAnimationFrame(animate);
-		//animateStars();
 		player.keyboardMoveObject(scene);
 		player.updateParticleSystem();
 
@@ -59,6 +57,7 @@ function animate() {
 		world.updateDirectionalLighting(scene);
 
 		renderer.render(scene, camera);
+		//animateStars(); //for level 2
 	}
 
 }
@@ -139,6 +138,8 @@ ui.levelTwoButton.onclick = function() {
 	level2 = true;
 	ui.disableStartScreen();
 	world.levelTwo(scene, renderer, camera);
+	//createStars(scene);
+
 	animate();
 }
 
