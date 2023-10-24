@@ -4,6 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as ui from '/UI/ui_exports.js'
 import * as music from '/Music/musicController.js';
 import * as world from "/Levels/levels.js";
+import {animateStars, createStar} from "./UI/lightField";
 
 const scene = new THREE.Scene();
 //sets up renderer/screen
@@ -17,8 +18,7 @@ var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHei
 camera.name = "mainCamera";
 camera.position.z = 30;
 camera.position.y = 2;
-scene.add(camera);
-
+//scene.add(camera);
 
 
 //sets up sound, sound needs to be set up before the world is setup as it runs during the login page
@@ -126,6 +126,8 @@ ui.levelTwoButton.onclick = function() {
 	level2 = true;
 	ui.disableStartScreen();
 	world.levelTwo(scene, renderer, camera);
+	let lightScene = createStar(scene);
+	animateStars(lightScene);
 	animate();
 }
 
