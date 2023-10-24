@@ -13,7 +13,7 @@ export function levelThree(scene, renderer, camera) {
 
 	//sets up objects in scene
 	player.addPlayerToScene(scene);
-	player.setPlayerSpeed(1);
+	player.setPlayerSpeed(0.7);
 	ui.addMiniMapToScene(scene);
 	bosses.bossTwo(camera, scene, renderer);
 	obstacles.animateObstacles(renderer, camera, scene);
