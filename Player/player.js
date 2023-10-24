@@ -2,11 +2,11 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import * as particle from '/Player/particleEffect.js';
 import * as THREE from 'three';
 //player keyboard input for movement
-const speed = 0.5;
 const yMovementBounds = 16;
 const xMovementBounds = 16;
 let playerMoving = false;
 export let playerBoundingBox;
+let speed = 0.5;
 //user input for player movement
 const keys = new Map();
 document.onkeydown = function(e) {
@@ -27,20 +27,23 @@ export function addPlayerToScene(scene) {
 		//we have to set up player in here for now
 		function(player) {
 			player.scene.name = "player";
+			player.scene.receiveShadow = true;
+			//player.scene.castShadow = true;
 			player.scene.rotateY(Math.PI);
 			player.scene.children[0].geometry.computeBoundingBox();
 			playerBoundingBox = new THREE.Box3().setFromObject(player.scene);
-			
+
 			// this is to make a bounding box visible but does not work with collision detection
 			// playerBoundingBox = new THREE.BoxHelper(player.scene, 0xff0000);
 			// scene.add(playerBoundingBox);
+
 			scene.add(player.scene);
 		});
 }
 
 //keyboard movements
 export function keyboardMoveObject(scene) {
-const object = scene.getObjectByName("player");
+	const object = scene.getObjectByName("player");
 	if (object == undefined)
 		return;
 	object.children[0].geometry.computeBoundingBox();
@@ -81,11 +84,11 @@ const object = scene.getObjectByName("player");
 };
 
 //on player death delete the player and spawn particles
-export function onDeath(scene){
+export function onDeath(scene) {
 	let player = scene.getObjectByName("player");
-	
-	particle.createNewParticleSystem(player.position.x,player.position.y,player.position.z,scene);
-	
+
+	particle.createNewParticleSystem(player.position.x, player.position.y, player.position.z, scene);
+
 	scene.remove(scene.getObjectByName("player"));
 	scene.remove(playerBoundingBox);
 }
