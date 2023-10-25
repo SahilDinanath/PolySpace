@@ -4,28 +4,37 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as ui from '/UI/ui_exports.js'
 import * as music from '/Music/musicController.js';
 import * as world from "/Levels/levels.js";
+import * as planet from "/Planets/worldGenerator.js";
+import * as skybox from  './Background/daySkyBox.js'; 
+import * as collisions from './Obstacles/obstacles.js';
+
+import {  createStars, animateStars, animateDirectionalLight } from './Background/Background.js';
+import * as obstacles from "./Obstacles/obstacles";
+
 
 const scene = new THREE.Scene();
 //sets up renderer/screen
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+//renderer.setClearColor(0xA3A3A3);
+renderer.shadowMap.enabled = true;
 
 //adds initial camera to scene to show starfield
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
 camera.name = "mainCamera";
 camera.position.z = 30;
 camera.position.y = 2;
+
 scene.add(camera);
 
 
-
 //sets up sound, sound needs to be set up before the world is setup as it runs during the login page
-music.setInGameSound()
+
+music.setInGameSound();
 
 //Add orbit control
-// var controls = new OrbitControls(camera, renderer.domElement);
+var controls = new OrbitControls(camera, renderer.domElement);
 
 var level1 = false;
 var level2 = false;
@@ -34,18 +43,25 @@ var level3 = false;
 // Define a variable to track the animation state
 export let isPaused = false;
 
+
+
 // Your animation code here
-function animate() {
+function animate(level2Stuff) {
 	if (!isPaused) {
 		requestAnimationFrame(animate);
 		player.keyboardMoveObject(scene);
 		player.updateParticleSystem();
+		//obstacles.animateObstacles(renderer, camera, scene);
 
 		checkGameCondition(scene);
-		ui.updateMiniMap(scene);
 
-		world.updateSkyBox();
+		//stuff for level 3, don't worry it won't affect anything if not necessary as it checks if level 3 is selected
+		skybox.updateSkyBox();
+		planet.rotateSphere(scene);
+		//world.updateDirectionalLighting(scene);
+
 		renderer.render(scene, camera);
+		//animateStars(); //for level 2
 	}
 
 }
@@ -55,10 +71,17 @@ function checkGameCondition(scene) {
 		return;
 	//TODO:
 	//on player collision, show death screen and pause game
+	if(collisions.hasCollided()){
+		player.onDeath(scene); 
+		ui.enableLoseScreen();
+		return;
+	}
 	if (scene.getObjectByName('minimap_icon').position.x > 20) {
 		ui.enableWinScreen();
+		return;
+	}else{
+		ui.updateMiniMap(scene);
 	}
-
 }
 
 
@@ -89,12 +112,14 @@ function resumeAnimation() {
 }
 
 // Listen for the space key press event to pause or resume game
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
 	if (event.key === ' ') { // ' ' represents the space key
-		if (isPaused) {
+		if (isPaused && (level3 || level2 || level1)) {
 			resumeAnimation();
-		} else {
+
+		} else if (!isPaused && (level3 || level2 || level1)) {
 			pauseAnimation();
+
 		}
 	}
 });
@@ -111,12 +136,13 @@ function clearScene() {
 }
 
 //spawn level depending on button click 
-animate();
+//animate();
+let pauseObstacles;
 ui.levelOneButton.onclick = function() {
 	level1 = true;
+
 	/*sound can only play if user clicks somewhere on the screen, 
 	 * this is a design by google/firefox, this plays the song in case the user never clicked anywhere on screen*/
-	music.enableSound();
 	ui.disableStartScreen();
 	world.levelOne(scene, renderer, camera);
 	animate();
@@ -124,17 +150,22 @@ ui.levelOneButton.onclick = function() {
 
 ui.levelTwoButton.onclick = function() {
 	level2 = true;
+
 	ui.disableStartScreen();
 	world.levelTwo(scene, renderer, camera);
+	//createStars(scene);
+
 	animate();
 }
 
 ui.levelThreeButton.onclick = function() {
 	level3 = true;
+
 	ui.disableStartScreen();
-	world.levelThree(scene, renderer, camera);
-	animate();
+	let level2Stuff = world.levelThree(scene, renderer, camera);
+	animate(level2Stuff);
 }
+
 
 ui.nextButton.onclick = function() {
 	clearScene();
@@ -152,7 +183,8 @@ ui.nextButton.onclick = function() {
 }
 
 ui.resumeButton.onclick = function() {
-	//TODO: resume game on keyboard pause
+	resumeAnimation();
+	pauseObstacles(false); // Resume obstacles
 }
 
 ui.returnButton.onclick = function() {
@@ -160,21 +192,17 @@ ui.returnButton.onclick = function() {
 	window.location.reload(); // This will reload the page
 }
 
-ui.restartButton.onclick = function() {
-	clearScene();
-	ui.disableButtons();
-	if (level1) {
-		world.levelOne(scene, renderer, camera);
-	}
-	if (level2) {
-
-		world.levelTwo(scene, renderer, camera);
-	}
-	if (level3) {
-		world.levelThree(scene, renderer, camera);
-	}
-}
-
-
-
-
+// ui.restartButton.onclick = function() {
+// 	clearScene();
+// 	ui.disableButtons();
+// 	if (level1) {
+// 		world.levelOne(scene, renderer, camera);
+// 	}
+// 	if (level2) {
+//
+// 		world.levelTwo(scene, renderer, camera);
+// 	}
+// 	if (level3) {
+// 		world.levelThree(scene, renderer, camera);
+// 	}
+// }
