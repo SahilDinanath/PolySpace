@@ -10,11 +10,15 @@ const obstacles = [];
 const obstaclesBoundingBoxes = [];
 let obstacleBoundingBox;
 
-const opacityVal = 0.4;
-const transparency = true;
-const obstacleMaterial = new THREE.MeshPhongMaterial({ color: 0x800080,
-  opacity:opacityVal,
-  transparent:transparency});
+const opacityVal = 0.6;
+const emissiveIntensity = 0.2; // Adjust the intensity as needed
+const obstacleMaterial = new THREE.MeshPhongMaterial({
+  color: 0x800080,
+  emissive: 0x800080, // Set the emissive color
+  emissiveIntensity: emissiveIntensity, // Adjust the intensity
+  opacity: opacityVal,
+  transparent: true
+});
 
 function createObstacle1(x, y, z) {
   const obstacle = new THREE.Group();
