@@ -1,12 +1,11 @@
 import { playerBoundingBox } from '/Player/player.js';
-import { obstacles } from '/Obstacles/obstacleCreation.js';
-import { obstaclesBoundingBoxes } from '/Obstacles/obstacleCreation.js';
-import { createObstacle } from '/Obstacles/obstacleCreation.js';
+import { obstacles, obstaclesBoundingBoxes } from './obstacleCreation.js';
+import { createObstacle, addTreeToScene } from './obstacleCreation.js';
 import { onDeath } from '/Player/player.js';
 import { isPaused } from '/main.js';
 
 //where obstacle should be generated
-const MIN_Z = -360;
+const MIN_Z = -400;
 //where obstacle should be removed
 const MAX_Z = 25;
 
@@ -54,7 +53,7 @@ export function animateObstacles(renderer, camera, scene, speed) {
         }
       }
   
-      if(obstacles[0].position.z == -60){
+      if(obstacles[0].position.z == -80){
         createObstacle(scene, MIN_Z);
       }
   
@@ -67,7 +66,13 @@ export function animateObstacles(renderer, camera, scene, speed) {
     }
     requestAnimationFrame(animate);
   }
-
+  addTreeToScene(scene);
   createObstacle(scene, MIN_Z);
   animate();
+}
+
+export function hasCollided() {
+  if(collisionDetected){
+        return true;
+  }
 }

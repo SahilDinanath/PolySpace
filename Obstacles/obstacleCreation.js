@@ -7,14 +7,14 @@ let obstacleBoundingBox;
 
 const opacityVal = 0.4;
 const transparency = true;
-const obstacleMaterial = new THREE.MeshLambertMaterial({ color: 0x800080, opacity:opacityVal, transparent:transparency, side: THREE.DoubleSide });
+var colour = 0x800080;
 
 const loader = new GLTFLoader();
 
 export function addTreeToScene(scene) {
-	loader.load('Assets/treeTextures/tree.glb',
+	loader.load('Assets/treeTextures/treeConfig3.glb',
 		function(tree) {
-			tree.scene.name = "tree";
+			tree.scene.name = "tree1";
 			tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(100, 100, 100);
 			// tree.scene.children[0].geometry.computeBoundingBox();
@@ -30,7 +30,7 @@ export function addTreeToScene(scene) {
 
 export function createObstacle(scene, MIN_Z) {
     const randomNum = Math.floor(Math.random() * 3) + 1;
-  
+    colour = Math.random() * 0xFFFFFF << 0;
     const z = MIN_Z;
     const x = 0;
     const y = 0;
@@ -51,8 +51,9 @@ export function createObstacle(scene, MIN_Z) {
     scene.add(obstacle);
   }
 
-export function ObstacleConfig1(x, y, z) {
+function ObstacleConfig1(x, y, z) {
     const obstacle = new THREE.Group();
+    const obstacleMaterial = new THREE.MeshLambertMaterial({ color: colour, opacity:opacityVal, transparent:transparency, side: THREE.DoubleSide });
 
     const box1 = new THREE.Mesh(new THREE.BoxGeometry(15, 10, 10), obstacleMaterial);
     obstacleBoundingBox = new THREE.Box3().setFromObject(box1);
@@ -78,8 +79,9 @@ export function ObstacleConfig1(x, y, z) {
     return obstacle;
 }
 
-export function ObstacleConfig2(x, y, z) {
+function ObstacleConfig2(x, y, z) {
     const obstacle = new THREE.Group();
+    const obstacleMaterial = new THREE.MeshLambertMaterial({ color: colour, opacity:opacityVal, transparent:transparency, side: THREE.DoubleSide });
 
     const box1 = new THREE.Mesh(new THREE.BoxGeometry(15, 10, 10), obstacleMaterial);
     obstacleBoundingBox = new THREE.Box3().setFromObject(box1);
@@ -105,8 +107,9 @@ export function ObstacleConfig2(x, y, z) {
     return obstacle;
 }
 
-export function ObstacleConfig3(x, y, z) {
+function ObstacleConfig3(x, y, z) {
     const obstacle = new THREE.Group();
+    const obstacleMaterial = new THREE.MeshLambertMaterial({ color: colour, opacity:opacityVal, transparent:transparency, side: THREE.DoubleSide });
   
     const box1 = new THREE.Mesh(new THREE.BoxGeometry(15, 24, 10), obstacleMaterial);
     obstacleBoundingBox = new THREE.Box3().setFromObject(box1);
