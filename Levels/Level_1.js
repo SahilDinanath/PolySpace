@@ -129,9 +129,5 @@ export function levelOne(scene,renderer,camera) {
 	bosses.bossTwo(camera, scene, renderer);
 	obstacles.animateObstacles(renderer, camera, scene, 2);
 
-
-
-
-
 }
 

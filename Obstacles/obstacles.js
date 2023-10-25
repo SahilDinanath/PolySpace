@@ -35,12 +35,18 @@ export function animateObstacles(renderer, camera, scene, speed) {
     if(!isPaused){
       for (let i = 0; i < obstacles.length; i++) {
         updateGroupBoundingBox(obstacles[i], i);
+
+        obstacles[i].traverse(function (node) {
+          if (node.isMesh) {
+            node.castShadow = true;
+          }
+        });
   
         if (obstacles[0].position.z > -15) {
           if(checkCollision()){
             console.log("Collision?");
             collisionDetected = true;
-            onDeath(scene);
+            //onDeath(scene);
             return;
           }
         }
@@ -66,7 +72,7 @@ export function animateObstacles(renderer, camera, scene, speed) {
     }
     requestAnimationFrame(animate);
   }
-  addTreeToScene(scene);
+  //addTreeToScene(scene);
   createObstacle(scene, MIN_Z);
   animate();
 }

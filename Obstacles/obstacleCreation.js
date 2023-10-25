@@ -5,8 +5,8 @@ export let obstaclesBoundingBoxes = [];
 export let obstacles = [];
 let obstacleBoundingBox;
 
-const opacityVal = 0.4;
-const transparency = true;
+const opacityVal = 0.6;
+const emissiveIntensity = 0.2;
 var colour = 0x800080;
 
 const loader = new GLTFLoader();
@@ -53,7 +53,7 @@ export function createObstacle(scene, MIN_Z) {
 
 function ObstacleConfig1(x, y, z) {
     const obstacle = new THREE.Group();
-    const obstacleMaterial = new THREE.MeshLambertMaterial({ color: colour, opacity:opacityVal, transparent:transparency, side: THREE.DoubleSide });
+    const obstacleMaterial = new THREE.MeshPhongMaterial({ color: colour, emissive: colour, emissiveIntensity: emissiveIntensity, opacity:opacityVal, transparent:true });
 
     const box1 = new THREE.Mesh(new THREE.BoxGeometry(15, 10, 10), obstacleMaterial);
     obstacleBoundingBox = new THREE.Box3().setFromObject(box1);
@@ -81,7 +81,7 @@ function ObstacleConfig1(x, y, z) {
 
 function ObstacleConfig2(x, y, z) {
     const obstacle = new THREE.Group();
-    const obstacleMaterial = new THREE.MeshLambertMaterial({ color: colour, opacity:opacityVal, transparent:transparency, side: THREE.DoubleSide });
+    const obstacleMaterial = new THREE.MeshPhongMaterial({ color: colour, emissive: colour, emissiveIntensity: emissiveIntensity, opacity:opacityVal, transparent:true });
 
     const box1 = new THREE.Mesh(new THREE.BoxGeometry(15, 10, 10), obstacleMaterial);
     obstacleBoundingBox = new THREE.Box3().setFromObject(box1);
@@ -109,7 +109,7 @@ function ObstacleConfig2(x, y, z) {
 
 function ObstacleConfig3(x, y, z) {
     const obstacle = new THREE.Group();
-    const obstacleMaterial = new THREE.MeshLambertMaterial({ color: colour, opacity:opacityVal, transparent:transparency, side: THREE.DoubleSide });
+    const obstacleMaterial = new THREE.MeshPhongMaterial({ color: colour, emissive: colour, emissiveIntensity: emissiveIntensity, opacity:opacityVal, transparent:true });
   
     const box1 = new THREE.Mesh(new THREE.BoxGeometry(15, 24, 10), obstacleMaterial);
     obstacleBoundingBox = new THREE.Box3().setFromObject(box1);
