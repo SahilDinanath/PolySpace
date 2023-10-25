@@ -82,9 +82,9 @@ export function levelTwo(scene, renderer, camera){
    // camera.rotateY(2);
     scene.add(camera);
     player.addPlayerToScene(scene);
-     ui.addMiniMapToScene(scene);
+    ui.addMiniMapToScene(scene);
     bosses.bossTwo(camera, scene, renderer);
-    obstacles.animateObstacles(renderer, camera, scene);
+    obstacles.animateObstacles(renderer, camera, scene, 4);
     scene.add(ambientLighting);
     scene.add(starField);
    // scene.add(sun);
@@ -114,13 +114,13 @@ export function levelTwo(scene, renderer, camera){
         earth.rotateY(0.01);
         clouds.rotateY(0.06);
         //make it seem as if spaceship is moving through the scene
-       earth.position.z += 0.1;
-       clouds.position.z += 0.1;
+        earth.position.z += 0.1;
+        clouds.position.z += 0.1;
         solar1.position.z += 1;
         solar2.position.z += 1;
         solar3.position.z += 1;
 
-       renderer.render(scene, camera);
+        renderer.render(scene, camera);
         requestAnimationFrame(animate);
     };
     animate();
