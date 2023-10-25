@@ -120,10 +120,10 @@ export function levelTwo(scene, renderer, camera){
         solar2.position.z += 1;
         solar3.position.z += 1;
 
-     //   renderer.render(scene, camera);
-       // requestAnimationFrame(animate);
+       renderer.render(scene, camera);
+        requestAnimationFrame(animate);
     };
-
+    animate();
     // Start the animation loop
 
 
