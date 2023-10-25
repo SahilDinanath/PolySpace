@@ -10,9 +10,15 @@ const obstacles = [];
 const obstaclesBoundingBoxes = [];
 let obstacleBoundingBox;
 
-const opacityVal = 0.4;
-const transparency = true;
-const obstacleMaterial = new THREE.MeshLambertMaterial({ color: 0x800080,opacity:opacityVal, transparent:transparency});
+const opacityVal = 0.6; //Adjust as needed
+const emissiveIntensity = 0.2; // Adjust the intensity as needed
+const obstacleMaterial = new THREE.MeshPhongMaterial({
+  color: 0x800080,
+  emissive: 0x800080, // Set the emissive color
+  emissiveIntensity: emissiveIntensity, // Adjust the intensity
+  opacity: opacityVal,
+  transparent: true
+});
 
 function createObstacle1(x, y, z) {
   const obstacle = new THREE.Group();
@@ -134,11 +140,23 @@ function checkCollision() {
 }
 
 let collided = false;
+let isPaused = false; // Add a flag to track the game's pause state
+
+export function setPauseState(pause) {
+  isPaused = pause; // Function to set the pause state
+}
 
 export function animateObstacles(renderer, camera, scene) {
   function animate() {
+    if(!isPaused){}
     for (let i = 0; i < obstacles.length; i++) {
       updateGroupBoundingBox(obstacles[i], i);
+
+      obstacles[i].traverse(function (node) {
+        if (node.isMesh) {
+          node.castShadow = true;
+        }
+      });
 
       if (obstacles[0].position.z > -15) {
         if(checkCollision()){
@@ -156,7 +174,7 @@ export function animateObstacles(renderer, camera, scene) {
       }
     }
 
-    if(obstacles[0].position.z == MIN_Z/5){
+    if(obstacles[0].position.z === MIN_Z/5){
       addObstaclesToScene(scene);
     }
 

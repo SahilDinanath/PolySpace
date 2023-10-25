@@ -29,7 +29,12 @@ export function addPlayerToScene(scene) {
 			player.scene.name = "player";
 			player.scene.receiveShadow = true;
 			//player.scene.castShadow = true;
-			player.scene.rotateY(Math.PI);
+			player.scene.traverse(function (node){
+				if(node.isMesh)
+					node.castShadow = true;
+			});
+
+			player.scene.rotation.y = Math.PI;
 			player.scene.children[0].geometry.computeBoundingBox();
 			playerBoundingBox = new THREE.Box3().setFromObject(player.scene);
 
@@ -51,23 +56,38 @@ export function keyboardMoveObject(scene) {
 
 	// update box helper to follow player object
 	// playerBoundingBox.update();
+	let tiltAngleZ = 0 ;
+	let tiltAngleX = 0;
 	if (playerMoving) {
 		keys.forEach((_, key) => {
 			if (key == 37) {
 				object.position.x -= object.position.x > -xMovementBounds ? speed : 0;
+				tiltAngleZ = -Math.PI / 8; // Adjust the angle as needed
+				object.rotation.z = tiltAngleZ;
 			}
 			else if (key == 38) {
 				object.position.y += object.position.y < yMovementBounds ? speed : 0;
+				tiltAngleX = Math.PI / 8; // Adjust the angle as needed
+				object.rotation.x = tiltAngleX;
 			}
 			else if (key == 39) {
 				object.position.x += object.position.x < xMovementBounds ? speed : 0;
+				tiltAngleZ = Math.PI / 8; // Adjust the angle as needed
+				object.rotation.z = tiltAngleZ;
 			}
 			else if (key == 40) {
 				object.position.y -= object.position.y > -yMovementBounds ? speed : 0;
+				tiltAngleX = -Math.PI / 8; // Adjust the angle as needed
+				object.rotation.x = tiltAngleX;
 			}
 		});
 	}
 	else {
+		tiltAngleZ = 0;
+		tiltAngleX = 0;
+		object.rotation.z = tiltAngleZ;
+		object.rotation.x = tiltAngleX;
+
 		if (object.position.x != 0 || object.position.y != 0) {
 			if (object.position.x > 0) {
 				object.position.x -= speed / 2;

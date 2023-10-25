@@ -8,7 +8,7 @@ import * as skybox from '../Background/daySkyBox.js';
 
 export function levelThree(scene, renderer, camera) {
 	//sets up lighting 
-	const ambientLighting = new THREE.AmbientLight("white", 2);
+	const ambientLighting = new THREE.AmbientLight("white", 0.5);
 	scene.add(ambientLighting);
 
 	//sets up objects in scene
@@ -28,7 +28,7 @@ export function levelThree(scene, renderer, camera) {
 
 	//adds earth to scene with lighting with respect to the sun
 	let earthTexture = '../Assets/earthTextures/GroundGrassGreen002/GroundGrassGreen002_COL_2K.jpg';
-	earth.addSphereToScene(scene, earthTexture);
+	let earthObject  = earth.addSphereToScene(scene, earthTexture);
 	addSunLightingToScene(scene);
 }
 
@@ -47,7 +47,10 @@ export function updateDirectionalLighting(scene) {
 function addSunLightingToScene(scene) {
 	const dl = new THREE.DirectionalLight(0xffffff, 3);
 	dl.castShadow = true;
-	dl.position.set(0, 100, -300);
+
+	dl.shadow.mapSize.width = 1024;
+	dl.shadow.mapSize.height = 1024;
+	//dl.position.set(0, 100, -300);
 	dl.name = "sun";
 	scene.add(dl);
 }

@@ -72,29 +72,6 @@ var moonMaterial = new THREE.MeshPhongMaterial({
 });
 var moon = new THREE.Mesh(moonGeometry, moonMaterial);
 moon.position.set(-35,10,-600);
-//group.add(moon);
-
-
-
-
-
-
-//Render loop
-// var animateLevelTwo = function(camera, scene, renderer,controls) {
-//     earth.rotation.y += .0009;
-//     clouds.rotation.y += .00005;
-//     sun.rotation.y += 0.0001;
-//     //moon.rotation.y += 0.005;
-//
-//     //Moon orbit
-//     theta += dTheta;
-//     moon.position.x = r * Math.cos(theta);
-//     moon.position.z = r * Math.sin(theta);
-//
-//    // controls.update();
-//     renderer.render(scene, camera);
-//     requestAnimationFrame(animateLevelTwo);
-// };
 
 
 export function levelTwo(scene, renderer, camera){
@@ -143,12 +120,11 @@ export function levelTwo(scene, renderer, camera){
         solar2.position.z += 1;
         solar3.position.z += 1;
 
-        renderer.render(scene, camera);
+       renderer.render(scene, camera);
         requestAnimationFrame(animate);
     };
-
-    // Start the animation loop
     animate();
+    // Start the animation loop
 
 
 }
