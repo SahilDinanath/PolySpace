@@ -7,6 +7,8 @@ import * as world from "/Levels/levels.js";
 import * as planet from "/Planets/worldGenerator.js";
 import * as skybox from  './Background/daySkyBox.js'; 
 import {  createStars, animateStars, animateDirectionalLight } from './Background/Background.js';
+import * as obstacles from "./Obstacles/obstacles";
+
 
 const scene = new THREE.Scene();
 //sets up renderer/screen
@@ -41,20 +43,19 @@ let isPaused = false;
 
 
 // Your animation code here
-function animate() {
+function animate(level2Stuff) {
 	if (!isPaused) {
 		requestAnimationFrame(animate);
 		player.keyboardMoveObject(scene);
 		player.updateParticleSystem();
+		//obstacles.animateObstacles(renderer, camera, scene);
 
 		checkGameCondition(scene);
 		ui.updateMiniMap(scene);
 
 		//stuff for level 3, don't worry it won't affect anything if not necessary as it checks if level 3 is selected
 		skybox.updateSkyBox();
-
 		planet.rotateSphere(scene);
-
 		//world.updateDirectionalLighting(scene);
 
 		renderer.render(scene, camera);
@@ -102,12 +103,14 @@ function resumeAnimation() {
 }
 
 // Listen for the space key press event to pause or resume game
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
 	if (event.key === ' ') { // ' ' represents the space key
-		if (isPaused) {
+		if (isPaused && (level3 || level2 || level1)) {
 			resumeAnimation();
-		} else {
+
+		} else if (!isPaused && (level3 || level2 || level1)) {
 			pauseAnimation();
+
 		}
 	}
 });
@@ -124,9 +127,11 @@ function clearScene() {
 }
 
 //spawn level depending on button click 
-animate();
+//animate();
+let pauseObstacles;
 ui.levelOneButton.onclick = function() {
 	level1 = true;
+
 	/*sound can only play if user clicks somewhere on the screen, 
 	 * this is a design by google/firefox, this plays the song in case the user never clicked anywhere on screen*/
 	music.enableSound();
@@ -137,6 +142,7 @@ ui.levelOneButton.onclick = function() {
 
 ui.levelTwoButton.onclick = function() {
 	level2 = true;
+
 	ui.disableStartScreen();
 	world.levelTwo(scene, renderer, camera);
 	//createStars(scene);
@@ -146,9 +152,10 @@ ui.levelTwoButton.onclick = function() {
 
 ui.levelThreeButton.onclick = function() {
 	level3 = true;
+
 	ui.disableStartScreen();
-	world.levelThree(scene, renderer, camera);
-	animate();
+	let level2Stuff = world.levelThree(scene, renderer, camera);
+	animate(level2Stuff);
 }
 
 ui.nextButton.onclick = function() {
@@ -167,7 +174,8 @@ ui.nextButton.onclick = function() {
 }
 
 ui.resumeButton.onclick = function() {
-	//TODO: resume game on keyboard pause
+	resumeAnimation();
+	pauseObstacles(false); // Resume obstacles
 }
 
 ui.returnButton.onclick = function() {

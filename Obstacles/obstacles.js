@@ -135,8 +135,15 @@ function checkCollision() {
   }
 }
 
+let isPaused = false; // Add a flag to track the game's pause state
+
+export function setPauseState(pause) {
+  isPaused = pause; // Function to set the pause state
+}
+
 export function animateObstacles(renderer, camera, scene) {
   function animate() {
+    if(!isPaused){}
     for (let i = 0; i < obstacles.length; i++) {
       updateGroupBoundingBox(obstacles[i], i);
 
@@ -161,7 +168,7 @@ export function animateObstacles(renderer, camera, scene) {
       }
     }
 
-    if(obstacles[0].position.z == MIN_Z/5){
+    if(obstacles[0].position.z === MIN_Z/5){
       addObstaclesToScene(scene);
     }
 
