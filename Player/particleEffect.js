@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 //particle system
 var movementSpeed = 0.5;
-var totalObjects = 250;
+var totalObjects = 2000;
 var objectSize = 0.3;
 var colors = [0xFF0000];
 var dirs = [];
@@ -22,7 +22,7 @@ function ExplodeAnimation(x, y, z, scene) {
 		dirs.push({ x: (Math.random() * movementSpeed) - (movementSpeed / 2), y: (Math.random() * movementSpeed) - (movementSpeed / 2), z: (Math.random() * movementSpeed) - (movementSpeed / 2) });
 	}
 	geometry.setFromPoints(points);
-	var material = new THREE.PointsMaterial({ size: objectSize, color: colors[Math.round(Math.random() * colors.length)] });
+	var material = new THREE.PointsMaterial({ size: objectSize, color: colors[0] });
 	var particles = new THREE.Points(geometry, material);
 
 	this.object = particles;
