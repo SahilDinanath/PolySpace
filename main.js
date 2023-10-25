@@ -40,7 +40,7 @@ var level2 = false;
 var level3 = false;
 
 // Define a variable to track the animation state
-let isPaused = false;
+export let isPaused = false;
 
 
 createStars(scene);
