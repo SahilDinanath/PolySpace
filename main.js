@@ -6,6 +6,8 @@ import * as music from '/Music/musicController.js';
 import * as world from "/Levels/levels.js";
 import * as planet from "/Planets/worldGenerator.js";
 import * as skybox from  './Background/daySkyBox.js'; 
+import * as collisions from './Obstacles/obstacles.js';
+
 import {  createStars, animateStars, animateDirectionalLight } from './Background/Background.js';
 
 const scene = new THREE.Scene();
@@ -25,7 +27,8 @@ scene.add(camera);
 
 
 //sets up sound, sound needs to be set up before the world is setup as it runs during the login page
-music.setInGameSound()
+
+music.setInGameSound();
 
 //Add orbit control
 var controls = new OrbitControls(camera, renderer.domElement);
@@ -47,7 +50,6 @@ function animate() {
 		player.updateParticleSystem();
 
 		checkGameCondition(scene);
-		ui.updateMiniMap(scene);
 
 		//stuff for level 3, don't worry it won't affect anything if not necessary as it checks if level 3 is selected
 		skybox.updateSkyBox();
@@ -67,10 +69,17 @@ function checkGameCondition(scene) {
 		return;
 	//TODO:
 	//on player collision, show death screen and pause game
+	if(collisions.hasCollided()){
+		player.onDeath(scene); 
+		ui.enableLoseScreen();
+		return;
+	}
 	if (scene.getObjectByName('minimap_icon').position.x > 20) {
 		ui.enableWinScreen();
+		return;
+	}else{
+		ui.updateMiniMap(scene);
 	}
-
 }
 
 
@@ -128,7 +137,6 @@ ui.levelOneButton.onclick = function() {
 	level1 = true;
 	/*sound can only play if user clicks somewhere on the screen, 
 	 * this is a design by google/firefox, this plays the song in case the user never clicked anywhere on screen*/
-	music.enableSound();
 	ui.disableStartScreen();
 	world.levelOne(scene, renderer, camera);
 	animate();
@@ -150,41 +158,41 @@ ui.levelThreeButton.onclick = function() {
 	animate();
 }
 
-ui.nextButton.onclick = function() {
-	clearScene();
-	ui.disableButtons();
-	if (level1) {
-		level1 = false;
-		world.levelOne(scene, renderer, camera);
-		animate();
-	}
-	if (level2) {
-		level2 = false;
-		world.levelTwo(scene, renderer, camera);
-		animate();
-	}
-}
-
-ui.resumeButton.onclick = function() {
-	//TODO: resume game on keyboard pause
-}
+// ui.nextButton.onclick = function() {
+// 	clearScene();
+// 	ui.disableButtons();
+// 	if (level1) {
+// 		level1 = false;
+// 		world.levelOne(scene, renderer, camera);
+// 		animate();
+// 	}
+// 	else if (level2) {
+// 		level2 = false;
+// 		world.levelTwo(scene, renderer, camera);
+// 		animate();
+// 	}
+// }
+//
+// ui.resumeButton.onclick = function() {
+// 	//TODO: resume game on keyboard pause
+// }
 
 ui.returnButton.onclick = function() {
 
 	window.location.reload(); // This will reload the page
 }
 
-ui.restartButton.onclick = function() {
-	clearScene();
-	ui.disableButtons();
-	if (level1) {
-		world.levelOne(scene, renderer, camera);
-	}
-	if (level2) {
-
-		world.levelTwo(scene, renderer, camera);
-	}
-	if (level3) {
-		world.levelThree(scene, renderer, camera);
-	}
-}
+// ui.restartButton.onclick = function() {
+// 	clearScene();
+// 	ui.disableButtons();
+// 	if (level1) {
+// 		world.levelOne(scene, renderer, camera);
+// 	}
+// 	if (level2) {
+//
+// 		world.levelTwo(scene, renderer, camera);
+// 	}
+// 	if (level3) {
+// 		world.levelThree(scene, renderer, camera);
+// 	}
+// }

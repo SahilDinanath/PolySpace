@@ -133,6 +133,8 @@ function checkCollision() {
   }
 }
 
+let collided = false;
+
 export function animateObstacles(renderer, camera, scene) {
   function animate() {
     for (let i = 0; i < obstacles.length; i++) {
@@ -140,6 +142,7 @@ export function animateObstacles(renderer, camera, scene) {
 
       if (obstacles[0].position.z > -15) {
         if(checkCollision()){
+          collided= true;
           console.log("Collision?");
           return;
         }
@@ -169,3 +172,10 @@ export function animateObstacles(renderer, camera, scene) {
   addObstaclesToScene(scene);
   animate();
 }
+
+export function hasCollided() {
+  if(collided){
+        return true;
+  }
+}
+

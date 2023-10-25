@@ -85,6 +85,7 @@ export function keyboardMoveObject(scene) {
 
 //on player death delete the player and spawn particles
 export function onDeath(scene) {
+	if(scene.getObjectByName("player") == undefined) return;
 	let player = scene.getObjectByName("player");
 
 	particle.createNewParticleSystem(player.position.x, player.position.y, player.position.z, scene);
