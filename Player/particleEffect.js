@@ -2,8 +2,8 @@ import * as THREE from 'three';
 //particle system
 var movementSpeed = 0.5;
 var totalObjects = 250;
-var objectSize = 0.1;
-var colors = [0xFFFFFF];
+var objectSize = 0.3;
+var colors = [0xFF0000];
 var dirs = [];
 var parts = [];
 var points = [];

@@ -24,6 +24,7 @@ function addMiniMap(){
 	
 	//adjust scale and position of circle on bar
 	circle.position.x = -20;
+	circle.position.z = 0.1;
 	circle.scale.x = 0.1;
 	circle.scale.y = 0.1;
 

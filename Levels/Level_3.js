@@ -15,8 +15,15 @@ export function levelThree(scene, renderer, camera) {
 	player.addPlayerToScene(scene);
 	player.setPlayerSpeed(0.7);
 	ui.addMiniMapToScene(scene);
+	
+	//sets up boss in scene
 	bosses.bossTwo(camera, scene, renderer);
+	let bossTwo = scene.getObjectByName("bossTwo");
+	bossTwo.position.setY(25);
+	bossTwo.scale.set(7,7,7);
+
 	obstacles.animateObstacles(renderer, camera, scene);
+
 	skybox.initSky(scene, renderer, camera);
 
 	//adds earth to scene with lighting with respect to the sun

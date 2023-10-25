@@ -85,9 +85,11 @@ export function bossThree(camera, scene, renderer) {
     let tetrahedron2 = new THREE.Mesh(tetGeometry, tetMaterial);
     tetrahedron2.rotation.z = Math.PI / 2;
     let group = new THREE.Group();
+    group.name = 'bossThree';
     group.add(tetrahedron);
     group.add(tetrahedron2);
     scene.add(group);
+
 
     var animate = function () {
         group.rotation.x += 0.05;
@@ -134,6 +136,7 @@ export function bossTwo(camera, scene, renderer) {
 
     // Rotate the entire group (e.g., the scene)
     let group = new THREE.Group();
+    group.name = 'bossTwo';
     group.position.z =  -350; 
     group.add(octahedron);
     group.add(torus);
@@ -182,6 +185,7 @@ export function bossOne(camera, scene, renderer) {
 
     // Rotate the entire group (e.g., the scene)
     let group = new THREE.Group();
+    group.name = "bossOne";
     group.add(octahedron);
     group.add(octahedron2);
     group.add(octahedron3);

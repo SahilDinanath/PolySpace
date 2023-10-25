@@ -139,6 +139,7 @@ function checkCollision() {
   }
 }
 
+let collided = false;
 let isPaused = false; // Add a flag to track the game's pause state
 
 export function setPauseState(pause) {
@@ -159,6 +160,7 @@ export function animateObstacles(renderer, camera, scene) {
 
       if (obstacles[0].position.z > -15) {
         if(checkCollision()){
+          collided= true;
           console.log("Collision?");
           return;
         }
@@ -188,3 +190,10 @@ export function animateObstacles(renderer, camera, scene) {
   addObstaclesToScene(scene);
   animate();
 }
+
+export function hasCollided() {
+  if(collided){
+        return true;
+  }
+}
+
