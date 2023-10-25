@@ -3,10 +3,13 @@ import * as THREE from 'three';
 
 
 const starsArray = [];
-const starCount = 700;
-const starStartZ = -500;
+const starCount = 3000;
+const starStartZ = -30;
 const starStartY = 80;
 const starStartX = 80;
+
+let starGroup = new THREE.Group();
+starGroup.name = "starField";
 
 function createStar(scene) {
   const starGeometry = new THREE.BufferGeometry();
@@ -14,11 +17,11 @@ function createStar(scene) {
 
   positions[0] = 0;
   positions[1] = 0;
-  positions[2] = 10;
+  positions[2] = 20;
 
   positions[3] = 0;
   positions[4] = 0;
-  positions[5] = -1; // Extend the line in the negative z-direction
+  positions[5] = -2; // Extend the line in the negative z-direction
 
   starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
@@ -31,15 +34,16 @@ function createStar(scene) {
   // Randomize the star's position
   star.position.x = (Math.random() - 0.5) * starStartX;
   star.position.y = (Math.random() - 0.5) * starStartY;
-  star.position.z = starStartZ - Math.random() * 500; // Start behind the camera
+  star.position.z = starStartZ - Math.random() * 50; // Start behind the camera
   //light.position.x = star.position.x;
  // light.position.y = star.position.y;
  // light.position.z = star.position.z;
 
   // Randomize the star's speed
-  star.speed = 0.01 + Math.random() * 0.1;
-
-  scene.add(star);
+  star.speed = 0.3 + Math.random() * 0.1;
+  star.name = "star";
+  
+  starGroup.add(star);
   //scene.add(light);
 
   starsArray.push(star);
@@ -50,26 +54,29 @@ function createStars(scene) {
   for (let i = 0; i < starCount; i++) {
     createStar(scene);
   }
+  scene.add(starGroup);
 }
 
-function animateStars() {
+function animateStars(scene) {
+  if(scene.getObjectByName("starField") == undefined)return;
+  
   for (let i = 0; i < starsArray.length; i++) {
     const star = starsArray[i];
     star.position.z += star.speed;
 
     // Reset star position to create a loop
     if (star.position.z > 0) {
-      star.position.z = starStartZ - Math.random() * 10;
+      star.position.z = starStartZ - Math.random() * 100;
     }
   }
 }
 
 // Create ambient light with a color similar to the starfield
-const ambientLight = new THREE.AmbientLight(0x101010); // Adjust the color as needed
+//const ambientLight = new THREE.AmbientLight(0x101010); // Adjust the color as needed
 //scene.add(ambientLight);
 
-var directionalLight = new THREE.DirectionalLight(0xffffff, 10);
-directionalLight.position.set(0, 1, 0);
+//var directionalLight = new THREE.DirectionalLight(0xffffff, 10);
+//directionalLight.position.set(0, 1, 0);
 //scene.add(directionalLight);
 
 var lightRotation = 0;
