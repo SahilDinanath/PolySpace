@@ -10,7 +10,7 @@ const obstacles = [];
 const obstaclesBoundingBoxes = [];
 let obstacleBoundingBox;
 
-const opacityVal = 0.6;
+const opacityVal = 0.6; //Adjust as needed
 const emissiveIntensity = 0.2; // Adjust the intensity as needed
 const obstacleMaterial = new THREE.MeshPhongMaterial({
   color: 0x800080,
