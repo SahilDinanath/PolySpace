@@ -28,7 +28,6 @@ camera.position.y = 2;
 
 scene.add(camera);
 
-
 //sets up sound, sound needs to be set up before the world is setup as it runs during the login page
 
 music.setInGameSound();
@@ -44,9 +43,11 @@ var level3 = false;
 let isPaused = false;
 
 
-
+createStars(scene);
+renderer.render(scene, camera);
 // Your animation code here
 function animate(level2Stuff) {
+	animateStars(scene); //for level 2
 	if (!isPaused) {
 		requestAnimationFrame(animate);
 		player.keyboardMoveObject(scene);
@@ -61,9 +62,7 @@ function animate(level2Stuff) {
 		//world.updateDirectionalLighting(scene);
 
 		renderer.render(scene, camera);
-		//animateStars(); //for level 2
 	}
-
 }
 
 function checkGameCondition(scene) {
@@ -144,12 +143,18 @@ ui.levelOneButton.onclick = function() {
 	/*sound can only play if user clicks somewhere on the screen, 
 	 * this is a design by google/firefox, this plays the song in case the user never clicked anywhere on screen*/
 	ui.disableStartScreen();
+
+	scene.remove(scene.getObjectByName("starField"));
+
 	world.levelOne(scene, renderer, camera);
 	animate();
 }
 
 ui.levelTwoButton.onclick = function() {
 	level2 = true;
+
+	
+	scene.remove(scene.getObjectByName("starField"));
 
 	ui.disableStartScreen();
 	world.levelTwo(scene, renderer, camera);
@@ -160,6 +165,8 @@ ui.levelTwoButton.onclick = function() {
 
 ui.levelThreeButton.onclick = function() {
 	level3 = true;
+
+	scene.remove(scene.getObjectByName("starField"));
 
 	ui.disableStartScreen();
 	let level2Stuff = world.levelThree(scene, renderer, camera);
@@ -206,3 +213,11 @@ ui.returnButton.onclick = function() {
 // 		world.levelThree(scene, renderer, camera);
 // 	}
 // }
+
+
+
+
+
+
+//used to animate the stars on loading screen
+animate();
