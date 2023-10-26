@@ -5,6 +5,20 @@ import * as THREE from 'three';
 const yMovementBounds = 16;
 const xMovementBounds = 16;
 let playerMoving = false;
+
+export let leftHeadlight, rightHeadlight;
+
+// Load and create left headlight
+leftHeadlight = new THREE.SpotLight(0xffffff, 1000, 0, Math.PI/2, 0,1);
+leftHeadlight.castShadow = true;
+
+
+// Load and create right headlight
+rightHeadlight = new THREE.SpotLight(0xffffff, 1000, 0, Math.PI/2, 0,1);
+rightHeadlight.castShadow = true;
+
+
+
 export let playerBoundingBox;
 let speed = 0.5;
 //user input for player movement
@@ -41,6 +55,17 @@ export function addPlayerToScene(scene, firstPersonCam) {
 			// this is to make a bounding box visible but does not work with collision detection
 			// playerBoundingBox = new THREE.BoxHelper(player.scene, 0xff0000);
 			// scene.add(playerBoundingBox);
+
+			//leftHeadlight.rotation.y = Math.PI ;
+			// Add left headlight to the player object
+			leftHeadlight.position.set(-2, 0, 0); // Adjust the position relative to the player model
+			//player.scene.add(leftHeadlight);
+
+
+			// Add right headlight to the player object
+			rightHeadlight.position.set(2, 0, 0); // Adjust the position relative to the player model
+			//rightHeadlight.rotation.y = Math.PI;
+			//player.scene.add(rightHeadlight);
 
 			scene.add(player.scene);
 		});

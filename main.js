@@ -210,6 +210,7 @@ document.addEventListener('keydown', function (event) {
 
 // Define a function to clear the scene
 function clearScene() {
+	ui.disableButtons();
 	// Remove all objects from the scene
 	while (scene.children.length > 0) {
 		scene.remove(scene.children[0]);
@@ -286,18 +287,24 @@ ui.returnButton.onclick = function() {
 
 //TODO: fix restart
 
-// ui.restartButton.onclick = function() {
-// 	clearScene();
-// 	ui.disableButtons();
-// 	if (level1) {
-// 		world.levelOne(scene, renderer, camera);
-// 	}
-// 	if (level2) {
-//
-// 		world.levelTwo(scene, renderer, camera);
-// 	}
-// 	if (level3) {
-// 		world.levelThree(scene, renderer, camera);
-// 	}
-// }
+ui.restartButton.onclick = function() {
+	ui.disableButtons();
+	clearScene();
+	canPause = true;
+	isPaused = false;
+	if (level1) {
+		world.levelOne(scene, renderer, camera);
+
+	}
+	if (level2) {
+
+		world.levelTwo(scene, renderer, camera);
+	}
+	if (level3) {
+		world.levelThree(scene, renderer, camera);
+	}
+	animate();
+	// Start the animation
+
+}
 

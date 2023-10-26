@@ -132,7 +132,7 @@ export function rotateRover(scene) {
 	const object = scene.getObjectByName("rover");
 	if (object === undefined)
 		return;
-	//object.rotation.x -= 0.0001;
+	object.rotation.x -= 0.0001;
 	object.position.z += 0.0001;
 }
 

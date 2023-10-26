@@ -29,7 +29,7 @@ export function enableStartScreen(){
 	levelThreeButton.hidden = false;
 	title.hidden = false;
 	nextButton.style.display = 'none';
-	restartButton.style.display = 'none';
+	//restartButton.style.display = 'none';
 	returnButton.style.display = 'none';
 	resumeButton.style.display = 'none';
 }
@@ -45,7 +45,7 @@ export  function  enablePauseScreen(){
 export  function  disableButtons(){
 	title.hidden = true;
 	returnButton.style.display = 'none';
-	restartButton.style.display = 'none';
+	//restartButton.style.display = 'none';
 	resumeButton.style.display = 'none';
 	nextButton.style.display = 'none';
 }
@@ -54,7 +54,7 @@ export function enableWinScreen(){
 	title.hidden = false;
 	title.textContent = "YOU WIN!";
 	returnButton.style.display = 'block';
-	restartButton.style.display = 'block';
+	//restartButton.style.display = 'block';
 	nextButton.style.display = 'block';
 }
 
@@ -63,7 +63,7 @@ export function enableLoseScreen(){
 	title.hidden = false;
 	title.textContent = "YOU LOSE! Better luck next time."
 	returnButton.style.display = 'block';
-	restartButton.style.display = 'block';
+	//restartButton.style.display = 'block';
 }
 
 
