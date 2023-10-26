@@ -32,6 +32,7 @@ camera.name = "initialCamera";
 // camera.position.z = 30;
 // camera.position.y = 2;
 scene.add(initialCamera);
+var initCam = true;
 
 let cameraTOP = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000);
 cameraTOP.name = "OverheadCam";
@@ -50,7 +51,7 @@ scene.add(firstPersonCamera);
 music.setInGameSound();
 
 //Add orbit control
-//svar controls = new OrbitControls(camera, renderer.domElement);
+//var controls = new OrbitControls(camera, renderer.domElement);
 
 var level1 = false;
 var level2 = false;
@@ -73,7 +74,8 @@ function onWindowResize() {
 	cameraTOP.aspect = insetWidth/ insetHeight;
 	cameraTOP.updateProjectionMatrix();
 
-
+	initialCamera.aspect = window.innerWidth / window.innerHeight;
+	initialCamera.updateProjectionMatrix();
 	//renderer.render(scene, camera);
 }
 
@@ -86,9 +88,10 @@ onWindowResize();
 
 function  render(){
 	renderer.setViewport(0,0, window.innerWidth, window.innerHeight);
-	if(firstPersonActive){
+	if(firstPersonActive) {
 		renderer.render(scene, firstPersonCamera);
-	}else{
+	}
+	else{
 		renderer.render(scene, camera);
 	}
 
@@ -119,8 +122,8 @@ function  render(){
 
 // Your animation code here
 function animate() {
+	animateStars();
 	if (!isPaused) {
-
 		player.keyboardMoveObject(scene, firstPersonCamera);
 		player.updateParticleSystem();
 		//obstacles.animateObstacles(renderer, camera, scene);
@@ -138,7 +141,6 @@ function animate() {
 	}
 	requestAnimationFrame(animate);
 	render();
-	//update();
 }
 
 function checkGameCondition(scene) {
@@ -219,7 +221,7 @@ function clearScene() {
 ui.levelOneButton.onclick = function() {
 	canPause = true;
 	level1 = true;
-
+	initCam = false;
 	/*sound can only play if user clicks somewhere on the screen, 
 	 * this is a design by google/firefox, this plays the song in case the user never clicked anywhere on screen*/
 	ui.disableStartScreen();
@@ -233,6 +235,7 @@ ui.levelOneButton.onclick = function() {
 ui.levelTwoButton.onclick = function() {
 	level2 = true;
 	canPause = true;
+	initCam = false;
 	
 	scene.remove(scene.getObjectByName("starField"));
 
@@ -246,6 +249,7 @@ ui.levelTwoButton.onclick = function() {
 ui.levelThreeButton.onclick = function() {
 	level3 = true;
 	canPause = true;
+	initCam = false;
 	scene.remove(scene.getObjectByName("starField"));
 
 	ui.disableStartScreen();
@@ -279,6 +283,7 @@ ui.returnButton.onclick = function() {
 	window.location.reload(); // This will reload the page
 }
 
+
 //TODO: fix restart
 
 ui.restartButton.onclick = function() {
@@ -311,11 +316,4 @@ ui.backButton.onclick = function(){
 }
 
 createStars(scene);
-function animateStart(){
-	animateStars(); //start screen
-	requestAnimationFrame(animateStart);
-	renderer.render(scene, initialCamera);
-}
-
-animateStart();
-//animate();
+animate();

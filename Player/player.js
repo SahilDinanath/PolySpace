@@ -128,7 +128,7 @@ export function keyboardMoveObject(scene, firstPersonCamera) {
 	}
 	firstPersonCamera.position.x = object.position.x;
 	firstPersonCamera.position.y = object.position.y;
-	firstPersonCamera.position.z = object.position.z - 6;
+	firstPersonCamera.position.z = object.position.z - 5;
 
 };
 
