@@ -37,7 +37,7 @@ export function enableStartScreen(){
 export  function  enablePauseScreen(){
 	title.hidden = false;
 	returnButton.style.display = 'block';
-	restartButton.style.display = 'block';
+	//restartButton.style.display = 'block';
 	resumeButton.style.display = 'block';
 }
 
