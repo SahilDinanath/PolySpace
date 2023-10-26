@@ -10,7 +10,7 @@ import * as collisions from './Obstacles/obstacles.js';
 
 import { createStars, animateStars, animateDirectionalLight } from './Background/Background.js';
 import * as obstacles from "./Obstacles/obstacles";
-import { animateLevel2, rotateRover } from "/Levels/levels.js";
+
 
 let insetWidth, insetHeight;
 
@@ -139,8 +139,7 @@ function animate() {
 		planet.rotateSphere(scene);
 		//world.updateDirectionalLighting(scene);
 
-		animateLevel2(); //for level 2
-		rotateRover(scene);
+
 
 	}
 	requestAnimationFrame(animate);
@@ -168,8 +167,6 @@ function checkGameCondition(scene) {
 		ui.updateMiniMap(scene);
 	}
 }
-
-
 
 // Function to pause the animation
 function pauseAnimation() {

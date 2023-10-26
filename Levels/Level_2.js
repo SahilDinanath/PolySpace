@@ -115,21 +115,25 @@ export function levelTwo(scene, renderer, camera){
     solar3.position.x  =  80;
     scene.add(solar3);
 
+    var animate = function (){
+        earth.rotateY(0.01);
+        clouds.rotateY(0.06);
+        //make it seem as if spaceship is moving through the scene
+        earth.position.z += 0.1;
+        clouds.position.z += 0.1;
+        if (solar1) {
+            solar1.position.z += 1;
+        }
+        if (solar2) {
+            solar2.position.z += 1;
+        }
+        if (solar3) {
+            solar3.position.z += 1;
+        }
+        requestAnimationFrame(animate);
+    }
+
+    animate();
 }
 
-export function animateLevel2(){
-    earth.rotateY(0.01);
-    clouds.rotateY(0.06);
-    //make it seem as if spaceship is moving through the scene
-    earth.position.z += 0.1;
-    clouds.position.z += 0.1;
-    if (solar1) {
-        solar1.position.z += 1;
-    }
-    if (solar2) {
-        solar2.position.z += 1;
-    }
-    if (solar3) {
-        solar3.position.z += 1;
-    }
-}
+
