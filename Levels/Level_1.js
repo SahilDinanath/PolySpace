@@ -9,7 +9,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 //Stars
 var starGeometry = new THREE.SphereGeometry(5000, 50, 50);
 var starMaterial = new THREE.MeshPhongMaterial({
-	map: new THREE.TextureLoader().load("/Assets/images/galaxy_starfield.png"),
+	map: new THREE.TextureLoader().load("/Assets/img/galaxy_starfield.png"),
 	side: THREE.DoubleSide,
 	transparent:true,
 	shininess: 0
@@ -62,7 +62,7 @@ for (let i = 0; i < particlesCount; i++) {
 	 new THREE.BufferAttribute(vertices, 3)
  )
 
-const particleTexture = new  THREE.TextureLoader().load('/Assets/images/star.png');
+const particleTexture = new  THREE.TextureLoader().load('/Assets/img/star.png');
 
 const particleMaterial = new THREE.PointsMaterial({
 	map: particleTexture,
@@ -72,7 +72,7 @@ const particleMaterial = new THREE.PointsMaterial({
 
 const stars = new THREE.Points(particlesGeometry, particleMaterial);
 
-let moonTexture = "/Assets/images/asteroid.jpg";
+let moonTexture = "/Assets/img/moon4k.jpg";
 
 const loader = new GLTFLoader();
 function addApollo(scene, sphere) {
@@ -123,7 +123,8 @@ export function levelOne(scene,renderer,camera) {
 	scene.add(sunLight);
 	//sets up objects in scene
 	player.addPlayerToScene(scene);
-	let moonD = moon.addSphereToScene(scene,moonTexture);
+	let wrap = false
+	let moonD = moon.addSphereToScene(scene,moonTexture,wrap);
 	//addApollo(scene, moonD);
 	ui.addMiniMapToScene(scene);
 	bosses.bossTwo(camera, scene, renderer);

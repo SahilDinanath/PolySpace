@@ -28,7 +28,8 @@ export function levelThree(scene, renderer, camera) {
 
 	//adds earth to scene with lighting with respect to the sun
 	let earthTexture = '../Assets/earthTextures/GroundGrassGreen002/GroundGrassGreen002_COL_2K.jpg';
-	let earthObject  = earth.addSphereToScene(scene, earthTexture);
+	let wrap = true;
+	let earthObject  = earth.addSphereToScene(scene, earthTexture, wrap);
 	addSunLightingToScene(scene);
 }
 

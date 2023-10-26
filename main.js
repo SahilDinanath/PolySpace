@@ -46,7 +46,7 @@ export let isPaused = false;
 createStars(scene);
 renderer.render(scene, camera);
 // Your animation code here
-function animate(level2Stuff) {
+function animate() {
 	animateStars(scene); //for level 2
 	if (!isPaused) {
 		requestAnimationFrame(animate);
@@ -169,8 +169,8 @@ ui.levelThreeButton.onclick = function() {
 	scene.remove(scene.getObjectByName("starField"));
 
 	ui.disableStartScreen();
-	let level2Stuff = world.levelThree(scene, renderer, camera);
-	animate(level2Stuff);
+	world.levelThree(scene, renderer, camera);
+	animate();
 }
 
 
