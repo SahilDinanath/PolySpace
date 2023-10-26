@@ -43,13 +43,13 @@ var level3 = false;
 export let isPaused = false;
 
 
-createStars(scene);
-renderer.render(scene, camera);
+
+//renderer.render(scene, camera);
 // Your animation code here
 function animate() {
-	animateStars(scene); //for level 2
+	//createStars(scene);
+	//animateStars(scene); //start screen
 	if (!isPaused) {
-		requestAnimationFrame(animate);
 		player.keyboardMoveObject(scene);
 		player.updateParticleSystem();
 		//obstacles.animateObstacles(renderer, camera, scene);
@@ -61,8 +61,9 @@ function animate() {
 		planet.rotateSphere(scene);
 		//world.updateDirectionalLighting(scene);
 
-		renderer.render(scene, camera);
 	}
+	renderer.render(scene, camera);
+	requestAnimationFrame(animate);
 }
 
 function checkGameCondition(scene) {
@@ -173,6 +174,7 @@ ui.levelThreeButton.onclick = function() {
 	animate();
 }
 
+//TODO: fix next
 
 ui.nextButton.onclick = function() {
 	clearScene();
@@ -199,6 +201,8 @@ ui.returnButton.onclick = function() {
 	window.location.reload(); // This will reload the page
 }
 
+//TODO: fix restart
+
 // ui.restartButton.onclick = function() {
 // 	clearScene();
 // 	ui.disableButtons();
@@ -214,10 +218,3 @@ ui.returnButton.onclick = function() {
 // 	}
 // }
 
-
-
-
-
-
-//used to animate the stars on loading screen
-animate();

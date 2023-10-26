@@ -58,7 +58,8 @@ function createStars(scene) {
 }
 
 function animateStars(scene) {
-  if(scene.getObjectByName("starField") == undefined)return;
+  if(scene.getObjectByName("starField") === undefined)
+    return;
   
   for (let i = 0; i < starsArray.length; i++) {
     const star = starsArray[i];

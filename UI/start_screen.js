@@ -54,8 +54,8 @@ export function enableWinScreen(){
 	title.hidden = false;
 	title.textContent = "YOU WIN!";
 	returnButton.style.display = 'block';
-	//restartButton.style.display = 'block';
-	//nextButton.style.display = 'block';
+	restartButton.style.display = 'block';
+	nextButton.style.display = 'block';
 }
 
 
@@ -63,7 +63,7 @@ export function enableLoseScreen(){
 	title.hidden = false;
 	title.textContent = "YOU LOSE! Better luck next time."
 	returnButton.style.display = 'block';
-	//restartButton.style.display = 'block';
+	restartButton.style.display = 'block';
 }
 
 
