@@ -28,7 +28,7 @@ camera.position.y = 2;
 
 let cameraTOP = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
 cameraTOP.name = "OverheadCam";
-
+cameraTOP.position.set(0,50, -10);
 camera.add(cameraTOP); //make cameraTop a child of main camera
 scene.add(camera);
 
@@ -47,7 +47,26 @@ var level3 = false;
 export let isPaused = false;
 
 
+function onWindowResize() {
 
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	//CAM#2
+	insetHeight = window.innerHeight / 4;
+	insetWidth = window.innerWidth / 4;
+	cameraTOP.aspect = insetWidth/ insetHeight;
+	cameraTOP.updateProjectionMatrix();
+
+
+	renderer.render(scene, camera);
+}
+
+//when window is resized, update everything
+window.addEventListener('resize', onWindowResize);
+
+onWindowResize();
 // Your animation code here
 function animate() {
 	//createStars(scene);
@@ -68,6 +87,26 @@ function animate() {
 	requestAnimationFrame(animate);
 	renderer.setViewport(0,0, window.innerWidth, window.innerHeight);
 	renderer.render(scene, camera);
+
+	//CAM#2
+	renderer.clearDepth();
+	renderer.setScissorTest(true);
+	renderer.setScissor(
+		window.innerWidth - insetWidth - 16,
+		window.innerHeight - insetHeight - 16,
+		insetWidth,
+		insetHeight
+	)
+
+	renderer.setViewport(
+		window.innerWidth - insetWidth - 16,
+		window.innerHeight - insetHeight - 16,
+		insetWidth,
+		insetHeight
+	)
+
+	renderer.render(scene, cameraTOP);
+	renderer.setScissorTest(false);
 
 }
 
@@ -90,24 +129,7 @@ function checkGameCondition(scene) {
 }
 
 
-function onWindowResize() {
 
-	camera.aspect = window.innerWidth / window.innerHeight;
-	camera.updateProjectionMatrix();
-	renderer.setSize(window.innerWidth, window.innerHeight);
-
-	//CAM#2
-	insetHeight = window.innerHeight / 4;
-	insetWidth = window.innerWidth / 4;
-	cameraTOP.aspect = insetWidth/ insetHeight;
-	cameraTOP.updateProjectionMatrix();
-
-
-	renderer.render(scene, camera);
-}
-
-//when window is resized, update everything
-window.addEventListener('resize', onWindowResize);
 // Function to pause the animation
 function pauseAnimation() {
 	isPaused = true;
