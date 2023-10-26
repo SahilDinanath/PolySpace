@@ -72,7 +72,9 @@ function checkGameCondition(scene) {
 	//on player collision, show death screen and pause game
 	if(collisions.hasCollided()){
 		player.onDeath(scene); 
-		ui.enableLoseScreen();
+		if(scene.getObjectByName("minimap_icon").position.x <20){
+			ui.enableLoseScreen();
+		}
 		return;
 	}
 	if (scene.getObjectByName('minimap_icon').position.x > 20) {
@@ -133,6 +135,9 @@ function clearScene() {
 	}
 
 }
+
+
+
 
 //spawn level depending on button click 
 //animate();
