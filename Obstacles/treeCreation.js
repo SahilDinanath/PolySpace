@@ -9,13 +9,12 @@ let position = randomOnSphere();
 const loader = new GLTFLoader();
 
 export function addTreeToScene(scene) {
-  loader.load('Assets/treeTextures/treeConfig1.glb',
+  loader.load('Assets/treeTextures/treeConfig2.glb',
     function (tree) {
       tree.scene.name = "tree1";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(100, 100, 100);
-
-      tree.scene.children[0].children[0].children[0].children[0].geometry.computeBoundingBox();
+      tree.scene.children[0].children[1].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
       // this is to make a bounding box visible but does not work with collision detection
@@ -36,13 +35,14 @@ function addTree1ToScene(scene, coords) {
       tree.scene.name = "tree1";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(100, 100, 100);
-      tree.scene.children[0].children[0].children[0].children[0].geometry.computeBoundingBox();
+      tree.scene.children[0].children[0].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
       trees.push(tree.scene);
       treesBoundingBoxes.push(treeBoundingBox);
 
       tree.scene.position.copy(coords);
+      tree.scene.rotateY(Math.PI);
       scene.add(tree.scene);
     });
 }
@@ -53,7 +53,7 @@ function addTree2ToScene(scene, coords) {
       tree.scene.name = "tree2";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(100, 100, 100);
-      tree.scene.children[0].children[0].children[0].children[0].geometry.computeBoundingBox();
+      tree.scene.children[0].children[1].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
       trees.push(tree.scene);
@@ -70,7 +70,7 @@ function addTree3ToScene(scene, coords) {
       tree.scene.name = "tree3";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(100, 100, 100);
-      tree.scene.children[0].children[0].children[0].children[0].geometry.computeBoundingBox();
+      tree.scene.children[0].children[4].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
       trees.push(tree.scene);
