@@ -90,7 +90,7 @@ function addApollo(scene) {
 		// Position the "apollo" model relative to the sphere
 
 		apollo.scene.scale.set(10, 10, 10);
-		apollo.scene.position.set(100, 0, -100);
+		apollo.scene.position.set(100, 0, -300);
 		// Add the "apollo" model to the scene
 		scene.add(apollo.scene);
 	});

@@ -50,7 +50,7 @@ scene.add(firstPersonCamera);
 music.setInGameSound();
 
 //Add orbit control
-var controls = new OrbitControls(camera, renderer.domElement);
+//svar controls = new OrbitControls(camera, renderer.domElement);
 
 var level1 = false;
 var level2 = false;
