@@ -13,6 +13,7 @@ export function addTreeToScene(scene, MIN_Z) {
   var z = MIN_Z / 3;
   var x = 0;
   var randomValue = 1;
+  const scale = 100;
 
   for (let i = 0; i < 4; i++) {
     z -= i * 36;
@@ -21,13 +22,13 @@ export function addTreeToScene(scene, MIN_Z) {
     randomValue = Math.floor(Math.random() * 3) + 1;
     switch (randomValue) {
       case 1:
-        addTree1ToScene(scene, x, y, z);
+        addTree1ToScene(scene, scale, scale, scale, x, y, z);
         break;
       case 2:
-        addTree2ToScene(scene, x, y, z);
+        addTree2ToScene(scene, scale, scale, scale, x, y, z);
         break;
       case 3:
-        addTree3ToScene(scene, x, y, z);
+        addTree3ToScene(scene, scale, scale, scale, x, y, z);
         break;
     }
 
@@ -36,24 +37,44 @@ export function addTreeToScene(scene, MIN_Z) {
     randomValue = Math.floor(Math.random() * 3) + 1;
     switch (randomValue) {
       case 1:
-        addTree1ToScene(scene, x, y, z);
+        addTree1ToScene(scene, scale, scale, scale, x, y, z);
         break;
       case 2:
-        addTree2ToScene(scene, x, y, z);
+        addTree2ToScene(scene, scale, scale, scale, x, y, z);
         break;
       case 3:
-        addTree3ToScene(scene, x, y, z);
+        addTree3ToScene(scene, scale, scale, scale, x, y, z);
         break;
     }
   }
 }
 
-function addTree1ToScene(scene, x, y, z) {
+export function generateTree(scene, MIN_Z) {
+  const y = -2;
+  const z = MIN_Z;
+  var x = Math.floor(Math.random() * 41) - 20;
+  const scale = 50;
+
+  var randomValue = Math.floor(Math.random() * 3) + 1;
+  switch (randomValue) {
+    case 1:
+      addTree1ToScene(scene, scale / 2, scale, scale, x, y, z);
+      break;
+    case 2:
+      addTree2ToScene(scene, scale / 2, scale, scale, x, y, z);
+      break;
+    case 3:
+      addTree3ToScene(scene, scale / 2, scale, scale, x, y, z);
+      break;
+  }
+}
+
+function addTree1ToScene(scene, scalex, scaley, scalez, x, y, z) {
   loader.load('Assets/treeTextures/treeConfig1.glb',
     function (tree) {
       tree.scene.name = "tree1";
       tree.scene.rotateY(Math.PI);
-      tree.scene.scale.set(100, 100, 100);
+      tree.scene.scale.set(scalex, scaley, scalez);
       tree.scene.children[0].children[0].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
@@ -66,12 +87,12 @@ function addTree1ToScene(scene, x, y, z) {
     });
 }
 
-function addTree2ToScene(scene, x, y, z) {
+function addTree2ToScene(scene, scalex, scaley, scalez, x, y, z) {
   loader.load('Assets/treeTextures/treeConfig2.glb',
     function (tree) {
       tree.scene.name = "tree2";
       tree.scene.rotateY(Math.PI);
-      tree.scene.scale.set(100, 100, 100);
+      tree.scene.scale.set(scalex, scaley, scalez);
       tree.scene.children[0].children[1].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
@@ -83,12 +104,12 @@ function addTree2ToScene(scene, x, y, z) {
     });
 }
 
-function addTree3ToScene(scene, x, y, z) {
+function addTree3ToScene(scene, scalex, scaley, scalez, x, y, z) {
   loader.load('Assets/treeTextures/treeConfig3.glb',
     function (tree) {
       tree.scene.name = "tree3";
       tree.scene.rotateY(Math.PI);
-      tree.scene.scale.set(100, 100, 100);
+      tree.scene.scale.set(scalex, scaley, scalez);
       tree.scene.children[0].children[4].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
