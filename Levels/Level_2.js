@@ -12,7 +12,7 @@ import {solarSys} from "../UI/solarSystem";
 
 const sunLight = new THREE.SpotLight(0xffffff, 1000, 0, Math.PI/2, 0,1);
 sunLight.castShadow = true;
-sunLight.map = new THREE.TextureLoader().load( "/Assets/images/sun_texture.jpg" );
+sunLight.map = new THREE.TextureLoader().load( "/Assets/img/sun_texture.jpg" );
 
 const sunLight2 = new THREE.PointLight(0xffff00, 1000);
 sunLight2.castShadow = true;
@@ -20,7 +20,7 @@ sunLight2.castShadow = true;
 //Sun
 var sunGeometry = new THREE.SphereGeometry(20, 50, 50);
 var sunMaterial = new THREE.MeshPhongMaterial({
-    map: new THREE.TextureLoader().load("/Assets/images/sun_texture.jpg"),
+    map: new THREE.TextureLoader().load("/Assets/img/sun_texture.jpg"),
     color: 0xf2f2f2,
     specular: 0xbbbbbb,
     shininess: 2
@@ -33,7 +33,7 @@ sunLight2.position.set(sun.position.x,sun.position.y,sun.position.z);
 //Earth
 var earthGeometry = new THREE.SphereGeometry(10, 50, 50);
 var earthMaterial = new THREE.MeshPhongMaterial({
-    map: new THREE.TextureLoader().load("/Assets/images/earth.jpg"),
+    map: new THREE.TextureLoader().load("/Assets/img/earth.jpg"),
     color: 0xf2f2f2,
     specular: 0xbbbbbb,
     shininess: 2
@@ -46,7 +46,7 @@ earth.position.z = 25;
 //Clouds
 var cloudGeometry = new THREE.SphereGeometry(10.3,  50, 50);
 var cloudMaterial = new THREE.MeshPhongMaterial({
-    map: new THREE.TextureLoader().load("/Assets/images/clouds_2.jpg"),
+    map: new THREE.TextureLoader().load("/Assets/img/clouds_2.jpg"),
     transparent: true,
     opacity: 0.1
 });
@@ -58,7 +58,7 @@ clouds.position.z = earth.position.z;
 //Stars
 var starGeometry = new THREE.SphereGeometry(10000, 50, 50);
 var starMaterial = new THREE.MeshPhongMaterial({
-    map: new THREE.TextureLoader().load("/Assets/images/galaxy_starfield.png"),
+    map: new THREE.TextureLoader().load("/Assets/img/galaxy_starfield.png"),
     side: THREE.DoubleSide,
     shininess: 0
 });
@@ -68,7 +68,7 @@ var starField = new THREE.Mesh(starGeometry, starMaterial);
 //Moon
 var moonGeometry = new THREE.SphereGeometry(3.5, 50,50);
 var moonMaterial = new THREE.MeshPhongMaterial({
-    map:new THREE.TextureLoader().load("/Assets/images/moon_texture.jpg")
+    map:new THREE.TextureLoader().load("/Assets/img/moon4k.jpg")
 });
 var moon = new THREE.Mesh(moonGeometry, moonMaterial);
 moon.position.set(-35,10,-600);

@@ -28,8 +28,8 @@ camera.position.y = 2;
 
 let cameraTOP = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
 cameraTOP.name = "OverheadCam";
-camera.add(cameraTOP);
 
+camera.add(cameraTOP); //make cameraTop a child of main camera
 scene.add(camera);
 
 //sets up sound, sound needs to be set up before the world is setup as it runs during the login page
@@ -65,12 +65,14 @@ function animate() {
 		//world.updateDirectionalLighting(scene);
 
 	}
-	renderer.render(scene, camera);
 	requestAnimationFrame(animate);
+	renderer.setViewport(0,0, window.innerWidth, window.innerHeight);
+	renderer.render(scene, camera);
+
 }
 
 function checkGameCondition(scene) {
-	if (scene.getObjectByName('minimap_icon') == undefined)
+	if (scene.getObjectByName('minimap_icon') === undefined)
 		return;
 	//TODO:
 	//on player collision, show death screen and pause game
@@ -88,17 +90,24 @@ function checkGameCondition(scene) {
 }
 
 
-//when window is resized, update everything
-window.addEventListener('resize', onWindowResize);
 function onWindowResize() {
 
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
-
 	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	//CAM#2
+	insetHeight = window.innerHeight / 4;
+	insetWidth = window.innerWidth / 4;
+	cameraTOP.aspect = insetWidth/ insetHeight;
+	cameraTOP.updateProjectionMatrix();
+
 
 	renderer.render(scene, camera);
 }
+
+//when window is resized, update everything
+window.addEventListener('resize', onWindowResize);
 // Function to pause the animation
 function pauseAnimation() {
 	isPaused = true;
