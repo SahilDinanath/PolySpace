@@ -11,20 +11,24 @@ import * as collisions from './Obstacles/obstacles.js';
 import {  createStars, animateStars, animateDirectionalLight } from './Background/Background.js';
 import * as obstacles from "./Obstacles/obstacles";
 
+let insetWidth, insetHeight;
 
 const scene = new THREE.Scene();
 //sets up renderer/screen
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-//renderer.setClearColor(0xA3A3A3);
 renderer.shadowMap.enabled = true;
 
 //adds initial camera to scene to show starfield
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
 camera.name = "mainCamera";
 camera.position.z = 30;
 camera.position.y = 2;
+
+let cameraTOP = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
+cameraTOP.name = "OverheadCam";
+camera.add(cameraTOP);
 
 scene.add(camera);
 
@@ -44,7 +48,6 @@ export let isPaused = false;
 
 
 
-//renderer.render(scene, camera);
 // Your animation code here
 function animate() {
 	//createStars(scene);
@@ -124,7 +127,7 @@ document.addEventListener('keydown', function (event) {
 	}
 });
 
-//music.enableSound();
+
 
 // Define a function to clear the scene
 function clearScene() {
@@ -136,7 +139,7 @@ function clearScene() {
 }
 
 //spawn level depending on button click 
-//animate();
+
 let pauseObstacles;
 ui.levelOneButton.onclick = function() {
 	level1 = true;
