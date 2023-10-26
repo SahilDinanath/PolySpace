@@ -56,12 +56,16 @@ export function animateObstacles(renderer, camera, scene, speed) {
         }
       }
 
-      if (obstacles[0].position.z == -80) {
+      if (obstacles[0].position.z == -speed*18) {
         createObstacle(scene, MIN_Z);
       }
 
       for (let i = 0; i < obstacles.length; i++) {
         obstacles[i].position.z += speed;
+      }
+
+      if (trees.length > 0) {
+        trees[0].position.z = trees[0].position.z + 1;
       }
 
       renderer.render(scene, camera);
