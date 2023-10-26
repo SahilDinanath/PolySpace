@@ -122,7 +122,7 @@ export function levelOne(scene,renderer,camera) {
 	let moonD = moon.addSphereToScene(scene,moonTexture,wrap);
 	addApollo(scene);
 	ui.addMiniMapToScene(scene);
-	bosses.bossTwo(camera, scene, renderer);
+	bosses.bossOne(camera, scene, renderer);
 	obstacles.animateObstacles(renderer, camera, scene, 2);
 
 }

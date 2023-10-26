@@ -21,7 +21,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 renderer.shadowMap.enabled = true;
 
-
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
 camera.name = "mainCamera";
 camera.position.z = 30;
@@ -30,8 +29,9 @@ camera.position.y = 2;
 //adds initial camera to scene to show starfield
 let initialCamera = new THREE.OrthographicCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
 camera.name = "initialCamera";
-camera.position.z = 30;
-camera.position.y = 2;
+// camera.position.z = 30;
+// camera.position.y = 2;
+scene.add(initialCamera);
 
 let cameraTOP = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000);
 cameraTOP.name = "OverheadCam";
@@ -114,18 +114,13 @@ function  render(){
 	renderer.setScissorTest(false);
 }
 
-createStars(scene);
-function animateStart(){
-	animateStars(); //start screen
-	requestAnimationFrame(animateStart);
-	renderer.render(scene, initialCamera);
-}
-animateStart();
+
+
 
 // Your animation code here
 function animate() {
-	//createStars(scene);
 	if (!isPaused) {
+
 		player.keyboardMoveObject(scene, firstPersonCamera);
 		player.updateParticleSystem();
 		//obstacles.animateObstacles(renderer, camera, scene);
@@ -219,9 +214,7 @@ function clearScene() {
 }
 
 
-
 //spawn level depending on button click
-
 
 ui.levelOneButton.onclick = function() {
 	canPause = true;
@@ -317,4 +310,12 @@ ui.backButton.onclick = function(){
     ui.disableControlScreen();
 }
 
+createStars(scene);
+function animateStart(){
+	animateStars(); //start screen
+	requestAnimationFrame(animateStart);
+	renderer.render(scene, initialCamera);
+}
+
+animateStart();
 //animate();
