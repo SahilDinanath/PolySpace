@@ -1,6 +1,6 @@
 import { playerBoundingBox } from '/Player/player.js';
-import { obstacles, obstaclesBoundingBoxes } from './obstacleCreation.js';
-import { createObstacle, addTreeToScene } from './obstacleCreation.js';
+import { obstacles, obstaclesBoundingBoxes, createObstacle } from './obstacleCreation.js';
+import { trees, treesBoundingBoxes, addTreeToScene } from './treeCreation.js';
 import { isPaused } from '/main.js';
 
 //where obstacle should be generated
@@ -69,7 +69,7 @@ export function animateObstacles(renderer, camera, scene, speed) {
     }
     requestAnimationFrame(animate);
   }
-  //addTreeToScene(scene);
+  addTreeToScene(scene);
   createObstacle(scene, MIN_Z);
   animate();
 }
