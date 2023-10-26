@@ -138,7 +138,6 @@ function clearScene() {
 
 
 
-
 //spawn level depending on button click 
 //animate();
 let pauseObstacles;
@@ -219,7 +218,13 @@ ui.returnButton.onclick = function() {
 // 	}
 // }
 
-
+//controls page
+ui.showControlsButton.onclick = function(){
+	ui.enableControlScreen();
+}
+ui.backButton.onclick = function(){
+	ui.disableControlScreen();
+}
 
 
 
