@@ -22,7 +22,7 @@ document.onkeyup = function(e) {
 //load models
 const loader = new GLTFLoader();
 
-export function addPlayerToScene(scene) {
+export function addPlayerToScene(scene, firstPersonCam) {
 	loader.load('Assets/playerTextures/StarSparrow.glb',
 		//we have to set up player in here for now
 		function(player) {
@@ -47,7 +47,7 @@ export function addPlayerToScene(scene) {
 }
 
 //keyboard movements
-export function keyboardMoveObject(scene) {
+export function keyboardMoveObject(scene, firstPersonCamera) {
 	const object = scene.getObjectByName("player");
 	if (object == undefined)
 		return;
@@ -101,6 +101,10 @@ export function keyboardMoveObject(scene) {
 			}
 		}
 	}
+	firstPersonCamera.position.x = object.position.x;
+	firstPersonCamera.position.y = object.position.y;
+	firstPersonCamera.position.z = object.position.z - 6;
+
 };
 
 //on player death delete the player and spawn particles

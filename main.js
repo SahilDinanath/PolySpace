@@ -26,11 +26,22 @@ camera.name = "mainCamera";
 camera.position.z = 30;
 camera.position.y = 2;
 
-let cameraTOP = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
+let initialCamera = new THREE.OrthographicCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
+camera.name = "mainCamera";
+camera.position.z = 30;
+camera.position.y = 2;
+
+let cameraTOP = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 20000);
 cameraTOP.name = "OverheadCam";
-cameraTOP.position.set(0,50, -10);
+cameraTOP.position.set(0,20, 20);
 camera.add(cameraTOP); //make cameraTop a child of main camera
 scene.add(camera);
+
+var firstPersonActive = false;
+
+let firstPersonCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
+scene.add(firstPersonCamera);
+
 
 //sets up sound, sound needs to be set up before the world is setup as it runs during the login page
 
@@ -42,6 +53,7 @@ var controls = new OrbitControls(camera, renderer.domElement);
 var level1 = false;
 var level2 = false;
 var level3 = false;
+var canPause = false;
 
 // Define a variable to track the animation state
 export let isPaused = false;
@@ -60,19 +72,58 @@ function onWindowResize() {
 	cameraTOP.updateProjectionMatrix();
 
 
-	renderer.render(scene, camera);
+	//renderer.render(scene, camera);
 }
+
+
 
 //when window is resized, update everything
 window.addEventListener('resize', onWindowResize);
 
 onWindowResize();
+
+function  render(){
+	renderer.setViewport(0,0, window.innerWidth, window.innerHeight);
+	if(firstPersonActive){
+		renderer.render(scene, firstPersonCamera);
+	}else{
+		renderer.render(scene, camera);
+	}
+
+
+	//CAM#2
+	renderer.clearDepth();
+	renderer.setScissorTest(true);
+	renderer.setScissor(
+		window.innerWidth - insetWidth - 26,
+		window.innerHeight - insetHeight - 26,
+		insetWidth,
+		insetHeight
+	)
+
+	renderer.setViewport(
+		window.innerWidth - insetWidth - 26,
+		window.innerHeight - insetHeight - 26,
+		insetWidth,
+		insetHeight
+	)
+
+	renderer.render(scene, cameraTOP);
+	renderer.setScissorTest(false);
+}
+//createStars(scene);
+function animateStart(){
+	animateStars(scene); //start screen
+	requestAnimationFrame(animateStart);
+	renderer.render(scene, initialCamera);
+}
+animateStart();
+
 // Your animation code here
 function animate() {
-	//createStars(scene);
-	//animateStars(scene); //start screen
+
 	if (!isPaused) {
-		player.keyboardMoveObject(scene);
+		player.keyboardMoveObject(scene, firstPersonCamera);
 		player.updateParticleSystem();
 		//obstacles.animateObstacles(renderer, camera, scene);
 
@@ -85,29 +136,8 @@ function animate() {
 
 	}
 	requestAnimationFrame(animate);
-	renderer.setViewport(0,0, window.innerWidth, window.innerHeight);
-	renderer.render(scene, camera);
-
-	//CAM#2
-	renderer.clearDepth();
-	renderer.setScissorTest(true);
-	renderer.setScissor(
-		window.innerWidth - insetWidth - 16,
-		window.innerHeight - insetHeight - 16,
-		insetWidth,
-		insetHeight
-	)
-
-	renderer.setViewport(
-		window.innerWidth - insetWidth - 16,
-		window.innerHeight - insetHeight - 16,
-		insetWidth,
-		insetHeight
-	)
-
-	renderer.render(scene, cameraTOP);
-	renderer.setScissorTest(false);
-
+	render();
+	//update();
 }
 
 function checkGameCondition(scene) {
@@ -116,6 +146,7 @@ function checkGameCondition(scene) {
 	//TODO:
 	//on player collision, show death screen and pause game
 	if(collisions.hasCollided()){
+		canPause = false;
 		player.onDeath(scene); 
 		if(scene.getObjectByName("minimap_icon").position.x <20){
 			ui.enableLoseScreen();
@@ -123,6 +154,7 @@ function checkGameCondition(scene) {
 		return;
 	}
 	if (scene.getObjectByName('minimap_icon').position.x > 20) {
+		canPause = false;
 		ui.enableWinScreen();
 		return;
 	}else{
@@ -149,7 +181,7 @@ function resumeAnimation() {
 
 // Listen for the space key press event to pause or resume game
 document.addEventListener('keydown', function (event) {
-	if (event.key === ' ') { // ' ' represents the space key
+	if (event.key === ' ' && canPause) { // ' ' represents the space key
 		if (isPaused && (level3 || level2 || level1)) {
 			resumeAnimation();
 
@@ -158,9 +190,15 @@ document.addEventListener('keydown', function (event) {
 
 		}
 	}
+	if(event.key === '1'){
+		  firstPersonActive = true;
+	}
+	if(event.key === '2'){
+		firstPersonActive = false;
+	}
+
+
 });
-
-
 
 // Define a function to clear the scene
 function clearScene() {
@@ -172,12 +210,11 @@ function clearScene() {
 }
 
 
-
-
 //spawn level depending on button click 
 
 let pauseObstacles;
 ui.levelOneButton.onclick = function() {
+	canPause = true;
 	level1 = true;
 
 	/*sound can only play if user clicks somewhere on the screen, 
@@ -192,7 +229,7 @@ ui.levelOneButton.onclick = function() {
 
 ui.levelTwoButton.onclick = function() {
 	level2 = true;
-
+	canPause = true;
 	
 	scene.remove(scene.getObjectByName("starField"));
 
@@ -205,7 +242,7 @@ ui.levelTwoButton.onclick = function() {
 
 ui.levelThreeButton.onclick = function() {
 	level3 = true;
-
+	canPause = true;
 	scene.remove(scene.getObjectByName("starField"));
 
 	ui.disableStartScreen();
