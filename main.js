@@ -153,7 +153,7 @@ function checkGameCondition(scene) {
 	//on player collision, show death screen and pause game
 	if(collisions.hasCollided()){
 		canPause = false;
-		player.onDeath(scene); 
+		player.onDeath(scene);
 		if(scene.getObjectByName("minimap_icon").position.x <20){
 			ui.enableLoseScreen();
 			isPaused = true;
@@ -219,7 +219,8 @@ function clearScene() {
 }
 
 
-//spawn level depending on button click 
+
+//spawn level depending on button click
 
 
 ui.levelOneButton.onclick = function() {
@@ -308,3 +309,12 @@ ui.restartButton.onclick = function() {
 
 }
 
+//controls page
+ui.showControlsButton.onclick = function(){
+    ui.enableControlScreen();
+}
+ui.backButton.onclick = function(){
+    ui.disableControlScreen();
+}
+
+//animate();
