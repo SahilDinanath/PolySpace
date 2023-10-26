@@ -10,7 +10,7 @@ import * as collisions from './Obstacles/obstacles.js';
 
 import {  createStars, animateStars, animateDirectionalLight } from './Background/Background.js';
 import * as obstacles from "./Obstacles/obstacles";
-import {animateLevel2} from "/Levels/levels.js";
+import {animateLevel2, rotateRover} from "/Levels/levels.js";
 
 let insetWidth, insetHeight;
 
@@ -138,6 +138,7 @@ function animate() {
 		//world.updateDirectionalLighting(scene);
 
 		animateLevel2(); //for level 2
+		rotateRover(scene);
 
 	}
 	requestAnimationFrame(animate);

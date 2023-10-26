@@ -75,11 +75,12 @@ const stars = new THREE.Points(particlesGeometry, particleMaterial);
 let moonTexture = "/Assets/img/moon4k.jpg";
 
 const loader = new GLTFLoader();
-function addApollo(scene, sphere) {
+function addApollo(scene) {
 	// Load the "apollo" model
 
-	loader.load('/Assets/moonTextures/apollo.glb', function (apollo) {
+	loader.load('/Assets/moonTextures/exploVehicle.glb', function (apollo) {
 		apollo.scene.receiveShadow = true;
+		apollo.scene.name = "rover";
 		apollo.scene.traverse(function (node) {
 			if (node.isMesh) {
 				node.castShadow = true;
@@ -88,11 +89,12 @@ function addApollo(scene, sphere) {
 
 		// Position the "apollo" model relative to the sphere
 
-		apollo.scene.scale.set(25, 25, 25);
-		apollo.scene.position.set(100, -500, -100);
+		apollo.scene.scale.set(10, 10, 10);
+		apollo.scene.position.set(100, 0, -100);
 		// Add the "apollo" model to the scene
 		scene.add(apollo.scene);
 	});
+
 }
 
 
@@ -105,30 +107,32 @@ export function levelOne(scene,renderer,camera) {
 	//sunLight.angle = 0.45;
 	sunLight.castShadow = true;
 	sunLight.position.y = 100;
-	sunLight.shadow.camera.left = -100;  // Adjust these values to cover a larger area
+	sunLight.shadow.camera.left = -100;  // Adjust these values so that shadow covers a larger area
 	sunLight.shadow.camera.right = 100;
 	sunLight.shadow.camera.top = 100;
 	sunLight.shadow.camera.bottom = -100;
 
 	sunLight.shadow.mapSize.width = 1024;
 	sunLight.shadow.mapSize.height = 1024;
-	//sunLight.position.set(0, 100, -300);
-	//sunLight.shadow.camera.near = 5;
-	//sunLight.shadow.camera.far = 10;
-
-	//sunLight.map = new THREE.TextureLoader().load( "/Assets/images/sun_texture.jpg" );
-	//scene.add(starField);
 	scene.add(stars);
-	//starField.position.set(0, -2515, -200);
 	scene.add(sunLight);
 	//sets up objects in scene
 	player.addPlayerToScene(scene);
 	let wrap = false
 	let moonD = moon.addSphereToScene(scene,moonTexture,wrap);
-	//addApollo(scene, moonD);
+	addApollo(scene);
 	ui.addMiniMapToScene(scene);
 	bosses.bossTwo(camera, scene, renderer);
 	obstacles.animateObstacles(renderer, camera, scene, 2);
 
+}
+
+export function rotateRover(scene) {
+
+	const object = scene.getObjectByName("rover");
+	if (object === undefined)
+		return;
+	//object.rotation.x -= 0.0001;
+	object.position.z += 0.0001;
 }
 
