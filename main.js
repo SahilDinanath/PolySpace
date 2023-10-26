@@ -10,6 +10,7 @@ import * as collisions from './Obstacles/obstacles.js';
 
 import {  createStars, animateStars, animateDirectionalLight } from './Background/Background.js';
 import * as obstacles from "./Obstacles/obstacles";
+import {animateLevel2} from "/Levels/levels.js";
 
 let insetWidth, insetHeight;
 
@@ -20,14 +21,15 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 renderer.shadowMap.enabled = true;
 
-//adds initial camera to scene to show starfield
+
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
 camera.name = "mainCamera";
 camera.position.z = 30;
 camera.position.y = 2;
 
+//adds initial camera to scene to show starfield
 let initialCamera = new THREE.OrthographicCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
-camera.name = "mainCamera";
+camera.name = "initialCamera";
 camera.position.z = 30;
 camera.position.y = 2;
 
@@ -111,9 +113,10 @@ function  render(){
 	renderer.render(scene, cameraTOP);
 	renderer.setScissorTest(false);
 }
-//createStars(scene);
+
+createStars(scene);
 function animateStart(){
-	animateStars(scene); //start screen
+	animateStars(); //start screen
 	requestAnimationFrame(animateStart);
 	renderer.render(scene, initialCamera);
 }
@@ -121,7 +124,7 @@ animateStart();
 
 // Your animation code here
 function animate() {
-
+	//createStars(scene);
 	if (!isPaused) {
 		player.keyboardMoveObject(scene, firstPersonCamera);
 		player.updateParticleSystem();
@@ -133,6 +136,8 @@ function animate() {
 		skybox.updateSkyBox();
 		planet.rotateSphere(scene);
 		//world.updateDirectionalLighting(scene);
+
+		animateLevel2(); //for level 2
 
 	}
 	requestAnimationFrame(animate);
@@ -150,12 +155,14 @@ function checkGameCondition(scene) {
 		player.onDeath(scene); 
 		if(scene.getObjectByName("minimap_icon").position.x <20){
 			ui.enableLoseScreen();
+			isPaused = true;
 		}
 		return;
 	}
 	if (scene.getObjectByName('minimap_icon').position.x > 20) {
 		canPause = false;
 		ui.enableWinScreen();
+		isPaused = true;
 		return;
 	}else{
 		ui.updateMiniMap(scene);
@@ -212,7 +219,7 @@ function clearScene() {
 
 //spawn level depending on button click 
 
-let pauseObstacles;
+
 ui.levelOneButton.onclick = function() {
 	canPause = true;
 	level1 = true;
@@ -269,7 +276,6 @@ ui.nextButton.onclick = function() {
 
 ui.resumeButton.onclick = function() {
 	resumeAnimation();
-	pauseObstacles(false); // Resume obstacles
 }
 
 ui.returnButton.onclick = function() {

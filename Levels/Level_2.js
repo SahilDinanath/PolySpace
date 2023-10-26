@@ -73,7 +73,9 @@ var moonMaterial = new THREE.MeshPhongMaterial({
 var moon = new THREE.Mesh(moonGeometry, moonMaterial);
 moon.position.set(-35,10,-600);
 
-
+let solar1;
+let solar2;
+let solar3;
 export function levelTwo(scene, renderer, camera){
     const controls = new OrbitControls( camera, renderer.domElement );
     const ambientLighting = new THREE.AmbientLight("white", 0.4);
@@ -94,37 +96,52 @@ export function levelTwo(scene, renderer, camera){
     scene.add(clouds);
    // scene.add(moon);
 
-    let solar1  = solarSys(renderer, scene, camera);
+     solar1  = solarSys(renderer, scene, camera);
     solar1.position.z = - 500;
     solar1.position.x  =  -400;
     scene.add(solar1);
 
-    let solar2  = solarSys(renderer, scene, camera);
+     solar2  = solarSys(renderer, scene, camera);
     solar2.position.z = - 700;
     solar2.position.x  =  100;
     scene.add(solar2);
 
-    let solar3  = solarSys(renderer, scene, camera);
+    solar3  = solarSys(renderer, scene, camera);
     solar3.position.z = - 1500;
     solar3.position.x  =  80;
     scene.add(solar3);
 
-    var animate = function () {
-
-        earth.rotateY(0.01);
-        clouds.rotateY(0.06);
-        //make it seem as if spaceship is moving through the scene
-        earth.position.z += 0.1;
-        clouds.position.z += 0.1;
-        solar1.position.z += 1;
-        solar2.position.z += 1;
-        solar3.position.z += 1;
-
-        renderer.render(scene, camera);
-        requestAnimationFrame(animate);
-    };
-    animate();
+    // var animate = function () {
+    //
+    //     earth.rotateY(0.01);
+    //     clouds.rotateY(0.06);
+    //     //make it seem as if spaceship is moving through the scene
+    //     earth.position.z += 0.1;
+    //     clouds.position.z += 0.1;
+    //     solar1.position.z += 1;
+    //     solar2.position.z += 1;
+    //     solar3.position.z += 1;
+    //
+    //     renderer.render(scene, camera);
+    //     requestAnimationFrame(animate);
+    // };
+    // animate();
     // Start the animation loop
+}
 
-
+export function animateLevel2(){
+    earth.rotateY(0.01);
+    clouds.rotateY(0.06);
+    //make it seem as if spaceship is moving through the scene
+    earth.position.z += 0.1;
+    clouds.position.z += 0.1;
+    if (solar1) {
+        solar1.position.z += 1;
+    }
+    if (solar2) {
+        solar2.position.z += 1;
+    }
+    if (solar3) {
+        solar3.position.z += 1;
+    }
 }

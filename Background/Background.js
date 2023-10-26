@@ -11,7 +11,7 @@ const starStartX = 80;
 let starGroup = new THREE.Group();
 starGroup.name = "starField";
 
-function createStar(scene) {
+function createStar() {
   const starGeometry = new THREE.BufferGeometry();
   const positions = new Float32Array(2 * 3); // Two points to create a line
 
@@ -52,18 +52,16 @@ function createStar(scene) {
 
 function createStars(scene) {
   for (let i = 0; i < starCount; i++) {
-    createStar(scene);
+    createStar();
   }
   scene.add(starGroup);
 }
 
-function animateStars(scene) {
-  if(scene.getObjectByName("starField") === undefined)
-    return;
-  
+function animateStars() {
+
   for (let i = 0; i < starsArray.length; i++) {
     const star = starsArray[i];
-    star.position.z += star.speed;
+    star.position.z +=0.3 + Math.random() * 0.1;
 
     // Reset star position to create a loop
     if (star.position.z > 0) {
