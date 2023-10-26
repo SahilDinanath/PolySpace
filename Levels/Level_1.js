@@ -99,27 +99,29 @@ function addApollo(scene) {
 
 }
 
-function loadSatellite(scene, renderer, camera) {
-    const sateliteLoader = new GLTFLoader();
-    sateliteLoader.load('/Assets/models/satelite.glb', function (satellite) {
-        satellite.scene.scale.set(1, 1, 1); // Adjust the scale as needed
-        satellite.scene.position.set(-120, 50, -200); // Adjust the position as needed
 
-        scene.add(satellite.scene);
+
+
+function loadSatelite(scene) {
+    const sateliteLoader = new GLTFLoader();
+    sateliteLoader.load('/Assets/models/sun_model.glb', function (satelite) {
+        satelite.scene.scale.set(1, 1, 1); // Adjust the scale as needed
+        satelite.scene.position.set(-120, 50, -200); // Adjust the position as needed
+
+        scene.add(satelite.scene);
     });
 }
 
 
-function loadSun(scene, renderer, camera) {
+function loadSun(scene) {
     const sunLoader = new GLTFLoader();
-    sunLoader.load('/Assets/models/sun.glb', function (sun) {
+    sunLoader.load('/Assets/models/Sun.obj', function (sun) {
         sun.scene.scale.set(1, 1, 1); // Adjust the scale as needed
         sun.scene.position.set(120, 70, -200); // Adjust the position as needed
 
         scene.add(sun.scene);
     });
 }
-
 
 
 
@@ -149,8 +151,8 @@ export function levelOne(scene,renderer,camera) {
 	ui.addMiniMapToScene(scene);
 	bosses.bossOne(camera, scene, renderer);
 	obstacles.animateObstacles(renderer, camera, scene, 2);
-	loadSatellite(scene, renderer, camera);
-	loadSun(scene, renderer, camera);
+	loadSatelite(scene);
+	loadSun(scene);
 }
 
 export function rotateRover(scene) {
