@@ -57,6 +57,8 @@ for (let i = 0; i < particlesCount; i++) {
 	vertices[i * 3 + 2] = z;
 }
 
+
+
  particlesGeometry.setAttribute(
 	 "position",
 	 new THREE.BufferAttribute(vertices, 3)
@@ -95,6 +97,29 @@ function addApollo(scene, sphere) {
 	});
 }
 
+function loadSatellite(scene, renderer, camera) {
+    const sateliteLoader = new GLTFLoader();
+    sateliteLoader.load('/Assets/models/satelite.glb', function (satellite) {
+        satellite.scene.scale.set(1, 1, 1); // Adjust the scale as needed
+        satellite.scene.position.set(-120, 50, -200); // Adjust the position as needed
+
+        scene.add(satellite.scene);
+    });
+}
+
+
+function loadSun(scene, renderer, camera) {
+    const sunLoader = new GLTFLoader();
+    sunLoader.load('/Assets/models/sun.glb', function (sun) {
+        sun.scene.scale.set(1, 1, 1); // Adjust the scale as needed
+        sun.scene.position.set(120, 70, -200); // Adjust the position as needed
+
+        scene.add(sun.scene);
+    });
+}
+
+
+
 
 export function levelOne(scene,renderer,camera) {
 	//sets up lighting 
@@ -121,13 +146,14 @@ export function levelOne(scene,renderer,camera) {
 	scene.add(stars);
 	//starField.position.set(0, -2515, -200);
 	scene.add(sunLight);
-	//sets up objects in scene
+	//sets up objects in scenex
 	player.addPlayerToScene(scene);
 	let moonD = moon.addSphereToScene(scene,moonTexture);
 	//addApollo(scene, moonD);
 	ui.addMiniMapToScene(scene);
 	bosses.bossTwo(camera, scene, renderer);
 	obstacles.animateObstacles(renderer, camera, scene, 2);
-
+	loadSatellite(scene, renderer, camera);
+	loadSun(scene, renderer, camera);
 }
 
