@@ -8,28 +8,47 @@ let radius = 2550;
 let position = randomOnSphere();
 const loader = new GLTFLoader();
 
-export function addTreeToScene(scene) {
-  loader.load('Assets/treeTextures/treeConfig2.glb',
-    function (tree) {
-      tree.scene.name = "tree1";
-      tree.scene.rotateY(Math.PI);
-      tree.scene.scale.set(100, 100, 100);
-      tree.scene.children[0].children[1].geometry.computeBoundingBox();
-      treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
+export function addTreeToScene(scene, MIN_Z) {
+  const y = -2;
+  var z = MIN_Z / 3;
+  var x = 0;
+  var randomValue = 1;
 
-      // this is to make a bounding box visible but does not work with collision detection
-      // treeBoundingBox = new THREE.BoxHelper(tree.scene, 0xff0000);
-      // scene.add(treeBoundingBox);
+  for (let i = 0; i < 4; i++) {
+    z -= i * 36;
 
-      trees.push(tree.scene);
-      treesBoundingBoxes.push(treeBoundingBox);
+    x = Math.floor(Math.random() * 45) + 56;
+    randomValue = Math.floor(Math.random() * 3) + 1;
+    switch (randomValue) {
+      case 1:
+        addTree1ToScene(scene, x, y, z);
+        break;
+      case 2:
+        addTree2ToScene(scene, x, y, z);
+        break;
+      case 3:
+        addTree3ToScene(scene, x, y, z);
+        break;
+    }
 
-      //tree.scene.position.copy(position);
-      scene.add(tree.scene);
-    });
+    z -= 34;
+    x = Math.floor(Math.random() * -45) - 56;
+    randomValue = Math.floor(Math.random() * 3) + 1;
+    switch (randomValue) {
+      case 1:
+        addTree1ToScene(scene, x, y, z);
+        break;
+      case 2:
+        addTree2ToScene(scene, x, y, z);
+        break;
+      case 3:
+        addTree3ToScene(scene, x, y, z);
+        break;
+    }
+  }
 }
 
-function addTree1ToScene(scene, coords) {
+function addTree1ToScene(scene, x, y, z) {
   loader.load('Assets/treeTextures/treeConfig1.glb',
     function (tree) {
       tree.scene.name = "tree1";
@@ -41,13 +60,13 @@ function addTree1ToScene(scene, coords) {
       trees.push(tree.scene);
       treesBoundingBoxes.push(treeBoundingBox);
 
-      tree.scene.position.copy(coords);
+      tree.scene.position.set(x, y, z);
       tree.scene.rotateY(Math.PI);
       scene.add(tree.scene);
     });
 }
 
-function addTree2ToScene(scene, coords) {
+function addTree2ToScene(scene, x, y, z) {
   loader.load('Assets/treeTextures/treeConfig2.glb',
     function (tree) {
       tree.scene.name = "tree2";
@@ -59,12 +78,12 @@ function addTree2ToScene(scene, coords) {
       trees.push(tree.scene);
       treesBoundingBoxes.push(treeBoundingBox);
 
-      tree.scene.position.copy(coords);
+      tree.scene.position.set(x, y, z);
       scene.add(tree.scene);
     });
 }
 
-function addTree3ToScene(scene, coords) {
+function addTree3ToScene(scene, x, y, z) {
   loader.load('Assets/treeTextures/treeConfig3.glb',
     function (tree) {
       tree.scene.name = "tree3";
@@ -76,7 +95,7 @@ function addTree3ToScene(scene, coords) {
       trees.push(tree.scene);
       treesBoundingBoxes.push(treeBoundingBox);
 
-      tree.scene.position.copy(coords);
+      tree.scene.position.set(x, y, z);
       scene.add(tree.scene);
     });
 }

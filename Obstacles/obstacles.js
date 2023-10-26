@@ -28,6 +28,14 @@ function checkCollision() {
   }
 }
 
+function checkTreeCollision() {
+  for (let j = 0; j < treesBoundingBoxes.length; j++) {
+    if (treesBoundingBoxes[j].intersectsBox(playerBoundingBox)) {
+      return true;
+    }
+  }
+}
+
 export function animateObstacles(renderer, camera, scene, speed) {
   function animate() {
     if (!isPaused) {
@@ -48,6 +56,10 @@ export function animateObstacles(renderer, camera, scene, speed) {
           }
         }
 
+        if (obstacles[i].position.z == -80) {
+          createObstacle(scene, MIN_Z);
+        }
+
         if (obstacles[i].position.z > MAX_Z) {
           scene.remove(obstacles[i]);
           obstacles.splice(i, 1);
@@ -56,16 +68,28 @@ export function animateObstacles(renderer, camera, scene, speed) {
         }
       }
 
-      if (obstacles[0].position.z == -speed*18) {
-        createObstacle(scene, MIN_Z);
-      }
-
       for (let i = 0; i < obstacles.length; i++) {
         obstacles[i].position.z += speed;
       }
 
-      if (trees.length > 0) {
-        trees[0].position.z = trees[0].position.z + 1;
+      for (let i = 0; i < trees.length; i++) {
+        if (trees[i].position.z > MAX_Z + 30) {
+          trees[i].position.z = MIN_Z;
+        }
+
+        treesBoundingBoxes[i].setFromObject(trees[i]);
+
+        if (trees[i].position.z > -20) {
+          if (checkTreeCollision()) {
+            console.log("Collision?");
+            collisionDetected = true;
+            return;
+          }
+        }
+      }
+
+      for (let i = 0; i < trees.length; i++) {
+        trees[i].position.z += 0.5;
       }
 
       renderer.render(scene, camera);
@@ -73,7 +97,7 @@ export function animateObstacles(renderer, camera, scene, speed) {
     }
     requestAnimationFrame(animate);
   }
-  addTreeToScene(scene);
+  addTreeToScene(scene, MIN_Z);
   createObstacle(scene, MIN_Z);
   animate();
 }
