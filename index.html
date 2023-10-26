@@ -9,16 +9,21 @@
 			margin: 0;
 		}
 
-		button {
+		.styled-button {
 			position: absolute;
 			display: block;
 			z-index: 99;
-			left: 46%;
+			left: 47%;
 			top: 50%;
 		}
 
+		.styled-control-button {
+			display: block;
+			z-index: 99;
+		}
+
 		.threeD {
-			color: darkgrey;
+			color: #ffe81f;
 			white-space: nowrap;
 			position: absolute;
 			top: 50%;
@@ -74,6 +79,68 @@
 		#next {
 			display: none;
 		}
+
+		#back {
+			display: none;
+		}
+
+		#wrapper {
+			position: absolute;
+			display: flex;
+			justify-content: center;
+			top: 20%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		#controls {
+			display: inline-grid;
+			grid-column-gap: 3px;
+			align-self: end;
+		}
+
+		#keyboard_key_up {
+			display: none;
+			grid-column-start: 2;
+			padding-bottom: 5px;
+			z-index: 99;
+		}
+
+		#keyboard_key_left {
+			display: none;
+			grid-column-start: 1;
+			z-index: 99;
+		}
+
+		#keyboard_key_down {
+			display: none;
+			z-index: 99;
+		}
+
+		#keyboard_key_right {
+			display: none;
+			grid-column-start: 3;
+			z-index: 99;
+		}
+
+		#keyboard_key_1 {
+			display: none;
+			z-index: 99;
+		}
+
+		#keyboard_key_2 {
+			display: none;
+			z-index: 99;
+		}
+
+		#keyboard_key_space {
+			display: none;
+			z-index: 99;
+		}
+
+		.space_instructions {
+			display: none;
+		}
 	</style>
 </head>
 
@@ -82,21 +149,21 @@
 		Poly Space
 	</div>
 	<div id="level_1">
-		<button class="pushable" style="top:40%">
+		<button class="pushable styled-button" style="top:30%">
 			<span class="front">
 				Level 1
 			</span>
 		</button>
 	</div>
 	<div id="level_2">
-		<button class="pushable" style="top:55%">
+		<button class="pushable styled-button" style="top:45%">
 			<span class="front">
 				Level 2
 			</span>
 		</button>
 	</div>
 	<div id="level_3">
-		<button class="pushable" style="top:70%">
+		<button class="pushable styled-button" style="top:60%">
 			<span class="front">
 				Level 3
 			</span>
@@ -107,28 +174,28 @@
 	</div>
 
 	<div id="return">
-		<button class="pushable" style="top:55%">
+		<button class="pushable styled-button" style="top:55%">
 			<span class="front">
 				Go To Menu
 			</span>
 		</button>
 	</div>
 	<div id="restart">
-		<button class="pushable" style="top:55%">
+		<button class="pushable styled-button" style="top:55%">
 			<span class="front">
 				Restart
 			</span>
 		</button>
 	</div>
 	<div id="resume">
-		<button class="pushable" style="top:40%">
+		<button class="pushable styled-button" style="top:40%">
 			<span class="front">
 				Resume
 			</span>
 		</button>
 	</div>
 	<div id="next">
-		<button class="pushable" style="top:40%">
+		<button class="pushable styled-button" style="top:40%">
 			<span class="front">
 				Next Level
 			</span>
@@ -137,6 +204,94 @@
 	</head>
 	<script type="module" src="main.js"></script>
 
+
+
+	<!--button to show controls-->
+
+	<div id="control_menu">
+		<button class="pushable styled-button" style="top:75%">
+			<span class="front">
+				Controls
+			</span>
+		</button>
+	</div>
+
+	<div id="wrapper">
+
+		<p style="top:-90%" class="threeD space_instructions">
+			Arrow Keys to move
+		</p>
+		<div id="controls">
+			<button id="keyboard_key_up" class="pushable">
+				<span class="front">
+					&uarr;
+				</span>
+			</button>
+			<button id="keyboard_key_left" class="pushable">
+				<span class="front">
+					&larr;
+				</span>
+			</button>
+			<button id="keyboard_key_down" class="pushable">
+				<span class="front">
+					&darr;
+				</span>
+			</button>
+			<button id="keyboard_key_right" class="pushable">
+				<span class="front">
+					&rarr;
+				</span>
+			</button>
+		</div>
+	</div>
+
+	<div id="wrapper" style="top:43%">
+		<div style="top:-130%" class="threeD space_instructions">
+			Space Bar to pause
+		</div>
+		<div id="controls">
+			<button id="keyboard_key_space" class="pushable">
+				<span class="front">
+					Space
+				</span>
+			</button>
+		</div>
+	</div>
+
+	<div id="wrapper" style="top:60%">
+		<div style="top:-130%" class="threeD space_instructions">
+			Enable First Person Mode
+		</div>
+		<div id="controls">
+			<button id="keyboard_key_1" class="pushable">
+				<span class="front">
+					1
+				</span>
+
+			</button>
+		</div>
+	</div>
+	<div id="wrapper" style="top:77%">
+		<p style="top:-200%" class="threeD space_instructions">
+			Enable Third Person Mode
+		</p>
+		<div id="controls">
+			<button id="keyboard_key_2" class="pushable">
+				<span class="front">
+					2
+				</span>
+
+			</button>
+		</div>
+	</div>
+
+	<div id="back">
+		<button class="pushable styled-button" style="top:90%">
+			<span class="front">
+				Back
+			</span>
+		</button>
+	</div>
 </body>
 
 </html>
