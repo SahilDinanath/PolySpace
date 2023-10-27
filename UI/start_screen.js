@@ -120,7 +120,7 @@ export function enableLoseScreen(){
 }
 
 // Simulate loading progress for 3 seconds
-const totalProgressSteps = 3000;
+const totalProgressSteps = 90000;
 let currentProgress = 0;
 const progressIncrement = totalProgressSteps / 3000; // Update progress every 10ms
 
@@ -140,7 +140,7 @@ export function updateProgressBar(callback) {
 			if (callback) {
 				callback();
 			}
-		}, 500); // Hide loading screen after 1 second
+		}, 10); // Hide loading screen after 1 second
 	}
 }
 
