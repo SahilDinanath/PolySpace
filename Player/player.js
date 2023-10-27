@@ -42,7 +42,7 @@ export function addPlayerToScene(scene, firstPersonCam) {
 		function(player) {
 			player.scene.name = "player";
 			player.scene.receiveShadow = true;
-			//player.scene.castShadow = true;
+			player.scene.castShadow = true;
 			player.scene.traverse(function (node){
 				if(node.isMesh)
 					node.castShadow = true;
