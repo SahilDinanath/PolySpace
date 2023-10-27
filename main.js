@@ -226,36 +226,39 @@ ui.levelOneButton.onclick = function() {
 	 * this is a design by google/firefox, this plays the song in case the user never clicked anywhere on screen*/
 
 	ui.disableStartScreen();
+	ui.updateProgressBar(() =>
+	{
+		scene.remove(scene.getObjectByName("starField"));
+		world.levelOne(scene, renderer, camera);
+		animate();
+	});
 
-	scene.remove(scene.getObjectByName("starField"));
-
-	world.levelOne(scene, renderer, camera);
-	animate();
 }
 
 ui.levelTwoButton.onclick = function() {
 	level2 = true;
 	canPause = true;
 	initCam = false;
-
-	scene.remove(scene.getObjectByName("starField"));
-
 	ui.disableStartScreen();
-	world.levelTwo(scene, renderer, camera);
-	//createStars(scene);
-
-	animate();
+	ui.updateProgressBar(() =>
+	{
+		scene.remove(scene.getObjectByName("starField"));
+		world.levelOne(scene, renderer, camera);
+		animate();
+	});
 }
 
 ui.levelThreeButton.onclick = function() {
 	level3 = true;
 	canPause = true;
 	initCam = false;
-	scene.remove(scene.getObjectByName("starField"));
-
 	ui.disableStartScreen();
-	world.levelThree(scene, renderer, camera);
-	animate();
+	ui.updateProgressBar(() =>
+	{
+		scene.remove(scene.getObjectByName("starField"));
+		world.levelOne(scene, renderer, camera);
+		animate();
+	});
 }
 
 //TODO: fix next
