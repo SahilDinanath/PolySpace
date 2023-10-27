@@ -1,5 +1,5 @@
 import * as THREE from "three";
-
+import bossTex from "/Assets/bossTextures/grey.jpg";
 // const renderer = new THREE.WebGLRenderer();
 // renderer.setSize(window.innerWidth, window.innerHeight);
 // document.body.appendChild(renderer.domElement);
@@ -68,7 +68,7 @@ export function bossThree(camera, scene, renderer) {
         points.push(new THREE.Vector2(Math.sin(i * 0.2) * 10 + 5, (i - 5) * 2));
     }
     const geometry = new THREE.LatheGeometry(points);
-    const latheTexture = new THREE.TextureLoader().load("/Assets/bossTextures/grey.jpg");
+    const latheTexture = new THREE.TextureLoader().load(bossTex);
     const material = new THREE.MeshStandardMaterial({
         map: latheTexture,
         side: THREE.DoubleSide,
@@ -80,7 +80,7 @@ export function bossThree(camera, scene, renderer) {
     scene.add(lathe);
 
    const tetGeometry = new THREE.TetrahedronGeometry(5, 0);
-   const tetTexture = new THREE.TextureLoader().load("/Assets/bossTextures/grey.jpg");
+   const tetTexture = new THREE.TextureLoader().load(bossTex);
     const tetMaterial = new THREE.MeshStandardMaterial({ map: tetTexture });
    let tetrahedron = new THREE.Mesh(tetGeometry, tetMaterial);
     let tetrahedron2 = new THREE.Mesh(tetGeometry, tetMaterial);
@@ -110,17 +110,17 @@ export function bossThree(camera, scene, renderer) {
 
 export function bossTwo(camera, scene, renderer) {
     const octGeometry = new THREE.OctahedronGeometry(5, 0);
-    const octTexture = new THREE.TextureLoader().load("/Assets/bossTextures/grey.jpg");
+    const octTexture = new THREE.TextureLoader().load(bossTex);
     const octMaterial = new THREE.MeshStandardMaterial({ map: octTexture });
     let octahedron = new THREE.Mesh(octGeometry, octMaterial);
 
     const torusGeometry = new THREE.TorusGeometry(5);
-    const torusTexture = new THREE.TextureLoader().load("/Assets/bossTextures/grey.jpg");
+    const torusTexture = new THREE.TextureLoader().load(bossTex);
     const torusMaterial = new THREE.MeshStandardMaterial({ map: torusTexture });
     let torus = new THREE.Mesh(torusGeometry, torusMaterial);
 
     const tetGeometry = new THREE.TetrahedronGeometry(2, 0);
-    const tetTexture = new THREE.TextureLoader().load("/Assets/bossTextures/grey.jpg");
+    const tetTexture = new THREE.TextureLoader().load(bossTex);
     const tetMaterial = new THREE.MeshStandardMaterial({ map: tetTexture });
     let tetrahedron = new THREE.Mesh(tetGeometry, tetMaterial);
     let tetrahedron2 = new THREE.Mesh(tetGeometry, tetMaterial);
@@ -167,7 +167,7 @@ export function bossTwo(camera, scene, renderer) {
 export function bossOne(camera, scene, renderer) {
     //create the shape object
     const octGeometry = new THREE.OctahedronGeometry(5, 0);
-    const tetTexture = new THREE.TextureLoader().load("/Assets/bossTextures/grey.jpg");
+    const tetTexture = new THREE.TextureLoader().load(bossTex);
     const octMaterial = new THREE.MeshStandardMaterial({ map: tetTexture });
     let octahedron = new THREE.Mesh(octGeometry, octMaterial);
     let octahedron2 = new THREE.Mesh(octGeometry, octMaterial);

@@ -10,6 +10,19 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import texStarField from '/Assets/img/galaxy_starfield.png';
 import texStar from '/Assets/img/star.png';
 import texMoon from "/Assets/img/moon4k.jpg";
+
+import lf from "/Assets/skyboxes/_lf.png";
+import dn from "/Assets/skyboxes/_dn.png";
+import up from "/Assets/skyboxes/_up.png";
+import rt from "/Assets/skyboxes/_rt.png";
+import bk from "/Assets/skyboxes/_bk.png";
+import ft from "/Assets/skyboxes/_ft.png";
+
+import exploreVehicle from '/Assets/moonTextures/exploVehicle.glb';
+import satt from '/Assets/models/satelite.glb';
+import sunModel from '/Assets/models/sun.glb';
+import flagMod from '/Assets/models/flag.glb';
+
 //Stars
 var starGeometry = new THREE.SphereGeometry(5000, 50, 50);
 var starMaterial = new THREE.MeshPhongMaterial({
@@ -20,18 +33,18 @@ var starMaterial = new THREE.MeshPhongMaterial({
 });
 var starField = new THREE.Mesh(starGeometry, starMaterial);
 function skybox(scene) {
-	var imgPrefix = "/Assets/skyboxes/";
-	var directions = ["_lf", "_dn", "_up", "_rt", "_bk", "_ft"];
-	var imgSuffix = ".png";
+
 	var skyGeometry = new THREE.BoxGeometry(10000, 10000, 10000);
 
-	var materialArray = [];
-	for (var i = 0; i < 6; i++) {
-		materialArray.push(new THREE.MeshPhongMaterial({
-			map: new THREE.TextureLoader().load(imgPrefix + directions[i] + imgSuffix),
-			side: THREE.BackSide
-		}));
-	}
+	var materialArray = [
+		new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(lf), side: THREE.BackSide }),
+		new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(dn), side: THREE.BackSide }),
+		new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(up), side: THREE.BackSide }),
+		new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(rt), side: THREE.BackSide }),
+		new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(bk), side: THREE.BackSide }),
+		new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(ft), side: THREE.BackSide })
+	];
+
 
 	//var skyMaterial = new THREE.MeshFaceMaterial(materialArray); // No longer needed
 
@@ -84,7 +97,7 @@ const loader = new GLTFLoader();
 function addApollo(scene) {
 	// Load the "apollo" model
 
-	loader.load('/Assets/moonTextures/exploVehicle.glb', function (apollo) {
+	loader.load(exploreVehicle, function (apollo) {
 		apollo.scene.receiveShadow = true;
 		apollo.scene.name = "rover";
 		apollo.scene.traverse(function (node) {
@@ -108,7 +121,7 @@ function addApollo(scene) {
 
 function loadSatelite(scene) {
     const sateliteLoader = new GLTFLoader();
-    sateliteLoader.load('/Assets/models/satelite.glb', function (satelite) {
+    sateliteLoader.load(satt, function (satelite) {
         satelite.scene.scale.set(2, 2, 2); // Adjust the scale as needed
         satelite.scene.position.set(-120, 50, -200); // Adjust the position as needed
 
@@ -118,9 +131,9 @@ function loadSatelite(scene) {
 
 
 function loadSun(scene) {
-	console.log("Khethii")
+	//console.log("Khethii")
     const sunLoader = new GLTFLoader();
-    sunLoader.load('/Assets/models/sun.glb', function (sun) {
+    sunLoader.load(sunModel, function (sun) {
         sun.scene.scale.set(200, 200, 200); // Adjust the scale as needed
         sun.scene.position.set(120, 70, -200); // Adjust the position as needed
 
@@ -131,7 +144,7 @@ function loadSun(scene) {
 function loadFlag(scene) {
     const flagLoader = new GLTFLoader();
 	let flagModel = null;
-    flagLoader.load('/Assets/models/flag.glb', function (flag) {
+    flagLoader.load(flagMod, function (flag) {
         flag.scene.scale.set(7, 7, 7); // Adjust the scale as needed
         flag.scene.position.set(50, -10, -400); // Adjust the position as needed
 		flag.scene.rotateY(Math.PI / 2);
@@ -141,7 +154,7 @@ function loadFlag(scene) {
     // Create an animation function to move the flag towards the camera
     function animateFlag() {
         if (flagModel) {
-			console.log("Khethii")
+			//console.log("Khethii")
             // Update the flag's position along the Z-axis
             flagModel.position.z += 0.5; // Adjust the speed as needed
         }
