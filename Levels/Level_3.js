@@ -47,8 +47,13 @@ export function updateDirectionalLighting(scene) {
 //adds directional lighting to scene
 function addSunLightingToScene(scene) {
 	const dl = new THREE.DirectionalLight(0xffffff, 3);
-	dl.castShadow = true;
 
+	dl.castShadow = true;
+	dl.position.y = 100;
+	dl.shadow.camera.left = -1000;  // Adjust these values so that shadow covers a larger area
+	dl.shadow.camera.right = 1000;
+	dl.shadow.camera.top = 1000;
+	dl.shadow.camera.bottom = -1000;
 	dl.shadow.mapSize.width = 1024;
 	dl.shadow.mapSize.height = 1024;
 	//dl.position.set(0, 100, -300);

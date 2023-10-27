@@ -75,6 +75,11 @@ function addTree1ToScene(scene, scalex, scaley, scalez, x, y, z) {
       tree.scene.name = "tree1";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(scalex, scaley, scalez);
+      tree.scene.traverse(function (node){
+            if(node.isMesh)
+                node.castShadow = true;
+                node.receiveShadow = true;
+        });
       tree.scene.children[0].children[0].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
@@ -93,6 +98,11 @@ function addTree2ToScene(scene, scalex, scaley, scalez, x, y, z) {
       tree.scene.name = "tree2";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(scalex, scaley, scalez);
+        tree.scene.traverse(function (node){
+            if(node.isMesh)
+                node.castShadow = true;
+            node.receiveShadow = true;
+        });
       tree.scene.children[0].children[1].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
@@ -110,6 +120,11 @@ function addTree3ToScene(scene, scalex, scaley, scalez, x, y, z) {
       tree.scene.name = "tree3";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(scalex, scaley, scalez);
+        tree.scene.traverse(function (node){
+            if(node.isMesh)
+                node.castShadow = true;
+            node.receiveShadow = true;
+        });
       tree.scene.children[0].children[4].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
