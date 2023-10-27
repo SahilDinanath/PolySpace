@@ -127,7 +127,7 @@ export function levelOne(scene,renderer,camera) {
 	//addApollo(scene, moonD);
 	ui.addMiniMapToScene(scene);
 	bosses.bossTwo(camera, scene, renderer);
-	obstacles.animateObstacles(renderer, camera, scene, 2);
+	obstacles.animateObstacles(renderer, camera, scene, 5);
 
 }
 
