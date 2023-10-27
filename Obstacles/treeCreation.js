@@ -1,5 +1,8 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import tree1Model from 'Assets/treeTextures/treeConfig1.glb';
+import tree2Model from 'Assets/treeTextures/treeConfig2.glb';
+import tree3Model from 'Assets/treeTextures/treeConfig3.glb';
 
 export let treesBoundingBoxes = [];
 export let trees = [];
@@ -70,16 +73,16 @@ export function generateTree(scene, MIN_Z) {
 }
 
 function addTree1ToScene(scene, scalex, scaley, scalez, x, y, z) {
-  loader.load('Assets/treeTextures/treeConfig1.glb',
+  loader.load(tree1Model,
     function (tree) {
       tree.scene.name = "tree1";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(scalex, scaley, scalez);
-      tree.scene.traverse(function (node){
-            if(node.isMesh)
-                node.castShadow = true;
-                node.receiveShadow = true;
-        });
+      tree.scene.traverse(function (node) {
+        if (node.isMesh)
+          node.castShadow = true;
+        node.receiveShadow = true;
+      });
       tree.scene.children[0].children[0].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
@@ -93,16 +96,16 @@ function addTree1ToScene(scene, scalex, scaley, scalez, x, y, z) {
 }
 
 function addTree2ToScene(scene, scalex, scaley, scalez, x, y, z) {
-  loader.load('Assets/treeTextures/treeConfig2.glb',
+  loader.load(tree2Model,
     function (tree) {
       tree.scene.name = "tree2";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(scalex, scaley, scalez);
-        tree.scene.traverse(function (node){
-            if(node.isMesh)
-                node.castShadow = true;
-            node.receiveShadow = true;
-        });
+      tree.scene.traverse(function (node) {
+        if (node.isMesh)
+          node.castShadow = true;
+        node.receiveShadow = true;
+      });
       tree.scene.children[0].children[1].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
@@ -115,16 +118,16 @@ function addTree2ToScene(scene, scalex, scaley, scalez, x, y, z) {
 }
 
 function addTree3ToScene(scene, scalex, scaley, scalez, x, y, z) {
-  loader.load('Assets/treeTextures/treeConfig3.glb',
+  loader.load(tree3Model,
     function (tree) {
       tree.scene.name = "tree3";
       tree.scene.rotateY(Math.PI);
       tree.scene.scale.set(scalex, scaley, scalez);
-        tree.scene.traverse(function (node){
-            if(node.isMesh)
-                node.castShadow = true;
-            node.receiveShadow = true;
-        });
+      tree.scene.traverse(function (node) {
+        if (node.isMesh)
+          node.castShadow = true;
+        node.receiveShadow = true;
+      });
       tree.scene.children[0].children[4].geometry.computeBoundingBox();
       treeBoundingBox = new THREE.Box3().setFromObject(tree.scene);
 
