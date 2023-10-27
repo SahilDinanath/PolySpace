@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import * as player from '/Player/player_exports.js';
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as ui from '/UI/ui_exports.js'
 import * as music from '/Music/musicController.js';
 import * as world from "/Levels/levels.js";
