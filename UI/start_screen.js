@@ -26,6 +26,10 @@ export var nextButton = document.getElementById("next");
 
 export var title = document.getElementById("title");
 
+export var loadingScreen = document.getElementById('loading-screen');
+export var progressBar = document.getElementById('loading-progress-bar')
+export var infoAboutLevel = document.querySelector('#levelInfo')
+
 
 //dom functions
 export function disableStartScreen(){

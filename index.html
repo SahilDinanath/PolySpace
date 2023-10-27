@@ -8,12 +8,6 @@
 		body {
 			margin: 0;
 		}
-		.center {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-		}
 
 		.styled-button {
 			position: absolute;
@@ -147,11 +141,53 @@
 		.space_instructions {
 			display: none;
 		}
+		#loading-screen {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background color */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 1000;
+		}
+
+		#loading-background {
+			/*	background-image: url('./undercover.png');  Specify the path to your background image */
+			background-size: cover; /* Fit the image perfectly */
+			background-repeat: no-repeat; /* Prevent repeating the image */
+			background-position: center; /* Center the image within the element */
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			opacity: 0.6;
+		}
+		#loading-content {
+			text-align: center;
+			color: #ffffff; /* Text color */
+			z-index: 1; /* Ensure it's above the background */
+		}
+		#loading-progress {
+			width: 80%; /* Adjust the width of the progress container */
+			margin: 20px auto; /* Center the progress bar horizontally */
+			background-color: rgba(255, 255, 255, 0.2); /* Progress container background */
+			border-radius: 4px; /* Rounded corners */
+			height: 20px; /* Height of the progress container */
+		}
+
+		#loading-progress-bar {
+			height: 100%; /* Height of the progress bar */
+			width: 0; /* Initial width is 0% */
+			background-color: #007bff; /* Color of the progress bar */
+			border-radius: 4px; /* Rounded corners */
+		}
 	</style>
 </head>
 
 <body>
-	<div style="top:20%" class="threeD centre" id="title">
+	<div style="top:20%" class="threeD" id="title">
 		Poly Space
 	</div>
 	<div id="level_1">
@@ -207,7 +243,7 @@
 			</span>
 		</button>
 	</div>
-	</head>
+
 	<script type="module" src="main.js"></script>
 
 
@@ -298,6 +334,20 @@
 			</span>
 		</button>
 	</div>
+
+	<div id ="m_loading-screen">
+		<div id="m_loading_background">
+	</div>
+		<div id="m_loading-content">
+			<h1>Level loading</h1>
+			<div id="m_loading-progress">
+				<div id="m_loading-progress-bar">
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+
+
 
 </html>
