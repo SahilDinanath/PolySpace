@@ -105,7 +105,7 @@ export function enableWinScreen(){
 	title.textContent = "YOU WIN!";
 	returnButton.style.display = 'block';
 	//restartButton.style.display = 'block';
-	nextButton.style.display = 'block';
+	//nextButton.style.display = 'block';
 }
 
 
