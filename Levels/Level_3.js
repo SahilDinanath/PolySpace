@@ -1,8 +1,8 @@
-import * as bosses from '/Bosses/bosses.js';
-import * as obstacles from '/Obstacles/obstacles.js';
+import * as bosses from './Bosses/bosses.js';
+import * as obstacles from './Obstacles/obstacles.js';
 import * as THREE from 'three';
-import * as player from '/Player/player_exports.js';
-import * as ui from '/UI/ui_exports.js'; //TODO: add import for sky box 
+import * as player from './Player/player_exports.js';
+import * as ui from './UI/ui_exports.js'; //TODO: add import for sky box 
 import * as earth from '../Planets/worldGenerator.js';
 import * as skybox from '../Background/daySkyBox.js';
 

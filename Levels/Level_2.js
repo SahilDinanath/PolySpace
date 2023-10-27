@@ -1,9 +1,8 @@
-import * as bosses from '/Bosses/bosses.js';
-import * as obstacles from '/Obstacles/obstacles.js';
-import * as player from '/Player/player_exports.js';
-import * as ui from '/UI/ui_exports.js'
+import * as bosses from './Bosses/bosses.js';
+import * as obstacles from './Obstacles/obstacles.js';
+import * as player from './Player/player_exports.js';
+import * as ui from './UI/ui_exports.js'
 import * as THREE from "three";
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import {solarSys} from "../UI/solarSystem";
 //import {solarSys} from "../UI/solarSystem";
 

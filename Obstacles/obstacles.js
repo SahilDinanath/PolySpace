@@ -1,7 +1,7 @@
-import { playerBoundingBox } from '/Player/player.js';
+import { playerBoundingBox } from './Player/player.js';
 import { obstacles, obstaclesBoundingBoxes, createObstacle } from './obstacleCreation.js';
 import { trees, treesBoundingBoxes, addTreeToScene, generateTree } from './treeCreation.js';
-import { isPaused, level3 } from '/main.js';
+import { isPaused, level3 } from './main.js';
 
 //where obstacle should be generated
 const MIN_Z = -400;

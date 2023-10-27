@@ -1,8 +1,8 @@
-import * as bosses from '/Bosses/bosses.js';
-import * as obstacles from '/Obstacles/obstacles.js';
+import * as bosses from './Bosses/bosses.js';
+import * as obstacles from './Obstacles/obstacles.js';
 import * as THREE from 'three';
-import * as player from '/Player/player_exports.js';
-import * as ui from '/UI/ui_exports.js'
+import * as player from './Player/player_exports.js';
+import * as ui from './UI/ui_exports.js'
 import * as moon from '../Planets/worldGenerator.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
