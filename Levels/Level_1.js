@@ -104,8 +104,8 @@ function addApollo(scene) {
 
 function loadSatelite(scene) {
     const sateliteLoader = new GLTFLoader();
-    sateliteLoader.load('/Assets/models/sun_model.glb', function (satelite) {
-        satelite.scene.scale.set(1, 1, 1); // Adjust the scale as needed
+    sateliteLoader.load('/Assets/models/satelite.glb', function (satelite) {
+        satelite.scene.scale.set(2, 2, 2); // Adjust the scale as needed
         satelite.scene.position.set(-120, 50, -200); // Adjust the position as needed
 
         scene.add(satelite.scene);
@@ -115,7 +115,7 @@ function loadSatelite(scene) {
 
 function loadSun(scene) {
     const sunLoader = new GLTFLoader();
-    sunLoader.load('/Assets/models/Sun.obj', function (sun) {
+    sunLoader.load('/Assets/models/sun.glb', function (sun) {
         sun.scene.scale.set(1, 1, 1); // Adjust the scale as needed
         sun.scene.position.set(120, 70, -200); // Adjust the position as needed
 
