@@ -26,6 +26,10 @@ export var nextButton = document.getElementById("next");
 
 export var title = document.getElementById("title");
 
+export var loadingScreen = document.getElementById('loading-screen');
+export var progressBar = document.getElementById('loading-progress-bar')
+export var infoAboutLevel = document.querySelector('#levelInfo')
+
 
 //dom functions
 export function disableStartScreen(){
@@ -108,12 +112,36 @@ export function enableWinScreen(){
 	//nextButton.style.display = 'block';
 }
 
-
 export function enableLoseScreen(){
 	title.hidden = false;
 	title.textContent = "YOU LOSE! Better luck next time."
 	returnButton.style.display = 'block';
 	//restartButton.style.display = 'block';
+}
+
+// Simulate loading progress for 3 seconds
+const totalProgressSteps = 3000;
+let currentProgress = 0;
+const progressIncrement = totalProgressSteps / 3000; // Update progress every 10ms
+
+export function updateProgressBar(callback) {
+	loadingScreen.style.display = 'flex';
+	currentProgress += progressIncrement;
+	progressBar.style.width = currentProgress + '%';
+
+	if (currentProgress < 100) {
+		requestAnimationFrame(() => updateProgressBar(callback));
+	} else {
+		// Loading complete, hide the loading screen
+		setTimeout(() => {
+			loadingScreen.style.display = 'none';
+
+			// Call the callback function to start the animation
+			if (callback) {
+				callback();
+			}
+		}, 500); // Hide loading screen after 1 second
+	}
 }
 
 
