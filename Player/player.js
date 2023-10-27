@@ -5,6 +5,20 @@ import * as THREE from 'three';
 const yMovementBounds = 16;
 const xMovementBounds = 16;
 let playerMoving = false;
+
+export let leftHeadlight, rightHeadlight;
+
+// Load and create left headlight
+leftHeadlight = new THREE.SpotLight(0xffffff, 1000, 0, Math.PI/2, 0,1);
+leftHeadlight.castShadow = true;
+
+
+// Load and create right headlight
+rightHeadlight = new THREE.SpotLight(0xffffff, 1000, 0, Math.PI/2, 0,1);
+rightHeadlight.castShadow = true;
+
+
+
 export let playerBoundingBox;
 let speed = 0.5;
 //user input for player movement
@@ -22,7 +36,7 @@ document.onkeyup = function(e) {
 //load models
 const loader = new GLTFLoader();
 
-export function addPlayerToScene(scene) {
+export function addPlayerToScene(scene, firstPersonCam) {
 	loader.load('Assets/playerTextures/StarSparrow.glb',
 		//we have to set up player in here for now
 		function(player) {
@@ -42,12 +56,23 @@ export function addPlayerToScene(scene) {
 			// playerBoundingBox = new THREE.BoxHelper(player.scene, 0xff0000);
 			// scene.add(playerBoundingBox);
 
+			//leftHeadlight.rotation.y = Math.PI ;
+			// Add left headlight to the player object
+			leftHeadlight.position.set(-2, 0, 0); // Adjust the position relative to the player model
+			//player.scene.add(leftHeadlight);
+
+
+			// Add right headlight to the player object
+			rightHeadlight.position.set(2, 0, 0); // Adjust the position relative to the player model
+			//rightHeadlight.rotation.y = Math.PI;
+			//player.scene.add(rightHeadlight);
+
 			scene.add(player.scene);
 		});
 }
 
 //keyboard movements
-export function keyboardMoveObject(scene) {
+export function keyboardMoveObject(scene, firstPersonCamera) {
 	const object = scene.getObjectByName("player");
 	if (object == undefined)
 		return;
@@ -101,6 +126,10 @@ export function keyboardMoveObject(scene) {
 			}
 		}
 	}
+	firstPersonCamera.position.x = object.position.x;
+	firstPersonCamera.position.y = object.position.y;
+	firstPersonCamera.position.z = object.position.z - 6;
+
 };
 
 //on player death delete the player and spawn particles
