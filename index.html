@@ -141,13 +141,15 @@
 		.space_instructions {
 			display: none;
 		}
+
 		#loading-screen {
 			position: fixed;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background color */
+			background-color: rgba(0, 0, 0, 0.8);
+			/* Semi-transparent background color */
 			display: none;
 			justify-content: center;
 			align-items: center;
@@ -156,32 +158,48 @@
 
 		#loading_background {
 			/*	background-image: url('./undercover.png');  Specify the path to your background image */
-			background-size: cover; /* Fit the image perfectly */
-			background-repeat: no-repeat; /* Prevent repeating the image */
-			background-position: center; /* Center the image within the element */
+			background-size: cover;
+			/* Fit the image perfectly */
+			background-repeat: no-repeat;
+			/* Prevent repeating the image */
+			background-position: center;
+			/* Center the image within the element */
 			width: 100%;
 			height: 100%;
 			position: absolute;
 			opacity: 0.6;
 		}
+
 		#loading-content {
 			text-align: center;
-			color: #ffffff; /* Text color */
-			z-index: 1; /* Ensure it's above the background */
+			color: #ffffff;
+			/* Text color */
+			z-index: 1;
+			/* Ensure it's above the background */
 		}
+
 		#loading-progress {
-			width: 80%; /* Adjust the width of the progress container */
-			margin: 20px auto; /* Center the progress bar horizontally */
-			background-color: rgba(255, 255, 255, 0.2); /* Progress container background */
-			border-radius: 4px; /* Rounded corners */
-			height: 20px; /* Height of the progress container */
+			width: 80%;
+			/* Adjust the width of the progress container */
+			margin: 20px auto;
+			/* Center the progress bar horizontally */
+			background-color: rgba(255, 255, 255, 0.2);
+			/* Progress container background */
+			border-radius: 4px;
+			/* Rounded corners */
+			height: 20px;
+			/* Height of the progress container */
 		}
 
 		#loading-progress-bar {
-			height: 100%; /* Height of the progress bar */
-			width: 0; /* Initial width is 0% */
-			background-color: #007bff; /* Color of the progress bar */
-			border-radius: 4px; /* Rounded corners */
+			height: 100%;
+			/* Height of the progress bar */
+			width: 0;
+			/* Initial width is 0% */
+			background-color: #007bff;
+			/* Color of the progress bar */
+			border-radius: 4px;
+			/* Rounded corners */
 		}
 	</style>
 </head>
@@ -243,7 +261,6 @@
 			</span>
 		</button>
 	</div>
-
 	<script type="module" src="main.js"></script>
 
 
@@ -335,9 +352,9 @@
 		</button>
 	</div>
 
-	<div id ="loading-screen">
+	<div id="loading-screen">
 		<div id="loading_background">
-	</div>
+		</div>
 		<div id="loading-content">
 			<h1>Level loading</h1>
 			<div id="loading-progress">
