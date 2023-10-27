@@ -125,14 +125,30 @@ function loadSun(scene) {
 }
 
 function loadFlag(scene) {
-	console.log("Khethii")
     const flagLoader = new GLTFLoader();
+	let flagModel = null;
     flagLoader.load('/Assets/models/flag.glb', function (flag) {
-        flag.scene.scale.set(200, 200, 200); // Adjust the scale as needed
-        flag.scene.position.set(90, 0, -200); // Adjust the position as needed
-
+        flag.scene.scale.set(7, 7, 7); // Adjust the scale as needed
+        flag.scene.position.set(50, -10, -400); // Adjust the position as needed
+		flag.scene.rotateY(Math.PI / 2);
+		flagModel = flag.scene;
         scene.add(flag.scene);
     });
+    // Create an animation function to move the flag towards the camera
+    function animateFlag() {
+        if (flagModel) {
+			console.log("Khethii")
+            // Update the flag's position along the Z-axis
+            flagModel.position.z += 0.5; // Adjust the speed as needed
+        }
+
+        // Call the animation function in the render loop
+        requestAnimationFrame(animateFlag);
+    }
+
+    // Start the animation
+    animateFlag();
+	
 }
 
 
@@ -165,7 +181,7 @@ export function levelOne(scene,renderer,camera) {
 	obstacles.animateObstacles(renderer, camera, scene, 2);
 	loadSatelite(scene);
 	loadSun(scene);
-	loadFlag(scene0);
+	loadFlag(scene);
 }
 
 export function rotateRover(scene) {
