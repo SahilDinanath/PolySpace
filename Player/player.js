@@ -1,6 +1,7 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import * as particle from '/Player/particleEffect.js';
 import * as THREE from 'three';
+import modelPlayer from 'Assets/playerTextures/StarSparrow.glb';
 //player keyboard input for movement
 const yMovementBounds = 16;
 const xMovementBounds = 16;
@@ -37,7 +38,7 @@ document.onkeyup = function(e) {
 const loader = new GLTFLoader();
 
 export function addPlayerToScene(scene, firstPersonCam) {
-	loader.load('Assets/playerTextures/StarSparrow.glb',
+	loader.load(modelPlayer,
 		//we have to set up player in here for now
 		function(player) {
 			player.scene.name = "player";
