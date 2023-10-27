@@ -6,10 +6,14 @@ import * as ui from '/UI/ui_exports.js'
 import * as moon from '../Planets/worldGenerator.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
+//importing textures
+import texStarField from '/Assets/img/galaxy_starfield.png';
+import texStar from '/Assets/img/star.png';
+import texMoon from "/Assets/img/moon4k.jpg";
 //Stars
 var starGeometry = new THREE.SphereGeometry(5000, 50, 50);
 var starMaterial = new THREE.MeshPhongMaterial({
-	map: new THREE.TextureLoader().load("/Assets/img/galaxy_starfield.png"),
+	map: new THREE.TextureLoader().load(texStarField),
 	side: THREE.DoubleSide,
 	transparent:true,
 	shininess: 0
@@ -64,7 +68,7 @@ for (let i = 0; i < particlesCount; i++) {
 	 new THREE.BufferAttribute(vertices, 3)
  )
 
-const particleTexture = new  THREE.TextureLoader().load('/Assets/img/star.png');
+const particleTexture = new  THREE.TextureLoader().load(texStar);
 
 const particleMaterial = new THREE.PointsMaterial({
 	map: particleTexture,
@@ -74,7 +78,7 @@ const particleMaterial = new THREE.PointsMaterial({
 
 const stars = new THREE.Points(particlesGeometry, particleMaterial);
 
-let moonTexture = "/Assets/img/moon4k.jpg";
+let moonTexture = texMoon;
 
 const loader = new GLTFLoader();
 function addApollo(scene) {

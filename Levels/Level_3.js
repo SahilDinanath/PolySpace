@@ -6,6 +6,8 @@ import * as ui from '/UI/ui_exports.js'; //TODO: add import for sky box
 import * as earth from '../Planets/worldGenerator.js';
 import * as skybox from '../Background/daySkyBox.js';
 
+import earthTex from '../Assets/earthTextures/GroundGrassGreen002/GroundGrassGreen002_COL_2K.jpg';
+
 export function levelThree(scene, renderer, camera) {
 	//sets up lighting 
 	const ambientLighting = new THREE.AmbientLight("white", 0.5);
@@ -27,9 +29,8 @@ export function levelThree(scene, renderer, camera) {
 	skybox.initSky(scene, renderer, camera);
 
 	//adds earth to scene with lighting with respect to the sun
-	let earthTexture = '../Assets/earthTextures/GroundGrassGreen002/GroundGrassGreen002_COL_2K.jpg';
 	let wrap = true;
-	let earthObject  = earth.addSphereToScene(scene, earthTexture, wrap);
+	let earthObject  = earth.addSphereToScene(scene, earthTex, wrap);
 	addSunLightingToScene(scene);
 }
 
