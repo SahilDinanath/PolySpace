@@ -155,7 +155,7 @@ function loadFlag(scene) {
 
 export function levelOne(scene,renderer,camera) {
 	//sets up lighting 
-	const ambientLighting = new THREE.AmbientLight("white", 0.5);
+	const ambientLighting = new THREE.AmbientLight("white", 0.1);
 	scene.add(ambientLighting);
 	skybox(scene);
 	const sunLight = new THREE.DirectionalLight(0xffffff, 5);
