@@ -243,7 +243,7 @@ ui.levelTwoButton.onclick = function() {
 	ui.updateProgressBar(() =>
 	{
 		scene.remove(scene.getObjectByName("starField"));
-		world.levelOne(scene, renderer, camera);
+		world.levelTwo(scene, renderer, camera);
 		animate();
 	});
 }
@@ -256,7 +256,7 @@ ui.levelThreeButton.onclick = function() {
 	ui.updateProgressBar(() =>
 	{
 		scene.remove(scene.getObjectByName("starField"));
-		world.levelOne(scene, renderer, camera);
+		world.levelThree(scene, renderer, camera);
 		animate();
 	});
 }
