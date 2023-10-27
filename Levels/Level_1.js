@@ -18,10 +18,10 @@ import rt from "/Assets/skyboxes/_rt.png";
 import bk from "/Assets/skyboxes/_bk.png";
 import ft from "/Assets/skyboxes/_ft.png";
 
-import exploreVehicle from '/Assets/moonTextures/exploVehicle.glb';
-import satt from '/Assets/models/satelite.glb';
-import sunModel from '/Assets/models/sun.glb';
-import flagMod from '/Assets/models/flag.glb';
+import exploreVehicle from '/Assets/moonTextures/exploVehicle.glb?url';
+import satt from '/Assets/models/satelite.glb?url';
+import sunModel from '/Assets/models/sun.glb?url';
+import flagMod from '/Assets/models/flag.glb?url';
 
 //Stars
 var starGeometry = new THREE.SphereGeometry(5000, 50, 50);

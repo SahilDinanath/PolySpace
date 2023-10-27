@@ -19,7 +19,7 @@ function addShape(shape, x, y, z) {
 function createStarOfCones() {
     // Number of cones in the star
     const numCones = 5;
-    const tetTexture = new THREE.TextureLoader().load("/Assets/bossTextures/grey.jpg");
+    const tetTexture = new THREE.TextureLoader().load(bossTex);
     // Parameters for the cones
     const coneRadius = 2;
     const coneHeight = 7;

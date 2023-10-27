@@ -1,7 +1,7 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import * as particle from '/Player/particleEffect.js';
 import * as THREE from 'three';
-import modelPlayer from 'Assets/playerTextures/StarSparrow.glb';
+import modelPlayer from '/Assets/playerTextures/StarSparrow.glb?url';
 //player keyboard input for movement
 const yMovementBounds = 16;
 const xMovementBounds = 16;
