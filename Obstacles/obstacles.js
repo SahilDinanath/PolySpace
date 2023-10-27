@@ -1,7 +1,7 @@
 import { playerBoundingBox } from '/Player/player.js';
 import { obstacles, obstaclesBoundingBoxes, createObstacle } from './obstacleCreation.js';
 import { trees, treesBoundingBoxes, addTreeToScene, generateTree } from './treeCreation.js';
-import { isPaused } from '/main.js';
+import { isPaused, level3 } from '/main.js';
 
 //where obstacle should be generated
 const MIN_Z = -400;
@@ -97,9 +97,12 @@ export function animateObstacles(renderer, camera, scene, speed) {
     }
     requestAnimationFrame(animate);
   }
-  addTreeToScene(scene, MIN_Z);
-  generateTree(scene, MIN_Z + 175);
-  generateTree(scene, MIN_Z);
+
+  if (level3) {
+    addTreeToScene(scene, MIN_Z);
+    generateTree(scene, MIN_Z + 175);
+    generateTree(scene, MIN_Z);
+  }
 
   createObstacle(scene, MIN_Z);
   animate();
