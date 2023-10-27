@@ -119,7 +119,6 @@ export function  solarSys(renderer, scene, camera){
     };
     animate();
 
-
     return group;
 
 }

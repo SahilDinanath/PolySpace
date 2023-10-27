@@ -1,18 +1,21 @@
 import * as THREE from 'three';
 //pass in texture address
-function sphereTexture(textureAddress) {
+function sphereTexture(textureAddress, wrap) {
 	const texture = new THREE.TextureLoader().load(textureAddress);
-	texture.wrapS = THREE.RepeatWrapping;
-	texture.wrapT = THREE.RepeatWrapping;
-	texture.repeat.set(200, 200);
+	if (wrap === true){
+		texture.wrapS = THREE.RepeatWrapping;
+		texture.wrapT = THREE.RepeatWrapping;
+		texture.repeat.set(200, 200);
+	}
+
 	texture.colorSpace = THREE.SRGBColorSpace;
 	return texture;
 }
-function createSphere(textureAddress) {
+function createSphere(textureAddress, wrap) {
 	const geometry = new THREE.SphereGeometry(1, 128, 128);
 	const material = new THREE.MeshPhongMaterial({
 		color: "",
-		map: sphereTexture(textureAddress),
+		map: sphereTexture(textureAddress, wrap),
 	});
 	const sphere = new THREE.Mesh(geometry, material);
 	sphere.castShadow = true;
@@ -22,8 +25,8 @@ function createSphere(textureAddress) {
 	return sphere;
 }
 
-export function addSphereToScene(scene, textureAddress) {
-	const sphere = createSphere(textureAddress);
+export function addSphereToScene(scene, textureAddress,wrap) {
+	const sphere = createSphere(textureAddress, wrap);
 
 	sphere.scale.set(2500, 2500, 2500);
 	sphere.position.set(0, -2515, -200);

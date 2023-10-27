@@ -9,7 +9,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 //Stars
 var starGeometry = new THREE.SphereGeometry(5000, 50, 50);
 var starMaterial = new THREE.MeshPhongMaterial({
-	map: new THREE.TextureLoader().load("/Assets/images/galaxy_starfield.png"),
+	map: new THREE.TextureLoader().load("/Assets/img/galaxy_starfield.png"),
 	side: THREE.DoubleSide,
 	transparent:true,
 	shininess: 0
@@ -57,12 +57,14 @@ for (let i = 0; i < particlesCount; i++) {
 	vertices[i * 3 + 2] = z;
 }
 
+
+
  particlesGeometry.setAttribute(
 	 "position",
 	 new THREE.BufferAttribute(vertices, 3)
  )
 
-const particleTexture = new  THREE.TextureLoader().load('/Assets/images/star.png');
+const particleTexture = new  THREE.TextureLoader().load('/Assets/img/star.png');
 
 const particleMaterial = new THREE.PointsMaterial({
 	map: particleTexture,
@@ -72,14 +74,15 @@ const particleMaterial = new THREE.PointsMaterial({
 
 const stars = new THREE.Points(particlesGeometry, particleMaterial);
 
-let moonTexture = "/Assets/images/asteroid.jpg";
+let moonTexture = "/Assets/img/moon4k.jpg";
 
 const loader = new GLTFLoader();
-function addApollo(scene, sphere) {
+function addApollo(scene) {
 	// Load the "apollo" model
 
-	loader.load('/Assets/moonTextures/apollo.glb', function (apollo) {
+	loader.load('/Assets/moonTextures/exploVehicle.glb', function (apollo) {
 		apollo.scene.receiveShadow = true;
+		apollo.scene.name = "rover";
 		apollo.scene.traverse(function (node) {
 			if (node.isMesh) {
 				node.castShadow = true;
@@ -88,12 +91,66 @@ function addApollo(scene, sphere) {
 
 		// Position the "apollo" model relative to the sphere
 
-		apollo.scene.scale.set(25, 25, 25);
-		apollo.scene.position.set(100, -500, -100);
+		apollo.scene.scale.set(10, 10, 10);
+		apollo.scene.position.set(100, 0, -300);
 		// Add the "apollo" model to the scene
 		scene.add(apollo.scene);
 	});
+
 }
+
+
+
+
+function loadSatelite(scene) {
+    const sateliteLoader = new GLTFLoader();
+    sateliteLoader.load('/Assets/models/satelite.glb', function (satelite) {
+        satelite.scene.scale.set(2, 2, 2); // Adjust the scale as needed
+        satelite.scene.position.set(-120, 50, -200); // Adjust the position as needed
+
+        scene.add(satelite.scene);
+    });
+}
+
+
+function loadSun(scene) {
+	console.log("Khethii")
+    const sunLoader = new GLTFLoader();
+    sunLoader.load('/Assets/models/sun.glb', function (sun) {
+        sun.scene.scale.set(200, 200, 200); // Adjust the scale as needed
+        sun.scene.position.set(120, 70, -200); // Adjust the position as needed
+
+        scene.add(sun.scene);
+    });
+}
+
+function loadFlag(scene) {
+    const flagLoader = new GLTFLoader();
+	let flagModel = null;
+    flagLoader.load('/Assets/models/flag.glb', function (flag) {
+        flag.scene.scale.set(7, 7, 7); // Adjust the scale as needed
+        flag.scene.position.set(50, -10, -400); // Adjust the position as needed
+		flag.scene.rotateY(Math.PI / 2);
+		flagModel = flag.scene;
+        scene.add(flag.scene);
+    });
+    // Create an animation function to move the flag towards the camera
+    function animateFlag() {
+        if (flagModel) {
+			console.log("Khethii")
+            // Update the flag's position along the Z-axis
+            flagModel.position.z += 0.5; // Adjust the speed as needed
+        }
+
+        // Call the animation function in the render loop
+        requestAnimationFrame(animateFlag);
+    }
+
+    // Start the animation
+    animateFlag();
+	
+}
+
 
 
 export function levelOne(scene,renderer,camera) {
@@ -105,29 +162,34 @@ export function levelOne(scene,renderer,camera) {
 	//sunLight.angle = 0.45;
 	sunLight.castShadow = true;
 	sunLight.position.y = 100;
-	sunLight.shadow.camera.left = -100;  // Adjust these values to cover a larger area
+	sunLight.shadow.camera.left = -100;  // Adjust these values so that shadow covers a larger area
 	sunLight.shadow.camera.right = 100;
 	sunLight.shadow.camera.top = 100;
 	sunLight.shadow.camera.bottom = -100;
 
 	sunLight.shadow.mapSize.width = 1024;
 	sunLight.shadow.mapSize.height = 1024;
-	//sunLight.position.set(0, 100, -300);
-	//sunLight.shadow.camera.near = 5;
-	//sunLight.shadow.camera.far = 10;
-
-	//sunLight.map = new THREE.TextureLoader().load( "/Assets/images/sun_texture.jpg" );
-	//scene.add(starField);
 	scene.add(stars);
-	//starField.position.set(0, -2515, -200);
 	scene.add(sunLight);
-	//sets up objects in scene
+	//sets up objects in scenex
 	player.addPlayerToScene(scene);
-	let moonD = moon.addSphereToScene(scene,moonTexture);
-	//addApollo(scene, moonD);
+	let wrap = false
+	let moonD = moon.addSphereToScene(scene,moonTexture,wrap);
+	addApollo(scene);
 	ui.addMiniMapToScene(scene);
-	bosses.bossTwo(camera, scene, renderer);
 	obstacles.animateObstacles(renderer, camera, scene, 5);
+	bosses.bossOne(camera, scene, renderer);
+	loadSatelite(scene);
+	loadSun(scene);
+	loadFlag(scene);
+}
 
+export function rotateRover(scene) {
+
+	const object = scene.getObjectByName("rover");
+	if (object === undefined)
+		return;
+	object.rotation.x -= 0.0001;
+	object.position.z += 0.0001;
 }
 

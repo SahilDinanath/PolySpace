@@ -76,6 +76,7 @@ export function bossThree(camera, scene, renderer) {
     const lathe = new THREE.Mesh(geometry, material);
     lathe.scale.set(0.7, 0.7, 0.7);
     lathe.rotation.x = Math.PI / 2;
+    lathe.position.z =  -350;
     scene.add(lathe);
 
    const tetGeometry = new THREE.TetrahedronGeometry(5, 0);
@@ -88,6 +89,7 @@ export function bossThree(camera, scene, renderer) {
     group.name = 'bossThree';
     group.add(tetrahedron);
     group.add(tetrahedron2);
+    group.position.z =  -350;
     scene.add(group);
 
 
@@ -190,7 +192,9 @@ export function bossOne(camera, scene, renderer) {
     group.add(octahedron2);
     group.add(octahedron3);
     group.add(octahedron4);
+    group.position.z =  -350;
     scene.add(group);
+    star.position.z = -350;
     scene.add(star);
 
     // Animation variables

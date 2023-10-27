@@ -37,6 +37,7 @@ export function addMiniMapToScene(scene){
 	minimap.position.z = 5;
 	minimap.position.x = 0;
 	minimap.position.y = 17.6;
+	minimap.name = "fullMiniMap";
 	scene.add(minimap);
 
 }
