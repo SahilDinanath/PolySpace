@@ -162,6 +162,7 @@ function checkGameCondition(scene) {
 	if (scene.getObjectByName('minimap_icon').position.x > 20) {
 		canPause = false;
 		ui.enableWinScreen();
+		isPaused = true;
 		return;
 	} else {
 		ui.updateMiniMap(scene);

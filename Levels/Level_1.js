@@ -57,6 +57,8 @@ for (let i = 0; i < particlesCount; i++) {
 	vertices[i * 3 + 2] = z;
 }
 
+
+
  particlesGeometry.setAttribute(
 	 "position",
 	 new THREE.BufferAttribute(vertices, 3)
@@ -98,6 +100,59 @@ function addApollo(scene) {
 }
 
 
+
+
+function loadSatelite(scene) {
+    const sateliteLoader = new GLTFLoader();
+    sateliteLoader.load('/Assets/models/satelite.glb', function (satelite) {
+        satelite.scene.scale.set(2, 2, 2); // Adjust the scale as needed
+        satelite.scene.position.set(-120, 50, -200); // Adjust the position as needed
+
+        scene.add(satelite.scene);
+    });
+}
+
+
+function loadSun(scene) {
+	console.log("Khethii")
+    const sunLoader = new GLTFLoader();
+    sunLoader.load('/Assets/models/sun.glb', function (sun) {
+        sun.scene.scale.set(200, 200, 200); // Adjust the scale as needed
+        sun.scene.position.set(120, 70, -200); // Adjust the position as needed
+
+        scene.add(sun.scene);
+    });
+}
+
+function loadFlag(scene) {
+    const flagLoader = new GLTFLoader();
+	let flagModel = null;
+    flagLoader.load('/Assets/models/flag.glb', function (flag) {
+        flag.scene.scale.set(7, 7, 7); // Adjust the scale as needed
+        flag.scene.position.set(50, -10, -400); // Adjust the position as needed
+		flag.scene.rotateY(Math.PI / 2);
+		flagModel = flag.scene;
+        scene.add(flag.scene);
+    });
+    // Create an animation function to move the flag towards the camera
+    function animateFlag() {
+        if (flagModel) {
+			console.log("Khethii")
+            // Update the flag's position along the Z-axis
+            flagModel.position.z += 0.5; // Adjust the speed as needed
+        }
+
+        // Call the animation function in the render loop
+        requestAnimationFrame(animateFlag);
+    }
+
+    // Start the animation
+    animateFlag();
+	
+}
+
+
+
 export function levelOne(scene,renderer,camera) {
 	//sets up lighting 
 	const ambientLighting = new THREE.AmbientLight("white", 0.5);
@@ -116,7 +171,7 @@ export function levelOne(scene,renderer,camera) {
 	sunLight.shadow.mapSize.height = 1024;
 	scene.add(stars);
 	scene.add(sunLight);
-	//sets up objects in scene
+	//sets up objects in scenex
 	player.addPlayerToScene(scene);
 	let wrap = false
 	let moonD = moon.addSphereToScene(scene,moonTexture,wrap);
@@ -124,7 +179,9 @@ export function levelOne(scene,renderer,camera) {
 	ui.addMiniMapToScene(scene);
 	bosses.bossOne(camera, scene, renderer);
 	obstacles.animateObstacles(renderer, camera, scene, 2);
-
+	loadSatelite(scene);
+	loadSun(scene);
+	loadFlag(scene);
 }
 
 export function rotateRover(scene) {
