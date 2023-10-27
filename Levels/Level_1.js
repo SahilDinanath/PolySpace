@@ -114,12 +114,24 @@ function loadSatelite(scene) {
 
 
 function loadSun(scene) {
+	console.log("Khethii")
     const sunLoader = new GLTFLoader();
     sunLoader.load('/Assets/models/sun.glb', function (sun) {
-        sun.scene.scale.set(1, 1, 1); // Adjust the scale as needed
+        sun.scene.scale.set(200, 200, 200); // Adjust the scale as needed
         sun.scene.position.set(120, 70, -200); // Adjust the position as needed
 
         scene.add(sun.scene);
+    });
+}
+
+function loadFlag(scene) {
+	console.log("Khethii")
+    const flagLoader = new GLTFLoader();
+    flagLoader.load('/Assets/models/flag.glb', function (flag) {
+        flag.scene.scale.set(200, 200, 200); // Adjust the scale as needed
+        flag.scene.position.set(90, 0, -200); // Adjust the position as needed
+
+        scene.add(flag.scene);
     });
 }
 
@@ -153,6 +165,7 @@ export function levelOne(scene,renderer,camera) {
 	obstacles.animateObstacles(renderer, camera, scene, 2);
 	loadSatelite(scene);
 	loadSun(scene);
+	loadFlag(scene0);
 }
 
 export function rotateRover(scene) {
