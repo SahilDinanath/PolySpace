@@ -22,7 +22,7 @@ export function levelThree(scene, renderer, camera) {
 	bossTwo.position.setY(25);
 	bossTwo.scale.set(7,7,7);
 
-	obstacles.animateObstacles(renderer, camera, scene, 6);
+	obstacles.animateObstacles(renderer, camera, scene, 2);
 
 	skybox.initSky(scene, renderer, camera);
 

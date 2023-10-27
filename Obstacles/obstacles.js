@@ -1,7 +1,7 @@
 import { playerBoundingBox } from '/Player/player.js';
-import { obstacles, obstaclesBoundingBoxes } from './obstacleCreation.js';
-import { createObstacle, addTreeToScene } from './obstacleCreation.js';
-import { isPaused } from '/main.js';
+import { obstacles, obstaclesBoundingBoxes, createObstacle } from './obstacleCreation.js';
+import { trees, treesBoundingBoxes, addTreeToScene, generateTree } from './treeCreation.js';
+import { isPaused, level3 } from '/main.js';
 
 //where obstacle should be generated
 const MIN_Z = -400;
@@ -28,6 +28,14 @@ function checkCollision() {
   }
 }
 
+function checkTreeCollision() {
+  for (let j = 0; j < treesBoundingBoxes.length; j++) {
+    if (treesBoundingBoxes[j].intersectsBox(playerBoundingBox)) {
+      return true;
+    }
+  }
+}
+
 export function animateObstacles(renderer, camera, scene, speed) {
   function animate() {
     if (!isPaused) {
@@ -48,6 +56,10 @@ export function animateObstacles(renderer, camera, scene, speed) {
           }
         }
 
+        if (obstacles[i].position.z == -80) {
+          createObstacle(scene, MIN_Z);
+        }
+
         if (obstacles[i].position.z > MAX_Z) {
           scene.remove(obstacles[i]);
           obstacles.splice(i, 1);
@@ -56,12 +68,28 @@ export function animateObstacles(renderer, camera, scene, speed) {
         }
       }
 
-      if (obstacles[0].position.z == -80) {
-        createObstacle(scene, MIN_Z);
-      }
-
       for (let i = 0; i < obstacles.length; i++) {
         obstacles[i].position.z += speed;
+      }
+
+      for (let i = 0; i < trees.length; i++) {
+        if (trees[i].position.z > MAX_Z + 30) {
+          trees[i].position.z = MIN_Z;
+        }
+
+        treesBoundingBoxes[i].setFromObject(trees[i]);
+
+        if (trees[i].position.z > -20) {
+          if (checkTreeCollision()) {
+            console.log("Collision?");
+            collisionDetected = true;
+            return;
+          }
+        }
+      }
+
+      for (let i = 0; i < trees.length; i++) {
+        trees[i].position.z += 0.5;
       }
 
       renderer.render(scene, camera);
@@ -69,7 +97,13 @@ export function animateObstacles(renderer, camera, scene, speed) {
     }
     requestAnimationFrame(animate);
   }
-  //addTreeToScene(scene);
+
+  if (level3) {
+    addTreeToScene(scene, MIN_Z);
+    generateTree(scene, MIN_Z + 175);
+    generateTree(scene, MIN_Z);
+  }
+
   createObstacle(scene, MIN_Z);
   animate();
 }

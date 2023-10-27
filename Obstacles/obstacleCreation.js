@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { isPaused } from '/main.js';
 
 export let obstaclesBoundingBoxes = [];
@@ -10,25 +9,6 @@ var rotationSpeed = 0.025;
 const opacityVal = 0.6;
 const emissiveIntensity = 0.2;
 var colour = 0x800080;
-
-const loader = new GLTFLoader();
-
-export function addTreeToScene(scene) {
-  loader.load('Assets/treeTextures/treeConfig3.glb',
-    function (tree) {
-      tree.scene.name = "tree1";
-      tree.scene.rotateY(Math.PI);
-      tree.scene.scale.set(100, 100, 100);
-      // tree.scene.children[0].geometry.computeBoundingBox();
-      // playerBoundingBox = new THREE.Box3().setFromObject(tree.scene);
-
-      // this is to make a bounding box visible but does not work with collision detection
-      const treeBoundingBox = new THREE.BoxHelper(tree.scene, 0xff0000);
-      scene.add(treeBoundingBox);
-
-      scene.add(tree.scene);
-    });
-}
 
 export function createObstacle(scene, MIN_Z) {
   const randomNum = Math.floor(Math.random() * 10) + 1;

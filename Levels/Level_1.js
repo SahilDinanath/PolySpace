@@ -177,8 +177,8 @@ export function levelOne(scene,renderer,camera) {
 	let moonD = moon.addSphereToScene(scene,moonTexture,wrap);
 	addApollo(scene);
 	ui.addMiniMapToScene(scene);
+	obstacles.animateObstacles(renderer, camera, scene, 5);
 	bosses.bossOne(camera, scene, renderer);
-	obstacles.animateObstacles(renderer, camera, scene, 2);
 	loadSatelite(scene);
 	loadSun(scene);
 	loadFlag(scene);

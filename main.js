@@ -52,7 +52,7 @@ music.setInGameSound();
 
 var level1 = false;
 var level2 = false;
-var level3 = false;
+export var level3 = false;
 var canPause = false;
 
 // Define a variable to track the animation state
