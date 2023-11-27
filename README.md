@@ -53,7 +53,7 @@ We welcome contributions from the community. To contribute to PolySpace, follow 
 
 ## License
 
-PolySpace is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the game as per the terms of the license.
+PolySpace is licensed under the [GNU General Public License v3.0](LICENSE). Feel free to use, modify, and distribute the game as per the terms of the license.
 
 ---
 
