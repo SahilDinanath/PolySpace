@@ -5,7 +5,7 @@ PolySpace is an exciting endless runner game built with the power of Three.js. N
 ## Table of Contents
 
 - [Features](#features)
-- [Demo](#demo)
+- [Website](#website)
 - [Getting Started](#getting-started)
 - [Controls](#controls)
 - [Contributing](#contributing)
