@@ -1,4 +1,4 @@
-# PolySpace - Endless Runner Game with Three.js
+# PolySpace - Runner Game with Three.js
 
 ![intro](https://github.com/SahilDinanath/PolySpace/assets/46680594/d47e45da-c26d-48c1-a851-763af9462aa3)
 
